@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#FBF6EE">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Maggie Lab">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="description" content="Maggie Lab｜好好玩實驗室。打造每天都願意打開的數位作品。">
+  <!-- TODO: 部署後，把下面 og:image 換成完整網址，
+       例如 https://你的帳號.github.io/maggie-lab/images/hero-maggielab.webp -->
+  <meta property="og:title" content="Maggie Lab｜好好玩實驗室">
+  <meta property="og:description" content="用遊戲和小工具，陪孩子也陪大人，把每天過得好一點。">
+  <meta property="og:image" content="images/hero-maggielab.webp">
+  <meta property="og:type" content="website">
+  <title>Maggie Lab｜好好玩實驗室</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" type="image/x-icon" href="favicons/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicons/icon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicons/icon-16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="favicons/icon-180.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ============ Design System tokens（與 design-system.html 同步維護） ============ */
+    :root {
+      color-scheme: light;
+      --bg: #FBF6EE;
+      --paper: #FFFCF6;
+      --ink: #3D2F27;
+      --text: #6B5847;
+      --muted: #A7937E;
+      --line: rgba(61, 47, 39, .09);
+      --line-soft: rgba(61, 47, 39, .06);
+      --clay: #B97A53;
+      --clay-deep: #8C5836;
+
+      --radius-card: 6px;
+      --radius-pill: 999px;
+      --space-1: 8px;
+      --space-2: 16px;
+      --space-3: 24px;
+      --space-4: 32px;
+      --space-5: 48px;
+      --space-6: 64px;
+      --ease: .22s ease;
+      --max: 980px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-width: 320px;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      line-height: 1.85;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    a { color: inherit; }
+    h1, h2, h3, p { margin: 0; }
+    button, input { font: inherit; }
+    .serif { font-family: "Noto Serif TC", serif; }
+    .shell { width: min(var(--max), calc(100% - 48px)); margin-inline: auto; }
+
+    /* ============ TOPBAR ============ */
+    .topbar {
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(251, 246, 238, .82);
+      backdrop-filter: blur(14px);
+    }
+    .topbar-inner {
+      min-height: 76px;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    }
+    .brand { display: inline-flex; align-items: center; gap: 9px; color: var(--ink); text-decoration: none; }
+    .brand-mark { display: inline-flex; width: 30px; height: 30px; }
+    .brand-mark svg { width: 100%; height: 100%; }
+    .brand-en { font-family: "Noto Serif TC", serif; font-size: 16.5px; font-weight: 600; }
+    .brand-zh { color: var(--muted); font-size: 12.5px; font-weight: 500; }
+    .nav { display: none; align-items: center; gap: 26px; }
+    .nav a { color: var(--muted); font-size: 14px; font-weight: 500; text-decoration: none; transition: color var(--ease); }
+    .nav a:hover { color: var(--clay-deep); }
+    .install-btn {
+      display: none; min-height: 36px;
+      border: 1px solid var(--line); border-radius: var(--radius-pill);
+      padding: 7px 14px; color: var(--text); background: transparent;
+      font-size: 12.5px; font-weight: 500; cursor: pointer;
+    }
+    .install-btn:hover { background: var(--paper); }
+
+    main { display: block; }
+    section { padding: 80px 0; }
+    .divider {
+      width: 1px; height: 48px; margin: 0 auto;
+      background: linear-gradient(to bottom, transparent, var(--line), transparent);
+    }
+
+    /* ============ HERO（圖片在最上方） ============ */
+    .hero { padding: 0; text-align: center; }
+
+    .hero-visual {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 16/10;
+    }
+    .hero-visual img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .hero-content { padding: 32px 0 0; }
+
+    .hero-kicker {
+      display: inline-flex; align-items: center; gap: 8px;
+      color: var(--clay-deep); background: var(--bg);
+      border: 1px solid var(--line); padding: 7px 14px; border-radius: var(--radius-pill);
+      font-size: 12.5px; font-weight: 600; letter-spacing: .06em;
+    }
+    .hero-wordmark {
+      display: block; margin-top: 16px;
+      font-family: "Noto Serif TC", serif; font-weight: 600;
+      font-size: clamp(24px, 4vw, 30px); color: var(--ink); line-height: 1.3;
+    }
+    .hero-wordmark .paw { color: var(--clay-deep); }
+    .hero-tagline {
+      margin: 10px auto 0; max-width: 540px;
+      font-family: "Noto Serif TC", serif; font-weight: 600;
+      font-size: clamp(16px, 2.2vw, 20px); line-height: 1.65; color: var(--text);
+    }
+    .hero-tagline .accent { color: var(--clay-deep); }
+    /* 手機版用精簡過的短句，桌面版用完整句子，不是單純縮小字級 */
+    .hero-tagline .full { display: none; }
+    .hero-tagline .short { display: inline; }
+
+    /* 一句白話說明：負責「理解」，跟tagline的「感覺」分工 */
+    .hero-explainer {
+      margin: 8px auto 0; max-width: 460px;
+      font-size: 13.5px; color: var(--muted); font-weight: 500;
+    }
+    .hero-actions {
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+      gap: 16px; margin-top: 22px; padding-bottom: 8px;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      border-radius: var(--radius-pill); padding: 11px 20px;
+      border: 1px solid transparent; font-size: 14px; font-weight: 600;
+      text-decoration: none; cursor: pointer;
+      transition: transform var(--ease), background var(--ease), opacity var(--ease);
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary { color: #FFFCF6; background: var(--clay-deep); }
+    .btn-primary:hover { background: #6f4527; }
+    .btn-text { color: var(--text); padding: 11px 4px; border-bottom: 1px solid var(--line); border-radius: 0; }
+    .btn-text:hover { color: var(--clay-deep); border-color: var(--clay-deep); }
+
+    /* ============ SECTION HEAD ============ */
+    .section-head { max-width: 560px; margin: 0 auto 44px; text-align: center; }
+    .kicker {
+      display: block; margin-bottom: 12px; color: var(--muted);
+      font-size: 13px; font-weight: 500; letter-spacing: .12em;
+    }
+    h2 {
+      font-family: "Noto Serif TC", serif; font-weight: 600; color: var(--ink);
+      font-size: clamp(22px, 3vw, 28px); line-height: 1.5;
+    }
+    .section-copy { margin-top: 14px; color: var(--text); font-size: 15px; }
+
+    /* ============ FEATURED WORKS — flat list, no Game/Tool sections ============ */
+    .work-grid {
+      display: grid; gap: 28px;
+    }
+    .work-card {
+      background: var(--paper);
+      border-radius: var(--radius-card);
+      padding: 12px 12px 20px;
+      box-shadow: 0 1px 2px rgba(61,47,39,.05), 0 16px 32px -18px rgba(61,47,39,.16);
+      transition: transform var(--ease), box-shadow var(--ease);
+      text-decoration: none; color: inherit; display: block;
+    }
+    .work-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 1px 2px rgba(61,47,39,.06), 0 22px 40px -16px rgba(61,47,39,.20);
+    }
+    .work-cover {
+      aspect-ratio: 16/10; border-radius: 3px; overflow: hidden;
+      background: linear-gradient(155deg, #F2E2CC, #E3CBA4);
+    }
+    .work-cover img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .5s ease; }
+    .work-card:hover .work-cover img { transform: scale(1.04); }
+    .work-cover.placeholder { display: grid; place-items: center; }
+    .work-cover.placeholder .placeholder-icon {
+      width: 48px; height: 48px; border-radius: 14px;
+      display: grid; place-items: center;
+      background: var(--paper); border: 1px solid var(--line); font-size: 22px;
+    }
+    .work-body { padding: 16px 8px 0; }
+    .work-body h3 {
+      font-family: "Noto Serif TC", serif; font-size: 17.5px; font-weight: 600; color: var(--ink);
+    }
+    .work-body p { margin-top: 8px; color: var(--text); font-size: 14px; line-height: 1.7; }
+    .work-enter {
+      margin-top: 14px; display: inline-flex; align-items: center; gap: 6px;
+      color: var(--clay-deep); font-size: 13.5px; font-weight: 600;
+    }
+    .work-card:hover .work-enter { gap: 10px; }
+    .work-enter span { transition: transform var(--ease); }
+
+    /* ============ COMING NEXT — 極小區塊，不搶視覺重量 ============ */
+    .coming-next {
+      margin-top: 56px;
+      padding-top: 28px;
+      border-top: 1px solid var(--line);
+      display: flex; align-items: center; justify-content: center;
+      gap: 12px; flex-wrap: wrap;
+      text-align: center;
+    }
+    .coming-next .label {
+      font-size: 12.5px; color: var(--muted); letter-spacing: .08em;
+    }
+    .coming-next .item {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-size: 14px; font-weight: 600; color: var(--text);
+    }
+    .coming-next .item .status {
+      font-size: 12px; color: var(--muted); font-weight: 500;
+    }
+
+    /* ============ SUPPORT — 贊助咖啡，目前還需要，未來有會員制後移除 ============ */
+    .support-strip {
+      max-width: 560px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 18px; flex-wrap: wrap;
+      padding: 22px 26px;
+      background: var(--paper);
+      border-radius: var(--radius-card);
+      box-shadow: 0 1px 2px rgba(61,47,39,.05);
+    }
+    .support-strip-text h3 { font-family: "Noto Serif TC", serif; font-size: 16px; font-weight: 600; }
+    .support-strip-text p { margin-top: 4px; color: var(--muted); font-size: 13px; }
+    .support-strip .btn { flex: 0 0 auto; }
+
+    /* ============ IDEA — 單句品牌理念 ============ */
+    .idea-block { max-width: 560px; margin: 0 auto; text-align: center; }
+    .idea-block p.lead {
+      font-family: "Noto Serif TC", serif; color: var(--ink);
+      font-size: clamp(19px, 2.6vw, 23px); line-height: 1.8; font-weight: 500;
+    }
+    .idea-block p.lead .accent { color: var(--clay-deep); }
+
+    /* ============ WAITLIST ============ */
+    .invite { max-width: 560px; margin: 0 auto; text-align: center; }
+    .invite .kicker { display: flex; justify-content: center; }
+    .invite p.lead { margin-top: 16px; color: var(--text); font-size: 15px; line-height: 1.9; }
+    .invite-form { margin: 32px auto 0; max-width: 400px; }
+    .invite-row {
+      display: flex; align-items: center;
+      border-bottom: 1.5px solid var(--ink); padding-bottom: 10px; gap: 12px;
+    }
+    .invite-row input[type="email"] {
+      flex: 1; border: none; background: transparent; outline: none;
+      font-size: 16px; color: var(--ink); padding: 6px 2px;
+      font-family: "Noto Serif TC", serif;
+    }
+    .invite-row input::placeholder { color: var(--muted); }
+    .invite-row button {
+      flex: 0 0 auto; border: none; background: transparent;
+      color: var(--clay-deep); font-size: 14.5px; font-weight: 700;
+      cursor: pointer; padding: 6px 2px; transition: opacity var(--ease);
+    }
+    .invite-row button:hover { opacity: .7; }
+    .invite-note { margin-top: 20px; color: var(--muted); font-size: 12.5px; }
+
+    /* ============ FOOTER ============ */
+    .footer { padding: 48px 0 max(36px, env(safe-area-inset-bottom)); border-top: 1px solid var(--line); }
+    .footer-inner { display: grid; gap: 20px; }
+    .footer strong {
+      display: block; font-family: "Noto Serif TC", serif;
+      font-weight: 600; color: var(--ink); font-size: 16px;
+    }
+    .footer p { margin-top: 6px; color: var(--muted); font-size: 13px; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+    .footer-links a { color: var(--muted); font-size: 13px; font-weight: 500; text-decoration: none; }
+    .footer-links a:hover { color: var(--clay-deep); }
+
+    .toast {
+      position: fixed; left: 50%; bottom: 18px; z-index: 30;
+      width: min(420px, calc(100% - 28px)); padding: 13px 15px; border-radius: 14px;
+      color: #FFFCF6; background: rgba(61, 47, 39, .94);
+      text-align: center; font-size: 14px; font-weight: 500;
+      opacity: 0; transform: translate(-50%, 12px); pointer-events: none;
+      transition: opacity var(--ease), transform var(--ease);
+    }
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+    @media (min-width: 760px) {
+      .nav { display: flex; }
+      .install-btn { display: inline-flex; }
+      section { padding: 110px 0; }
+      .hero-content { padding: 40px 0 0; }
+      .hero-tagline .full { display: inline; }
+      .hero-tagline .short { display: none; }
+      .work-grid { grid-template-columns: repeat(3, 1fr); gap: 28px; }
+      .footer-inner { grid-template-columns: 1fr auto; align-items: start; }
+    }
+    @media (max-width: 480px) {
+      .shell { width: calc(100% - 32px); }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <a class="brand" href="#top" aria-label="Maggie Lab 首頁">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 64 64" role="img">
+            <path d="M15 27 12 10l15 9h10l15-9-3 17c4 4 6 9 6 15 0 13-10 20-23 20S9 55 9 42c0-6 2-11 6-15Z" fill="#FFFCF6" stroke="#8C5836" stroke-width="4" stroke-linejoin="round"/>
+            <circle cx="25" cy="39" r="3.2" fill="#3D2F27"/>
+            <circle cx="39" cy="39" r="3.2" fill="#3D2F27"/>
+            <path d="M28 48c2.5 2 5.5 2 8 0" fill="none" stroke="#3D2F27" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <span class="brand-en serif">Maggie Lab</span>
+        <span class="brand-zh">好好玩實驗室</span>
+      </a>
+      <nav class="nav" aria-label="主要導覽">
+        <a href="#works">作品</a>
+        <a href="#support">支持我們</a>
+        <a href="#waitlist">搶先體驗</a>
+      </nav>
+      <button class="install-btn" type="button" id="installButton">加入主畫面</button>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-visual">
+        <img src="images/hero-scene.webp" alt="貓媽媽陪貓女兒一起畫畫、用電腦的生活場景插畫">
+      </div>
+
+      <div class="hero-content shell">
+        <span class="hero-kicker">🐾 Maggie Lab</span>
+        <span class="hero-wordmark">好好玩實驗室</span>
+        <h1 class="hero-tagline" id="hero-title">
+          <span class="full">陪孩子玩出<span class="accent">好奇心、創造力</span>與解決問題的能力。</span>
+          <span class="short">陪孩子玩出<span class="accent">好奇心與創造力</span>。</span>
+        </h1>
+        <!-- v1.1：一句白話說明，讓人3秒懂這是什麼，跟tagline分工不重疊 -->
+        <p class="hero-explainer">用遊戲和小工具，陪孩子也陪大人，把每天過得好一點。</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#works">進入實驗室</a>
+          <a class="btn btn-text" href="#waitlist">搶先體驗</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="shell" id="works" aria-labelledby="works-title">
+      <div class="section-head">
+        <span class="kicker">FEATURED WORKS</span>
+        <h2 id="works-title">精選作品</h2>
+        <p class="section-copy">每一個，都是先在我們家住過一段時間，覺得值得留下，才打開門讓你進來看看。</p>
+      </div>
+
+      <!--
+        v1.1：不分 Game/Tool 區塊，依推薦順序排列即可。
+        換成你自己的封面圖：把對應卡片裡被註解掉的 <img> 那行取消註解，
+        src 換成檔案路徑（建議比例 16:10），再刪掉 placeholder 那一行。
+      -->
+
+      <div class="work-grid">
+        <a class="work-card" href="PetHabitKingdom.html">
+          <div class="work-cover">
+            <img src="images/pet-habit-card.webp" alt="Pet Habit Kingdom 寵物習慣王國封面">
+          </div>
+          <div class="work-body">
+            <h3>Pet Habit Kingdom</h3>
+            <p>和寵物一起，把每天的小習慣養成一個會慢慢長大的家。</p>
+            <span class="work-enter">查看作品 <span>→</span></span>
+          </div>
+        </a>
+
+        <a class="work-card" href="#">
+          <!-- <div class="work-cover"><img src="images/seven-habits-cover.jpg" alt="七習慣島嶼 封面"></div> -->
+          <div class="work-cover placeholder"><div class="placeholder-icon">🏝️</div></div>
+          <div class="work-body">
+            <h3>七習慣島嶼</h3>
+            <p>七座島嶼，七段故事，陪孩子練習主動積極、要事第一。</p>
+            <span class="work-enter">查看作品 <span>→</span></span>
+          </div>
+        </a>
+
+        <a class="work-card" href="#">
+          <!-- <div class="work-cover"><img src="images/gratitude-cover.jpg" alt="感恩存摺 封面"></div> -->
+          <div class="work-cover placeholder"><div class="placeholder-icon">📔</div></div>
+          <div class="work-body">
+            <h3>感恩存摺</h3>
+            <p>一本只存放美好的存摺，寫下今天，留一筆給未來的溫柔。</p>
+            <span class="work-enter">查看作品 <span>→</span></span>
+          </div>
+        </a>
+      </div>
+
+      <!-- v1.1：Coming Next，極小區塊，建立期待感即可，不放說明文字跟按鈕 -->
+      <div class="coming-next">
+        <span class="label">COMING NEXT</span>
+        <span class="item">🌙 睡前聊聊 <span class="status">· 醞釀中</span></span>
+      </div>
+    </section>
+
+    <!-- 贊助咖啡：目前還需要保留，等未來會員制上線後再移除 -->
+    <section class="shell" id="support" aria-label="支持 Maggie Lab">
+      <div class="support-strip">
+        <div class="support-strip-text">
+          <h3>❤️ 支持 Maggie Lab</h3>
+          <p>如果你喜歡這些作品，歡迎贊助一杯咖啡。</p>
+        </div>
+        <!-- TODO: 換成你的 Buy Me a Coffee / Ko-fi / 綠界付款連結 -->
+        <a class="btn btn-primary" href="#" target="_blank" rel="noopener">請 Maggie 喝咖啡 ☕</a>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="shell" id="idea" aria-labelledby="idea-title">
+      <div class="idea-block">
+        <p class="lead" id="idea-title">打造每天都<span class="accent">願意打開</span>的數位作品。</p>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="shell" id="waitlist" aria-labelledby="waitlist-title">
+      <div class="invite">
+        <span class="kicker">EARLY ACCESS</span>
+        <h2 id="waitlist-title" class="serif">想先收到消息嗎？</h2>
+        <p class="lead">新作品完成、開放測試，會先悄悄寄給留下信箱的朋友，不會常常出現。</p>
+
+        <form class="invite-form" id="waitlistForm" data-endpoint="" aria-label="Maggie Lab 搶先體驗表單">
+          <div class="invite-row">
+            <input id="email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="留下你的 email" required>
+            <button type="submit">送出 →</button>
+          </div>
+          <input type="hidden" name="source" value="maggie-lab-homepage">
+          <p class="invite-note">目前是前端 placeholder。接上後端 <code>data-endpoint</code> 後即可正式收名單。</p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="shell footer-inner">
+      <div>
+        <strong class="serif">Maggie Lab｜好好玩實驗室</strong>
+        <p>打造每天都願意打開的數位作品。</p>
+      </div>
+      <nav class="footer-links" aria-label="頁尾連結">
+        <a href="#works">作品</a>
+        <a href="#support">支持我們</a>
+        <a href="#waitlist">搶先體驗</a>
+        <a href="https://www.instagram.com/hello.maggie/" target="_blank" rel="noopener">@hello.maggie</a>
+      </nav>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    const toast = document.querySelector("#toast");
+    const installButton = document.querySelector("#installButton");
+    const waitlistForm = document.querySelector("#waitlistForm");
+    let deferredInstallPrompt = null;
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add("show");
+      window.clearTimeout(showToast.timer);
+      showToast.timer = window.setTimeout(() => toast.classList.remove("show"), 2600);
+    }
+
+    window.addEventListener("beforeinstallprompt", (event) => {
+      event.preventDefault();
+      deferredInstallPrompt = event;
+      installButton.style.display = "inline-flex";
+    });
+
+    installButton.addEventListener("click", async () => {
+      if (!deferredInstallPrompt) {
+        showToast("可以從瀏覽器選單選擇「加入主畫面」。");
+        return;
+      }
+      deferredInstallPrompt.prompt();
+      await deferredInstallPrompt.userChoice;
+      deferredInstallPrompt = null;
+      installButton.style.display = "none";
+    });
+
+    waitlistForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const endpoint = waitlistForm.dataset.endpoint;
+      const data = new FormData(waitlistForm);
+      const payload = { email: data.get("email"), source: data.get("source") };
+
+      if (!endpoint) {
+        console.info("Maggie Lab waitlist placeholder payload:", payload);
+        showToast("已記錄表單內容。接上後端後即可正式送出。");
+        waitlistForm.reset();
+        return;
+      }
+
+      try {
+        const response = await fetch(endpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+        if (!response.ok) throw new Error("Request failed");
+        showToast("已加入搶先體驗名單。");
+        waitlistForm.reset();
+      } catch (error) {
+        showToast("送出失敗，請稍後再試。");
+      }
+    });
+
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("sw.js")
+          .then((registration) => registration.update())
+          .catch(() => showToast("離線快取暫時未啟用，頁面仍可正常使用。"));
+      });
+    }
+  </script>
+</body>
+</html>

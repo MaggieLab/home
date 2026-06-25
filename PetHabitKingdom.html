@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#FBF6EE">
+  <meta name="description" content="Pet Habit Kingdom 寵物習慣王國——陪孩子練習生活能力的小王國。和寵物一起完成任務、獲得星星、打造專屬小天地。">
+  <meta property="og:title" content="Pet Habit Kingdom｜寵物習慣王國 - Maggie Lab">
+  <meta property="og:description" content="陪孩子練習生活能力的小王國。和寵物一起養成好習慣，培養自我管理、情緒表達、責任感。">
+  <meta property="og:image" content="images/pet-habit-card.webp">
+  <meta property="og:type" content="website">
+  <title>Pet Habit Kingdom｜寵物習慣王國 - Maggie Lab</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="favicons/icon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicons/icon-16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="favicons/icon-180.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ============ Design System tokens（與 design-system.html 同步維護） ============ */
+    :root {
+      color-scheme: light;
+      --bg: #FBF6EE;
+      --paper: #FFFCF6;
+      --ink: #3D2F27;
+      --text: #6B5847;
+      --muted: #A7937E;
+      --line: rgba(61, 47, 39, .09);
+      --line-soft: rgba(61, 47, 39, .06);
+      --clay: #B97A53;
+      --clay-deep: #8C5836;
+      --radius-card: 6px;
+      --radius-pill: 999px;
+      --ease: .22s ease;
+      --max: 980px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; min-width: 320px;
+      background: var(--bg); color: var(--ink);
+      font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      line-height: 1.85; -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+    h1, h2, h3, p { margin: 0; }
+    .serif { font-family: "Noto Serif TC", serif; }
+    .shell { width: min(var(--max), calc(100% - 48px)); margin-inline: auto; }
+
+    .topbar {
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(251, 246, 238, .86); backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
+    }
+    .topbar-inner { min-height: 64px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--text); text-decoration: none; font-size: 14px; font-weight: 500; }
+    .back-link:hover { color: var(--clay-deep); }
+    .topbar .brand-en { font-family: "Noto Serif TC", serif; font-size: 15px; font-weight: 600; color: var(--muted); }
+
+    section { padding: 72px 0; }
+    .divider { width: 1px; height: 44px; margin: 0 auto; background: linear-gradient(to bottom, transparent, var(--line), transparent); }
+
+    /* ============ HERO ============ */
+    .lp-hero { padding: 0; }
+    .lp-hero-visual { position: relative; aspect-ratio: 16/9; overflow: hidden; }
+    .lp-hero-visual img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .lp-hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(40,28,20,.55) 0%, rgba(40,28,20,.08) 45%, transparent 70%);
+      display: flex; align-items: flex-end;
+    }
+    .lp-hero-text { padding: 32px clamp(20px, 5vw, 64px) 40px; color: #FFFCF6; max-width: 640px; }
+    .lp-hero-text .kicker { display: block; font-size: 12.5px; font-weight: 600; letter-spacing: .1em; opacity: .9; margin-bottom: 10px; }
+    .lp-hero-text h1 { font-family: "Noto Serif TC", serif; font-weight: 600; font-size: clamp(26px, 4.4vw, 38px); line-height: 1.4; }
+    .lp-hero-text .sub { margin-top: 8px; font-size: 15px; opacity: .92; }
+
+    .lp-hero-actions {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 18px;
+      padding: 24px clamp(20px,5vw,0) 0;
+      justify-content: center;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      border-radius: var(--radius-pill); padding: 12px 24px;
+      border: 1px solid transparent; font-size: 14.5px; font-weight: 600;
+      text-decoration: none; cursor: pointer;
+      transition: transform var(--ease), background var(--ease), opacity var(--ease);
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary { color: #FFFCF6; background: var(--clay-deep); }
+    .btn-primary:hover { background: #6f4527; }
+    .btn-text { color: var(--text); padding: 12px 4px; border-bottom: 1px solid var(--line); border-radius: 0; }
+    .btn-text:hover { color: var(--clay-deep); border-color: var(--clay-deep); }
+
+    /* ============ SECTION HEAD ============ */
+    .section-head { max-width: 580px; margin: 0 auto 40px; text-align: center; }
+    .kicker { display: block; margin-bottom: 12px; color: var(--muted); font-size: 13px; font-weight: 500; letter-spacing: .12em; }
+    h2 { font-family: "Noto Serif TC", serif; font-weight: 600; color: var(--ink); font-size: clamp(21px, 2.8vw, 26px); line-height: 1.5; }
+    .section-copy { margin-top: 14px; color: var(--text); font-size: 15px; }
+
+    /* ============ 世界介紹 ============ */
+    .intro-block { max-width: 640px; margin: 0 auto; text-align: center; }
+    .intro-block p { color: var(--text); font-size: 15.5px; line-height: 1.9; }
+
+    /* ============ 遊戲流程：在王國裡的一天 ============ */
+    .flow-grid {
+      display: grid; gap: 18px;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    }
+    .flow-step {
+      text-align: center; padding: 20px 14px;
+      background: var(--paper); border-radius: var(--radius-card);
+      box-shadow: 0 1px 2px rgba(61,47,39,.05);
+    }
+    .flow-step .num {
+      width: 28px; height: 28px; margin: 0 auto 12px;
+      border-radius: 50%; background: var(--clay-deep); color: #FFFCF6;
+      display: grid; place-items: center; font-size: 13px; font-weight: 700;
+      font-family: "Noto Serif TC", serif;
+    }
+    .flow-step h3 { font-size: 14.5px; font-weight: 600; }
+    .flow-step p { margin-top: 6px; font-size: 12.5px; color: var(--muted); line-height: 1.6; }
+
+    /* ============ 特色：兩種陪伴模式 ============ */
+    .mode-grid { display: grid; gap: 20px; grid-template-columns: 1fr; }
+    .mode-card {
+      background: var(--paper); border-radius: var(--radius-card);
+      padding: 26px clamp(20px, 4vw, 32px);
+      box-shadow: 0 1px 2px rgba(61,47,39,.05), 0 16px 32px -18px rgba(61,47,39,.14);
+    }
+    .mode-card .mode-tag {
+      display: inline-block; padding: 4px 12px; border-radius: var(--radius-pill);
+      background: var(--bg); color: var(--clay-deep);
+      font-size: 11.5px; font-weight: 700; margin-bottom: 10px;
+    }
+    .mode-card h3 { font-family: "Noto Serif TC", serif; font-size: 17.5px; font-weight: 600; }
+    .mode-card .for-who { margin-top: 4px; font-size: 13px; color: var(--muted); }
+    .mode-card ul { margin: 14px 0 0; padding: 0; list-style: none; }
+    .mode-card li { font-size: 14px; color: var(--text); padding: 5px 0; }
+    .mode-card li::before { content: "✓ "; color: var(--clay-deep); font-weight: 700; }
+
+    /* ============ 能力培養 ============ */
+    .ability-grid {
+      display: grid; gap: 14px;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    }
+    .ability-card {
+      text-align: center; padding: 18px 10px;
+      background: var(--paper); border-radius: var(--radius-card);
+      box-shadow: 0 1px 2px rgba(61,47,39,.05);
+    }
+    .ability-card .ic { font-size: 22px; margin-bottom: 8px; display: block; }
+    .ability-card h3 { font-size: 13.5px; font-weight: 600; }
+    .ability-card p { margin-top: 4px; font-size: 11.5px; color: var(--muted); line-height: 1.6; }
+
+    /* ============ 遊戲畫面 ============ */
+    .gallery-wrap { text-align: center; }
+    .gallery-wrap img {
+      max-width: 100%; border-radius: var(--radius-card);
+      box-shadow: 0 1px 2px rgba(61,47,39,.05), 0 16px 32px -18px rgba(61,47,39,.16);
+    }
+
+    /* ============ 願景 ============ */
+    .vision-block { max-width: 560px; margin: 0 auto; text-align: center; }
+    .vision-block p.lead {
+      font-family: "Noto Serif TC", serif; color: var(--ink);
+      font-size: clamp(18px, 2.4vw, 21px); line-height: 1.85; font-weight: 500;
+    }
+    .vision-block p.support { margin-top: 16px; color: var(--text); font-size: 14.5px; }
+
+    /* ============ CTA band ============ */
+    .cta-band {
+      background: var(--paper); border-radius: var(--radius-card);
+      padding: clamp(36px, 6vw, 52px) clamp(24px, 5vw, 48px);
+      text-align: center;
+      box-shadow: 0 1px 2px rgba(61,47,39,.05), 0 20px 40px -18px rgba(61,47,39,.14);
+    }
+    .cta-band h2 { margin-bottom: 10px; }
+    .cta-band p { color: var(--text); font-size: 14.5px; margin-bottom: 24px; }
+
+    /* ============ FOOTER ============ */
+    .footer { padding: 40px 0 max(32px, env(safe-area-inset-bottom)); border-top: 1px solid var(--line); text-align: center; }
+    .footer p { color: var(--muted); font-size: 13px; }
+    .footer a { color: var(--clay-deep); text-decoration: none; font-weight: 600; }
+
+    @media (min-width: 760px) {
+      section { padding: 96px 0; }
+      .mode-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <a class="back-link" href="Home.html">← 回到 Maggie Lab</a>
+      <span class="brand-en serif">Pet Habit Kingdom</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="lp-hero">
+      <div class="lp-hero-visual">
+        <img src="images/pet-habit-card.webp" alt="Pet Habit Kingdom 寵物習慣王國世界封面：城堡、柯基與貓咪在草原上">
+        <div class="lp-hero-overlay">
+          <div class="lp-hero-text">
+            <span class="kicker">PET HABIT KINGDOM</span>
+            <h1 class="serif">寵物習慣王國</h1>
+            <p class="sub">陪孩子練習生活能力的小王國</p>
+          </div>
+        </div>
+      </div>
+      <div class="lp-hero-actions">
+        <!-- 真實連結 -->
+        <a class="btn btn-primary" href="https://maggie10299.github.io/pet-habit/" target="_blank" rel="noopener">開始遊戲</a>
+        <a class="btn btn-text" href="#world">了解這個世界</a>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="shell" id="world" aria-labelledby="world-title">
+      <div class="intro-block">
+        <span class="kicker">世界介紹</span>
+        <h2 id="world-title" class="serif">什麼是寵物習慣王國？</h2>
+        <p style="margin-top:16px;">在寵物習慣王國裡，孩子可以透過完成任務、獲得星星，打造專屬小天地，和可愛的寵物夥伴一起快樂成長！這是一款幫助孩子建立好習慣的遊戲——透過完成生活任務、獲得星星獎勵，讓孩子在遊戲中學習自我管理與成長。</p>
+      </div>
+    </section>
+
+    <section class="shell" aria-labelledby="flow-title">
+      <div class="section-head">
+        <span class="kicker">在王國裡的一天</span>
+        <h2 id="flow-title">五個步驟，陪孩子養成好習慣</h2>
+      </div>
+      <div class="flow-grid">
+        <div class="flow-step">
+          <div class="num serif">1</div>
+          <h3>完成任務</h3>
+          <p>整理書包、完成作業、幫忙家事……養成好習慣！</p>
+        </div>
+        <div class="flow-step">
+          <div class="num serif">2</div>
+          <h3>獲得星星</h3>
+          <p>努力被看見，進步被記錄。</p>
+        </div>
+        <div class="flow-step">
+          <div class="num serif">3</div>
+          <h3>陪伴寵物成長</h3>
+          <p>和喜歡的寵物夥伴一起冒險與成長！</p>
+        </div>
+        <div class="flow-step">
+          <div class="num serif">4</div>
+          <h3>打造小天地</h3>
+          <p>收集家具與裝飾，打造專屬的溫馨小天地！</p>
+        </div>
+        <div class="flow-step">
+          <div class="num serif">5</div>
+          <h3>記錄心情日記</h3>
+          <p>寫下心情與感謝，留下屬於自己的成長故事！</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="shell" aria-labelledby="mode-title">
+      <div class="section-head">
+        <span class="kicker">特色</span>
+        <h2 id="mode-title">兩種陪伴模式，依孩子的需要自由選擇</h2>
+      </div>
+      <div class="mode-grid">
+        <div class="mode-card">
+          <span class="mode-tag">信任模式</span>
+          <h3>適合已建立基礎習慣的孩子</h3>
+          <ul>
+            <li>完成任務後可自行獲得星星</li>
+            <li>培養自主與責任感</li>
+            <li>每日最高獲得 100 顆星星</li>
+          </ul>
+        </div>
+        <div class="mode-card">
+          <span class="mode-tag">核准模式</span>
+          <h3>適合剛開始建立習慣的孩子</h3>
+          <ul>
+            <li>由家長確認後發放星星獎勵</li>
+            <li>一起建立好習慣與責任感</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="shell" aria-labelledby="ability-title">
+      <div class="section-head">
+        <span class="kicker">不只是習慣打卡</span>
+        <h2 id="ability-title">更培養孩子多方面的能力</h2>
+      </div>
+      <div class="ability-grid">
+        <div class="ability-card"><span class="ic">🌱</span><h3>自我管理</h3><p>學會規劃與安排，培養自律與時間觀念</p></div>
+        <div class="ability-card"><span class="ic">💗</span><h3>情緒表達</h3><p>記錄心情，認識情緒，學會表達與調節</p></div>
+        <div class="ability-card"><span class="ic">🙏</span><h3>感恩能力</h3><p>練習感謝與日記，培養感恩與同理心</p></div>
+        <div class="ability-card"><span class="ic">🏡</span><h3>生活自主</h3><p>從小事做起，建立獨立與自信</p></div>
+        <div class="ability-card"><span class="ic">🐾</span><h3>親子互動</h3><p>透過陪伴與鼓勵，創造更多美好時光</p></div>
+        <div class="ability-card"><span class="ic">⭐</span><h3>責任感建立</h3><p>完成任務與承諾，成為值得信賴的人</p></div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="shell" aria-labelledby="gallery-title">
+      <div class="section-head">
+        <span class="kicker">遊戲畫面</span>
+        <h2 id="gallery-title">任務大廳、我的小天地、日記本</h2>
+      </div>
+      <div class="gallery-wrap">
+        <img src="images/pet-habit-gameplay.webp" alt="Pet Habit Kingdom 遊戲畫面：任務大廳、我的小天地、日記本">
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="shell" aria-labelledby="vision-title">
+      <div class="vision-block">
+        <span class="kicker">我們的願景</span>
+        <p class="lead" id="vision-title">孩子不需要完美。</p>
+        <p class="support">比起每天提醒孩子哪裡做得不夠好，更重要的是讓他發現：原來自己每天都在慢慢長大。Pet Habit Kingdom，陪孩子成為更好的自己！</p>
+      </div>
+    </section>
+
+    <section class="shell">
+      <div class="cta-band">
+        <h2 class="serif">準備好和寵物一起冒險了嗎？</h2>
+        <p>和寵物朋友們一起展開習慣冒險吧！</p>
+        <a class="btn btn-primary" href="https://maggie10299.github.io/pet-habit/" target="_blank" rel="noopener">開始遊戲</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>來自 <a href="Home.html">Maggie Lab｜好好玩實驗室</a></p>
+  </footer>
+</body>
+</html>

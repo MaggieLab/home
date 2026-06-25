@@ -1,0 +1,15 @@
+{
+  "name": "Maggie Lab｜好好玩實驗室",
+  "short_name": "Maggie Lab",
+  "description": "打造每天都願意打開的數位作品。",
+  "start_url": "./Home.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#FBF6EE",
+  "theme_color": "#FBF6EE",
+  "lang": "zh-Hant",
+  "icons": [
+    { "src": "favicons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "favicons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
