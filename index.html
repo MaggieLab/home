@@ -8,11 +8,10 @@
   <meta name="apple-mobile-web-app-title" content="Maggie Lab">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="description" content="Maggie Lab｜好好玩實驗室。打造每天都願意打開的數位作品。">
-  <!-- TODO: 部署後，把下面 og:image 換成完整網址，
-       例如 https://你的帳號.github.io/maggie-lab/images/hero-maggielab.webp -->
   <meta property="og:title" content="Maggie Lab｜好好玩實驗室">
   <meta property="og:description" content="用遊戲和小工具，陪孩子也陪大人，把每天過得好一點。">
-  <meta property="og:image" content="images/hero-maggielab.webp">
+  <meta property="og:image" content="https://maggielab.github.io/home/images/hero-maggielab.webp">
+  <meta property="og:url" content="https://maggielab.github.io/home/">
   <meta property="og:type" content="website">
   <title>Maggie Lab｜好好玩實驗室</title>
   <link rel="manifest" href="manifest.webmanifest">
@@ -71,8 +70,8 @@
     /* ============ TOPBAR ============ */
     .topbar {
       position: sticky; top: 0; z-index: 10;
-      background: rgba(251, 246, 238, .82);
-      backdrop-filter: blur(14px);
+      background: rgba(251, 246, 238, .96);
+      border-bottom: 1px solid var(--line);
     }
     .topbar-inner {
       min-height: 76px;
@@ -101,7 +100,7 @@
       background: linear-gradient(to bottom, transparent, var(--line), transparent);
     }
 
-    /* ============ HERO（圖片在最上方） ============ */
+    /* ============ HERO（圖片在最上方，只留主標/副標/單一CTA） ============ */
     .hero { padding: 0; text-align: center; }
 
     .hero-visual {
@@ -111,51 +110,41 @@
     }
     .hero-visual img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-    .hero-content { padding: 32px 0 0; }
+    .hero-content { padding: 40px 0 0; }
 
-    .hero-kicker {
-      display: inline-flex; align-items: center; gap: 8px;
-      color: var(--clay-deep); background: var(--bg);
-      border: 1px solid var(--line); padding: 7px 14px; border-radius: var(--radius-pill);
-      font-size: 12.5px; font-weight: 600; letter-spacing: .06em;
-    }
-    .hero-wordmark {
-      display: block; margin-top: 16px;
-      font-family: "Noto Serif TC", serif; font-weight: 600;
-      font-size: clamp(24px, 4vw, 30px); color: var(--ink); line-height: 1.3;
-    }
-    .hero-wordmark .paw { color: var(--clay-deep); }
     .hero-tagline {
-      margin: 10px auto 0; max-width: 540px;
+      margin: 0 auto; max-width: 560px;
       font-family: "Noto Serif TC", serif; font-weight: 600;
-      font-size: clamp(16px, 2.2vw, 20px); line-height: 1.65; color: var(--text);
+      font-size: clamp(22px, 3.6vw, 30px); line-height: 1.55; color: var(--ink);
     }
     .hero-tagline .accent { color: var(--clay-deep); }
-    /* 手機版用精簡過的短句，桌面版用完整句子，不是單純縮小字級 */
-    .hero-tagline .full { display: none; }
-    .hero-tagline .short { display: inline; }
 
-    /* 一句白話說明：負責「理解」，跟tagline的「感覺」分工 */
     .hero-explainer {
-      margin: 8px auto 0; max-width: 460px;
-      font-size: 13.5px; color: var(--muted); font-weight: 500;
+      margin: 16px auto 0; max-width: 480px;
+      font-size: 15px; color: var(--text); font-weight: 400; line-height: 1.8;
     }
     .hero-actions {
       display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
-      gap: 16px; margin-top: 22px; padding-bottom: 8px;
+      gap: 16px; margin-top: 28px; padding-bottom: 12px;
     }
     .btn {
       display: inline-flex; align-items: center; gap: 8px;
-      border-radius: var(--radius-pill); padding: 11px 20px;
-      border: 1px solid transparent; font-size: 14px; font-weight: 600;
+      border-radius: var(--radius-pill); padding: 13px 26px;
+      border: 1px solid transparent; font-size: 14.5px; font-weight: 600;
       text-decoration: none; cursor: pointer;
       transition: transform var(--ease), background var(--ease), opacity var(--ease);
     }
     .btn:hover { transform: translateY(-1px); }
     .btn-primary { color: #FFFCF6; background: var(--clay-deep); }
     .btn-primary:hover { background: #6f4527; }
-    .btn-text { color: var(--text); padding: 11px 4px; border-bottom: 1px solid var(--line); border-radius: 0; }
+    .btn-text { color: var(--text); padding: 13px 4px; border-bottom: 1px solid var(--line); border-radius: 0; }
     .btn-text:hover { color: var(--clay-deep); border-color: var(--clay-deep); }
+
+    /* ============ 從我們家開始（小故事區塊） ============ */
+    .story-block { max-width: 580px; margin: 0 auto; text-align: center; }
+    .story-block h2 { margin-bottom: 16px; }
+    .story-block p { color: var(--text); font-size: 15px; line-height: 1.9; }
+    .story-block p + p { margin-top: 12px; }
 
     /* ============ SECTION HEAD ============ */
     .section-head { max-width: 560px; margin: 0 auto 44px; text-align: center; }
@@ -169,91 +158,80 @@
     }
     .section-copy { margin-top: 14px; color: var(--text); font-size: 15px; }
 
-    /* ============ FEATURED WORKS — flat list, no Game/Tool sections ============ */
-    .work-grid {
-      display: grid; gap: 28px;
-    }
-    .work-card {
+    /* ============ 目前開放體驗（單張大卡） ============ */
+    .featured-card {
+      display: block; text-decoration: none; color: inherit;
       background: var(--paper);
       border-radius: var(--radius-card);
-      padding: 12px 12px 20px;
-      box-shadow: 0 1px 2px rgba(61,47,39,.05), 0 16px 32px -18px rgba(61,47,39,.16);
+      overflow: hidden;
+      box-shadow: 0 1px 2px rgba(61,47,39,.05), 0 20px 44px -18px rgba(61,47,39,.18);
       transition: transform var(--ease), box-shadow var(--ease);
-      text-decoration: none; color: inherit; display: block;
     }
-    .work-card:hover {
+    .featured-card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 1px 2px rgba(61,47,39,.06), 0 22px 40px -16px rgba(61,47,39,.20);
+      box-shadow: 0 1px 2px rgba(61,47,39,.06), 0 26px 52px -16px rgba(61,47,39,.22);
     }
-    .work-cover {
-      aspect-ratio: 16/10; border-radius: 3px; overflow: hidden;
-      background: linear-gradient(155deg, #F2E2CC, #E3CBA4);
+    .featured-cover { aspect-ratio: 16/9; overflow: hidden; }
+    .featured-cover img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .4s ease; }
+    .featured-card:hover .featured-cover img { transform: scale(1.03); }
+    .featured-body { padding: clamp(22px, 4vw, 32px); text-align: center; }
+    .featured-body h3 {
+      font-family: "Noto Serif TC", serif; font-size: clamp(20px, 2.6vw, 24px); font-weight: 600; color: var(--ink);
+      display: inline-flex; align-items: center; gap: 10px;
     }
-    .work-cover img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .5s ease; }
-    .work-card:hover .work-cover img { transform: scale(1.04); }
-    .work-cover.placeholder { display: grid; place-items: center; }
-    .work-cover.placeholder .placeholder-icon {
-      width: 48px; height: 48px; border-radius: 14px;
-      display: grid; place-items: center;
-      background: var(--paper); border: 1px solid var(--line); font-size: 22px;
+    /* 低調狀態標籤：不做成醒目色塊，只是小字提示 */
+    .status-tag {
+      font-family: "Noto Sans TC", sans-serif;
+      font-size: 11px; font-weight: 600; color: var(--muted);
+      letter-spacing: .04em;
+      padding: 2px 9px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-pill);
     }
-    .work-body { padding: 16px 8px 0; }
-    .work-body h3 {
-      font-family: "Noto Serif TC", serif; font-size: 17.5px; font-weight: 600; color: var(--ink);
+    .featured-body p { margin-top: 10px; color: var(--text); font-size: 15px; max-width: 460px; margin-inline: auto; }
+    .featured-enter {
+      margin-top: 18px; display: inline-flex; align-items: center; gap: 6px;
+      color: var(--clay-deep); font-size: 14.5px; font-weight: 600;
     }
-    .work-body p { margin-top: 8px; color: var(--text); font-size: 14px; line-height: 1.7; }
-    .work-enter {
-      margin-top: 14px; display: inline-flex; align-items: center; gap: 6px;
-      color: var(--clay-deep); font-size: 13.5px; font-weight: 600;
-    }
-    .work-card:hover .work-enter { gap: 10px; }
-    .work-enter span { transition: transform var(--ease); }
+    .featured-card:hover .featured-enter { gap: 10px; }
+    .featured-enter span { transition: transform var(--ease); }
 
-    /* ============ COMING NEXT — 極小區塊，不搶視覺重量 ============ */
-    .coming-next {
-      margin-top: 56px;
-      padding-top: 28px;
-      border-top: 1px solid var(--line);
-      display: flex; align-items: center; justify-content: center;
-      gap: 12px; flex-wrap: wrap;
-      text-align: center;
+    /* ============ 正在實驗中的作品（極簡清單，不放介紹） ============ */
+    .experiment-list {
+      display: flex; flex-wrap: wrap; justify-content: center;
+      gap: 14px 12px;
     }
-    .coming-next .label {
-      font-size: 12.5px; color: var(--muted); letter-spacing: .08em;
-    }
-    .coming-next .item {
-      display: inline-flex; align-items: center; gap: 7px;
-      font-size: 14px; font-weight: 600; color: var(--text);
-    }
-    .coming-next .item .status {
-      font-size: 12px; color: var(--muted); font-weight: 500;
+    .experiment-item {
+      padding: 10px 20px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-pill);
+      color: var(--text); font-size: 14.5px; font-weight: 500;
+      background: var(--paper);
     }
 
-    /* ============ SUPPORT — 贊助咖啡，目前還需要，未來有會員制後移除 ============ */
+    /* ============ SUPPORT — 支持我們繼續創作，導流到 Katawu，保持低調 ============ */
     .support-strip {
-      max-width: 560px; margin: 0 auto;
-      display: flex; align-items: center; justify-content: space-between;
-      gap: 18px; flex-wrap: wrap;
-      padding: 22px 26px;
+      max-width: 480px; margin: 0 auto 40px;
+      text-align: center;
+      padding: 28px 26px;
       background: var(--paper);
       border-radius: var(--radius-card);
       box-shadow: 0 1px 2px rgba(61,47,39,.05);
     }
     .support-strip-text h3 { font-family: "Noto Serif TC", serif; font-size: 16px; font-weight: 600; }
-    .support-strip-text p { margin-top: 4px; color: var(--muted); font-size: 13px; }
-    .support-strip .btn { flex: 0 0 auto; }
+    .support-strip-text p { margin-top: 10px; color: var(--text); font-size: 13.5px; line-height: 1.8; }
+    .support-strip .btn-text { margin-top: 16px; display: inline-flex; }
 
     /* ============ IDEA — 單句品牌理念 ============ */
-    .idea-block { max-width: 560px; margin: 0 auto; text-align: center; }
+    .idea-block { max-width: 480px; margin: 0 auto; text-align: center; }
     .idea-block p.lead {
       font-family: "Noto Serif TC", serif; color: var(--ink);
-      font-size: clamp(19px, 2.6vw, 23px); line-height: 1.8; font-weight: 500;
+      font-size: clamp(19px, 2.6vw, 23px); line-height: 2.3; font-weight: 500;
     }
     .idea-block p.lead .accent { color: var(--clay-deep); }
 
     /* ============ WAITLIST ============ */
     .invite { max-width: 560px; margin: 0 auto; text-align: center; }
-    .invite .kicker { display: flex; justify-content: center; }
     .invite p.lead { margin-top: 16px; color: var(--text); font-size: 15px; line-height: 1.9; }
     .invite-form { margin: 32px auto 0; max-width: 400px; }
     .invite-row {
@@ -272,7 +250,6 @@
       cursor: pointer; padding: 6px 2px; transition: opacity var(--ease);
     }
     .invite-row button:hover { opacity: .7; }
-    .invite-note { margin-top: 20px; color: var(--muted); font-size: 12.5px; }
 
     /* ============ FOOTER ============ */
     .footer { padding: 48px 0 max(36px, env(safe-area-inset-bottom)); border-top: 1px solid var(--line); }
@@ -296,14 +273,158 @@
     }
     .toast.show { opacity: 1; transform: translate(-50%, 0); }
 
+
+    /* ============ Pet Habit Kingdom Beta stats ============ */
+    .beta-stats-strip {
+      margin: 20px auto 0;
+      max-width: 620px;
+      padding: 14px 18px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 252, 246, .56);
+      color: var(--text);
+      font-size: 13.5px;
+      line-height: 1.8;
+    }
+    .beta-stats-main {
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .beta-stats-meta {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .featured-actions {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 22px;
+    }
+    .featured-actions .btn {
+      padding: 10px 20px;
+      font-size: 14px;
+    }
+    .featured-actions .btn-outline {
+      color: var(--clay-deep);
+      border-color: var(--line);
+      background: transparent;
+    }
+    .featured-actions .btn-outline:hover {
+      background: rgba(185, 122, 83, .06);
+    }
+
+    /* ============ Brevo Beta form, Maggie Lab style ============ */
+    .beta-form-card {
+      max-width: 520px;
+      margin: 32px auto 0;
+      padding: 28px 26px;
+      background: rgba(255, 252, 246, .72);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-card);
+      text-align: left;
+    }
+    .beta-form-card h3 {
+      font-family: "Noto Serif TC", serif;
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--ink);
+      margin: 0;
+    }
+    .beta-form-card .beta-copy {
+      margin-top: 10px;
+      color: var(--text);
+      font-size: 14.5px;
+      line-height: 1.85;
+    }
+    .beta-form-row {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-top: 22px;
+    }
+    .beta-form-row input {
+      flex: 1;
+      min-height: 46px;
+      padding: 10px 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-pill);
+      background: #fff;
+      color: var(--ink);
+      font-size: 14.5px;
+      outline: none;
+    }
+    .beta-form-row input::placeholder { color: var(--muted); }
+    .beta-form-row button {
+      flex: 0 0 auto;
+      min-height: 46px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: var(--radius-pill);
+      background: var(--clay-deep);
+      color: #FFFCF6;
+      font-size: 14.5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform var(--ease), background var(--ease);
+    }
+    .beta-form-row button:hover {
+      transform: translateY(-1px);
+      background: #6f4527;
+    }
+    .sib-form-message-panel {
+      margin: 18px auto 0;
+      max-width: 520px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      font-size: 14px;
+      line-height: 1.7;
+      text-align: center;
+      display: none;
+    }
+    .sib-form-message-panel__text {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+    }
+    .sib-notification__icon { display: none; }
+    #success-message {
+      color: #3D2F27;
+      background: rgba(231, 250, 240, .8);
+      border: 1px solid rgba(19, 206, 102, .22);
+    }
+    #error-message {
+      color: #661d1d;
+      background: rgba(255, 237, 237, .8);
+      border: 1px solid rgba(255, 73, 73, .22);
+    }
+    .entry__error {
+      display: block;
+      margin-top: 8px;
+      color: #9f3a38;
+      font-size: 13px;
+    }
+    .input--hidden { display: none !important; }
+    .g-recaptcha-v3 { display: none; }
+
+    @media (max-width: 560px) {
+      .beta-stats-strip { padding: 13px 12px; }
+      .featured-actions { gap: 10px; }
+      .featured-actions .btn { flex: 1 1 140px; justify-content: center; }
+      .beta-form-card { padding: 24px 18px; }
+      .beta-form-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .beta-form-row button { width: 100%; }
+    }
+
     @media (min-width: 760px) {
       .nav { display: flex; }
       .install-btn { display: inline-flex; }
       section { padding: 110px 0; }
-      .hero-content { padding: 40px 0 0; }
-      .hero-tagline .full { display: inline; }
-      .hero-tagline .short { display: none; }
-      .work-grid { grid-template-columns: repeat(3, 1fr); gap: 28px; }
       .footer-inner { grid-template-columns: 1fr auto; align-items: start; }
     }
     @media (max-width: 480px) {
@@ -329,7 +450,7 @@
       <nav class="nav" aria-label="主要導覽">
         <a href="#works">作品</a>
         <a href="#support">支持我們</a>
-        <a href="#waitlist">搶先體驗</a>
+        <a href="#waitlist">一起收到最新作品</a>
       </nav>
       <button class="install-btn" type="button" id="installButton">加入主畫面</button>
     </div>
@@ -342,18 +463,21 @@
       </div>
 
       <div class="hero-content shell">
-        <span class="hero-kicker">🐾 Maggie Lab</span>
-        <span class="hero-wordmark">好好玩實驗室</span>
-        <h1 class="hero-tagline" id="hero-title">
-          <span class="full">陪孩子玩出<span class="accent">好奇心、創造力</span>與解決問題的能力。</span>
-          <span class="short">陪孩子玩出<span class="accent">好奇心與創造力</span>。</span>
-        </h1>
-        <!-- v1.1：一句白話說明，讓人3秒懂這是什麼，跟tagline分工不重疊 -->
-        <p class="hero-explainer">用遊戲和小工具，陪孩子也陪大人，把每天過得好一點。</p>
+        <h1 class="hero-tagline" id="hero-title">陪孩子玩出<span class="accent">好奇心、創造力</span>與解決問題的能力。</h1>
+        <p class="hero-explainer">每一個作品，都先陪伴我們家一段時間。等孩子真的願意一玩再玩，才慢慢整理成 Maggie Lab 的作品，分享給更多家庭。</p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="#works">進入實驗室</a>
-          <a class="btn btn-text" href="#waitlist">搶先體驗</a>
+          <a class="btn btn-primary" href="#works">開始探索作品</a>
         </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="shell" id="story" aria-labelledby="story-title">
+      <div class="story-block">
+        <h2 id="story-title" class="serif">從我們家開始。</h2>
+        <p>我是 Maggie。利用 AI，把生活中希望陪伴孩子成長的想法，慢慢做成一個個可以玩的作品。</p>
+        <p>每天修改，每天陪玩。等作品真正成熟，才分享給更多家庭。</p>
       </div>
     </section>
 
@@ -361,66 +485,42 @@
 
     <section class="shell" id="works" aria-labelledby="works-title">
       <div class="section-head">
-        <span class="kicker">FEATURED WORKS</span>
-        <h2 id="works-title">精選作品</h2>
-        <p class="section-copy">每一個，都是先在我們家住過一段時間，覺得值得留下，才打開門讓你進來看看。</p>
+        <h2 id="works-title">目前開放體驗</h2>
+        <p class="section-copy">每一個作品都先從家裡的小小測試開始，確認孩子真的想玩、家長也覺得有幫助，才慢慢整理成可以分享的版本。</p>
       </div>
 
-      <!--
-        v1.1：不分 Game/Tool 區塊，依推薦順序排列即可。
-        換成你自己的封面圖：把對應卡片裡被註解掉的 <img> 那行取消註解，
-        src 換成檔案路徑（建議比例 16:10），再刪掉 placeholder 那一行。
-      -->
+      <article class="featured-card">
+        <div class="featured-cover">
+          <img src="images/pet-habit-card.webp" alt="Pet Habit Kingdom 寵物習慣王國封面">
+        </div>
+        <div class="featured-body">
+          <h3>Pet Habit Kingdom</h3>
+          <p>和寵物一起，把每天的小習慣養成一個會慢慢長大的家。</p>
 
-      <div class="work-grid">
-        <a class="work-card" href="PetHabitKingdom.html">
-          <div class="work-cover">
-            <img src="images/pet-habit-card.webp" alt="Pet Habit Kingdom 寵物習慣王國封面">
+          <div class="beta-stats-strip" id="petHabitBetaStats">
+            <div class="beta-stats-main">🌱 Beta 成長紀錄更新中</div>
+            <div class="beta-stats-meta">正在讀取孩子們的遊玩紀錄。</div>
           </div>
-          <div class="work-body">
-            <h3>Pet Habit Kingdom</h3>
-            <p>和寵物一起，把每天的小習慣養成一個會慢慢長大的家。</p>
-            <span class="work-enter">查看作品 <span>→</span></span>
-          </div>
-        </a>
 
-        <a class="work-card" href="#">
-          <!-- <div class="work-cover"><img src="images/seven-habits-cover.jpg" alt="七習慣島嶼 封面"></div> -->
-          <div class="work-cover placeholder"><div class="placeholder-icon">🏝️</div></div>
-          <div class="work-body">
-            <h3>七習慣島嶼</h3>
-            <p>七座島嶼，七段故事，陪孩子練習主動積極、要事第一。</p>
-            <span class="work-enter">查看作品 <span>→</span></span>
+          <div class="featured-actions">
+            <a class="btn btn-outline" href="PetHabitKingdom.html">查看介紹</a>
+            <a class="btn btn-primary" href="https://maggie10299.github.io/pet-habit/">開始遊戲</a>
           </div>
-        </a>
-
-        <a class="work-card" href="#">
-          <!-- <div class="work-cover"><img src="images/gratitude-cover.jpg" alt="感恩存摺 封面"></div> -->
-          <div class="work-cover placeholder"><div class="placeholder-icon">📔</div></div>
-          <div class="work-body">
-            <h3>感恩存摺</h3>
-            <p>一本只存放美好的存摺，寫下今天，留一筆給未來的溫柔。</p>
-            <span class="work-enter">查看作品 <span>→</span></span>
-          </div>
-        </a>
-      </div>
-
-      <!-- v1.1：Coming Next，極小區塊，建立期待感即可，不放說明文字跟按鈕 -->
-      <div class="coming-next">
-        <span class="label">COMING NEXT</span>
-        <span class="item">🌙 睡前聊聊 <span class="status">· 醞釀中</span></span>
-      </div>
+        </div>
+      </article>
     </section>
 
-    <!-- 贊助咖啡：目前還需要保留，等未來會員制上線後再移除 -->
-    <section class="shell" id="support" aria-label="支持 Maggie Lab">
-      <div class="support-strip">
-        <div class="support-strip-text">
-          <h3>❤️ 支持 Maggie Lab</h3>
-          <p>如果你喜歡這些作品，歡迎贊助一杯咖啡。</p>
-        </div>
-        <!-- TODO: 換成你的 Buy Me a Coffee / Ko-fi / 綠界付款連結 -->
-        <a class="btn btn-primary" href="#" target="_blank" rel="noopener">請 Maggie 喝咖啡 ☕</a>
+    <div class="divider"></div>
+
+    <section class="shell" id="experiments" aria-labelledby="experiments-title">
+      <div class="section-head">
+        <h2 id="experiments-title">正在慢慢長大的作品</h2>
+        <p class="section-copy">有些作品已經可以體驗，有些還正在陪伴我們家的生活。等真正成熟，才會放進 Maggie Lab。</p>
+      </div>
+      <div class="experiment-list">
+        <span class="experiment-item">七習慣島嶼</span>
+        <span class="experiment-item">睡前聊聊</span>
+        <span class="experiment-item">寵物旅程</span>
       </div>
     </section>
 
@@ -428,31 +528,73 @@
 
     <section class="shell" id="idea" aria-labelledby="idea-title">
       <div class="idea-block">
-        <p class="lead" id="idea-title">打造每天都<span class="accent">願意打開</span>的數位作品。</p>
+        <p class="lead" id="idea-title">每一個作品，<br>都先陪伴我們家的生活。<br><span class="accent">慢慢長大，</span><br>才分享給你。</p>
       </div>
     </section>
 
     <div class="divider"></div>
 
+
     <section class="shell" id="waitlist" aria-labelledby="waitlist-title">
       <div class="invite">
-        <span class="kicker">EARLY ACCESS</span>
-        <h2 id="waitlist-title" class="serif">想先收到消息嗎？</h2>
-        <p class="lead">新作品完成、開放測試，會先悄悄寄給留下信箱的朋友，不會常常出現。</p>
+        <h2 id="waitlist-title" class="serif">加入 Maggie Lab Beta</h2>
+        <p class="lead">新作品、重要更新與 Beta 招募，第一時間通知你。</p>
 
-        <form class="invite-form" id="waitlistForm" data-endpoint="" aria-label="Maggie Lab 搶先體驗表單">
-          <div class="invite-row">
-            <input id="email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="留下你的 email" required>
-            <button type="submit">送出 →</button>
+        <div id="error-message" class="sib-form-message-panel">
+          <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
+            <svg viewBox="0 0 512 512" class="sib-icon sib-notification__icon" aria-hidden="true">
+              <path d="M256 40c118.621 0 216 96.075 216 216 0 119.291-96.61 216-216 216-119.244 0-216-96.562-216-216 0-119.203 96.602-216 216-216m0-32C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8z"/>
+            </svg>
+            <span class="sib-form-message-panel__inner-text">發生了一點小問題，請稍後再試一次。</span>
           </div>
-          <input type="hidden" name="source" value="maggie-lab-homepage">
-          <p class="invite-note">目前是前端 placeholder。接上後端 <code>data-endpoint</code> 後即可正式收名單。</p>
-        </form>
+        </div>
+
+        <div id="success-message" class="sib-form-message-panel">
+          <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
+            <svg viewBox="0 0 512 512" class="sib-icon sib-notification__icon" aria-hidden="true">
+              <path d="M256 8C119.033 8 8 119.033 8 256s111.033 248 248 248 248-111.033 248-248S392.967 8 256 8z"/>
+            </svg>
+            <span class="sib-form-message-panel__inner-text">🎉 歡迎加入 Maggie Lab Beta！之後有新作品、重要更新或小小測試員招募時，我會第一時間寄信通知你。</span>
+          </div>
+        </div>
+
+        <div class="beta-form-card">
+          <h3>加入 Beta 測試家庭 🌱</h3>
+          <p class="beta-copy">留下 Email。當有新作品、重要更新或新的 Beta 測試開放時，我會寄信通知你。</p>
+
+          <form id="sib-form" method="POST" action="https://4ddf8975.sibforms.com/serve/MUIFAFwgiJ_wejwZYKJrpK7VAapG57q7D7Leh_yF1esIRsGZctpb15rksANmjpYjzCXCQKMDCgLOaaF5rDzN76j8It16pg8VWlJvxI1HrcWFeKU6WmOiFKWcJofdpLRnlEa3Qf1RIBrrXfIB3TudScKBM7uAISY0QBxIIJomBpNehsbxdpkzKaekBqQTsPurkAZN997AROqCHxQErA==" data-type="subscription">
+            <div class="sib-input sib-form-block">
+              <div class="form__entry entry_block">
+                <div class="form__label-row">
+                  <div class="entry__field beta-form-row">
+                    <input class="input" type="text" id="EMAIL" name="EMAIL" autocomplete="email" value="" placeholder="you@example.com" data-required="true" required>
+                    <button class="sib-form-block__button sib-form-block__button-with-loader" form="sib-form" type="submit">加入 Beta</button>
+                  </div>
+                </div>
+                <label class="entry__error entry__error--primary"></label>
+              </div>
+            </div>
+
+            <div class="g-recaptcha-v3" data-sitekey="6LcBqzQtAAAAAMRJu8vPD2mwlQW6LvVdIjDcvDUv"></div>
+            <input type="text" name="email_address_check" value="" class="input--hidden">
+            <input type="hidden" name="locale" value="zh">
+          </form>
+        </div>
       </div>
     </section>
   </main>
 
-  <footer class="footer">
+  <footer class="footer" id="support">
+    <div class="shell">
+      <!-- 支持我們繼續創作：導流到 Katawu 官網，保持低調，不像募款 -->
+      <div class="support-strip">
+        <div class="support-strip-text">
+          <h3>🌿 支持我們繼續創作</h3>
+          <p>Maggie Lab 的作品目前都免費分享。如果它陪伴了你的家庭，也歡迎帶一瓶 Katawu 回家。每一瓶醬料，都支持我們繼續投入更多時間，慢慢完成下一個作品。</p>
+        </div>
+        <a class="btn-text" href="https://www.katawu.com" target="_blank" rel="noopener">看看 Katawu 醬料 →</a>
+      </div>
+    </div>
     <div class="shell footer-inner">
       <div>
         <strong class="serif">Maggie Lab｜好好玩實驗室</strong>
@@ -461,8 +603,9 @@
       <nav class="footer-links" aria-label="頁尾連結">
         <a href="#works">作品</a>
         <a href="#support">支持我們</a>
-        <a href="#waitlist">搶先體驗</a>
+        <a href="#waitlist">一起收到最新作品</a>
         <a href="https://www.instagram.com/hello.maggie/" target="_blank" rel="noopener">@hello.maggie</a>
+        <a href="https://www.facebook.com/share/18PeF6fVJm/?mibextid=wwXIfr" target="_blank" rel="noopener">Facebook</a>
       </nav>
     </div>
   </footer>
@@ -472,7 +615,6 @@
   <script>
     const toast = document.querySelector("#toast");
     const installButton = document.querySelector("#installButton");
-    const waitlistForm = document.querySelector("#waitlistForm");
     let deferredInstallPrompt = null;
 
     function showToast(message) {
@@ -499,40 +641,74 @@
       installButton.style.display = "none";
     });
 
-    waitlistForm.addEventListener("submit", async (event) => {
-      event.preventDefault();
-      const endpoint = waitlistForm.dataset.endpoint;
-      const data = new FormData(waitlistForm);
-      const payload = { email: data.get("email"), source: data.get("source") };
-
-      if (!endpoint) {
-        console.info("Maggie Lab waitlist placeholder payload:", payload);
-        showToast("已記錄表單內容。接上後端後即可正式送出。");
-        waitlistForm.reset();
-        return;
-      }
-
-      try {
-        const response = await fetch(endpoint, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
-        });
-        if (!response.ok) throw new Error("Request failed");
-        showToast("已加入搶先體驗名單。");
-        waitlistForm.reset();
-      } catch (error) {
-        showToast("送出失敗，請稍後再試。");
-      }
-    });
 
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
         navigator.serviceWorker.register("sw.js")
           .then((registration) => registration.update())
-          .catch(() => showToast("離線快取暫時未啟用，頁面仍可正常使用。"));
+          .catch(() => showToast("頁面仍可正常使用。"));
       });
     }
   </script>
+
+  <script>
+    const PET_HABIT_STATS_ENDPOINT = "https://script.google.com/macros/s/AKfycbypOzDm62qDK32QzDWiFmFfyuleKYJ9ExepJ6W6YwaxTi1VdFwHNYHOLWaVsIpDJexz/exec";
+
+    function formatNumber(value) {
+      const number = Number(value || 0);
+      return number.toLocaleString("zh-TW");
+    }
+
+    async function loadPetHabitBetaStats() {
+      const target = document.querySelector("#petHabitBetaStats");
+      if (!target) return;
+
+      try {
+        const response = await fetch(PET_HABIT_STATS_ENDPOINT, { method: "GET" });
+        if (!response.ok) throw new Error("Failed to load beta stats");
+        const data = await response.json();
+
+        const families = data.beta_families || data.families || 0;
+        const tasks = data.complete_task || 0;
+        const feeds = data.feed_pet || 0;
+        const version = data.version || "v0.9.3";
+
+        target.innerHTML = `
+          <div class="beta-stats-main">🌱 已有 ${formatNumber(families)} 個家庭，和我們一起陪孩子建立習慣。</div>
+          <div class="beta-stats-meta">${formatNumber(tasks)} 次任務完成　·　${formatNumber(feeds)} 次餵寵物　·　${version}</div>
+        `;
+      } catch (error) {
+        target.innerHTML = `
+          <div class="beta-stats-main">🌱 Beta 成長紀錄更新中</div>
+          <div class="beta-stats-meta">遊玩數據稍後更新。</div>
+        `;
+      }
+    }
+
+    window.addEventListener("load", loadPetHabitBetaStats);
+  </script>
+
+  <script>
+    window.REQUIRED_CODE_ERROR_MESSAGE = '請選擇國碼';
+    window.LOCALE = 'zh';
+    window.EMAIL_INVALID_MESSAGE = window.SMS_INVALID_MESSAGE = "Email 格式好像有點不對，請再確認一次。";
+    window.REQUIRED_ERROR_MESSAGE = "請輸入 Email。";
+    window.GENERIC_INVALID_MESSAGE = "Email 格式好像有點不對，請再確認一次。";
+    window.INVALID_NUMBER = "Email 格式好像有點不對，請再確認一次。";
+    window.INVALID_DATE = "請輸入有效日期。";
+    window.REQUIRED_MULTISELECT_MESSAGE = '請至少選擇一個選項。';
+    window.translation = {
+      common: {
+        selectedList: '{quantity} 個清單已選取',
+        selectedLists: '{quantity} 個清單已選取',
+        selectedOption: '{quantity} 個已選取',
+        selectedOptions: '{quantity} 個已選取'
+      }
+    };
+    var AUTOHIDE = Boolean(0);
+  </script>
+  <script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
+  <script src="https://www.google.com/recaptcha/api.js?render=6LcBqzQtAAAAAMRJu8vPD2mwlQW6LvVdIjDcvDUv&hl=zh-TW" async defer></script>
+
 </body>
 </html>
