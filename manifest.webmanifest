@@ -2,7 +2,7 @@
   "name": "Maggie Lab｜好好玩實驗室",
   "short_name": "Maggie Lab",
   "description": "打造每天都願意打開的數位作品。",
-  "start_url": "./Home.html",
+  "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "background_color": "#FBF6EE",

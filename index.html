@@ -22,6 +22,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="works-data.js"></script>
   <style>
     /* ============ Design System tokens（與 design-system.html 同步維護） ============ */
     :root {
@@ -80,6 +81,9 @@
     .brand { display: inline-flex; align-items: center; gap: 9px; color: var(--ink); text-decoration: none; }
     .brand-mark { display: inline-flex; width: 30px; height: 30px; }
     .brand-mark svg { width: 100%; height: 100%; }
+    /* 目前還沒有正式 Logo，先隱藏圖示只顯示文字。
+       之後有 Logo 圖檔時，把這行 CSS 拿掉，圖示會自動恢復顯示，不用改 HTML 結構。 */
+    .brand-mark { display: none; }
     .brand-en { font-family: "Noto Serif TC", serif; font-size: 16.5px; font-weight: 600; }
     .brand-zh { color: var(--muted); font-size: 12.5px; font-weight: 500; }
     .nav { display: none; align-items: center; gap: 26px; }
@@ -94,9 +98,9 @@
     .install-btn:hover { background: var(--paper); }
 
     main { display: block; }
-    section { padding: 80px 0; }
+    section { padding: 32px 0; }
     .divider {
-      width: 1px; height: 48px; margin: 0 auto;
+      width: 1px; height: 32px; margin: 0 auto;
       background: linear-gradient(to bottom, transparent, var(--line), transparent);
     }
 
@@ -105,10 +109,8 @@
 
     .hero-visual {
       position: relative;
-      overflow: hidden;
-      aspect-ratio: 16/10;
     }
-    .hero-visual img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .hero-visual img { width: 100%; height: auto; display: block; }
 
     .hero-content { padding: 40px 0 0; }
 
@@ -142,6 +144,8 @@
 
     /* ============ 為什麼開始做 Maggie Lab ============ */
     .why-block { max-width: 580px; margin: 0 auto; text-align: center; }
+    .why-visual { margin-bottom: 24px; border-radius: 14px; overflow: hidden; }
+    .why-visual img { width: 100%; height: auto; display: block; }
     .why-block h2 { margin-bottom: 16px; }
     .why-block p { color: var(--text); font-size: 15px; line-height: 1.9; }
     .why-block p + p { margin-top: 12px; }
@@ -181,49 +185,65 @@
       background: var(--bg); border: 1px solid var(--line);
       padding: 5px 14px; border-radius: var(--radius-pill);
     }
+    .visually-hidden {
+      position: absolute; width: 1px; height: 1px;
+      overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap;
+    }
 
 
-    /* ============ 目前開放體驗（單張大卡） ============ */
-    .featured-card {
+    /* ============ 精選作品（單欄式卡片：圖在上、內容在下，Apple式留白節奏） ============ */
+    .work-list {
+      display: flex; flex-direction: column; gap: 28px;
+      max-width: 640px; margin: 0 auto;
+    }
+
+    .work-card {
       background: var(--paper);
-      border-radius: var(--radius-card);
+      border-radius: 18px;
       overflow: hidden;
-      box-shadow: 0 1px 2px rgba(61,47,39,.05), 0 20px 44px -18px rgba(61,47,39,.18);
+      box-shadow: 0 1px 2px rgba(61,47,39,.05), 0 14px 30px -16px rgba(61,47,39,.14);
     }
-    .featured-cover { aspect-ratio: 16/9; overflow: hidden; }
-    .featured-cover img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .4s ease; }
-    .featured-cover:hover img { transform: scale(1.03); }
-    .featured-body { padding: clamp(22px, 4vw, 32px); text-align: center; }
-    .featured-body h3 {
-      font-family: "Noto Serif TC", serif; font-size: clamp(20px, 2.6vw, 24px); font-weight: 600; color: var(--ink);
-      display: inline-flex; align-items: center; gap: 10px;
+    .work-cover {
+      aspect-ratio: 2/1;
+      background: linear-gradient(155deg, #F4EBDD, #EEE1CB);
+      display: grid; place-items: center;
+      overflow: hidden;
     }
-    /* 低調狀態標籤：不做成醒目色塊，只是小字提示 */
-    .status-tag {
-      font-family: "Noto Sans TC", sans-serif;
-      font-size: 11px; font-weight: 600; color: var(--muted);
-      letter-spacing: .04em;
-      padding: 2px 9px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius-pill);
-    }
-    .featured-body p { margin-top: 10px; color: var(--text); font-size: 15px; max-width: 460px; margin-inline: auto; }
-    .featured-actions {
-      margin-top: 20px; display: flex; flex-wrap: wrap; justify-content: center; gap: 14px;
-    }
+    .work-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .work-cover .work-icon { font-size: 34px; opacity: .65; }
 
-    /* ============ 正在實驗中的作品（極簡清單，不放介紹） ============ */
-    .experiment-list {
-      display: flex; flex-wrap: wrap; justify-content: center;
-      gap: 14px 12px;
+    .work-content { padding: 22px clamp(20px, 4vw, 30px) 26px; }
+    .work-top {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      gap: 10px; flex-wrap: wrap;
     }
-    .experiment-item {
-      padding: 10px 20px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius-pill);
-      color: var(--text); font-size: 14.5px; font-weight: 500;
-      background: var(--paper);
+    .work-top h3 {
+      font-family: "Noto Serif TC", serif; font-size: 18px; font-weight: 600; color: var(--ink);
     }
+    .status-tag {
+      flex: 0 0 auto;
+      font-size: 11px; font-weight: 700; letter-spacing: .03em;
+      padding: 3px 11px; border-radius: var(--radius-pill); white-space: nowrap;
+    }
+    .status-tag.is-live { background: #EAF1E3; color: #5C7A50; }
+    .status-tag.is-soon { background: var(--bg); color: var(--muted); border: 1px solid var(--line); }
+
+    .work-content p.work-desc { margin-top: 10px; color: var(--text); font-size: 14px; line-height: 1.75; }
+
+    .work-actions {
+      margin-top: 18px; display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+    }
+    .work-actions .btn { padding: 11px 22px; font-size: 14px; }
+    .work-intro-link {
+      color: var(--clay-deep); font-size: 13.5px; font-weight: 600;
+      text-decoration: none; border-bottom: 1px solid var(--line);
+      padding-bottom: 1px;
+    }
+    .work-intro-link:hover { border-color: var(--clay-deep); }
+
+    .works-more { margin-top: 32px; text-align: center; }
+
+    /* ============ 體驗家庭進行中（同樣的卡片風格，只有圖片+標題，文字說明交給區塊標題負責，不重複） ============ */
 
     /* ============ SUPPORT — 支持我們繼續創作，導流到 Katawu，保持低調 ============ */
     .support-strip {
@@ -234,14 +254,80 @@
       border-radius: var(--radius-card);
       box-shadow: 0 1px 2px rgba(61,47,39,.05);
     }
+    /* 醬料示意圖：放在文字上方，跟全站「圖在上、文字在下」的閱讀節奏一致；不裁切，完整顯示 */
+    .support-strip img {
+      width: 100%; height: auto; display: block;
+      border-radius: calc(var(--radius-card) - 2px);
+      margin-bottom: 18px;
+    }
     .support-strip-text h3 { font-family: "Noto Serif TC", serif; font-size: 16px; font-weight: 600; }
     .support-strip-text p { margin-top: 10px; color: var(--text); font-size: 13.5px; line-height: 1.8; }
     .support-strip .btn-text { margin-top: 16px; display: inline-flex; }
 
+    /* ============ MAGGIE LAB BETA 成長紀錄（全站，獨立模組，方便未來搬家） ============ */
+    .beta-block {
+      max-width: 480px; margin: 0 auto; text-align: center;
+      background: var(--paper); border-radius: var(--radius-card);
+      padding: clamp(28px, 5vw, 36px) clamp(22px, 4vw, 32px);
+      box-shadow: 0 1px 2px rgba(61,47,39,.05);
+    }
+    .beta-block .beta-label {
+      font-size: 13px; font-weight: 600; color: var(--clay-deep); letter-spacing: .04em;
+    }
+    .beta-block p.beta-headline {
+      margin-top: 14px; color: var(--ink); font-size: 16px; line-height: 1.8;
+    }
+    .beta-block p.beta-headline strong { font-family: "Noto Serif TC", serif; color: var(--clay-deep); font-size: 19px; }
+    .beta-block p.beta-thanks { margin-top: 16px; color: var(--text); font-size: 13.5px; }
+    .beta-block.is-loading .beta-headline { opacity: .6; }
+
     /* ============ WAITLIST / BREVO ============ */
-    .invite { max-width: 560px; margin: 0 auto; text-align: center; }
+    .invite {
+      max-width: 560px; margin: 0 auto; text-align: center;
+      background: var(--paper);
+      border-radius: var(--radius-card);
+      padding: clamp(32px, 6vw, 48px) clamp(24px, 5vw, 40px);
+      box-shadow: 0 1px 2px rgba(61,47,39,.05), 0 20px 44px -18px rgba(61,47,39,.16);
+    }
     .invite p.lead { margin-top: 16px; color: var(--text); font-size: 15px; line-height: 1.9; }
     .invite-form { margin: 32px auto 0; max-width: 400px; display: flex; justify-content: center; }
+
+    /* ============ 體驗家庭表單 Modal（不跳出網站，同頁面內展開） ============ */
+    .form-modal {
+      position: fixed; inset: 0; z-index: 50;
+      display: none;
+      align-items: center; justify-content: center;
+      padding: 20px;
+      background: rgba(61, 47, 39, .45);
+    }
+    .form-modal.is-open { display: flex; }
+    .form-modal-card {
+      position: relative;
+      width: min(480px, 100%);
+      max-height: min(640px, 90vh);
+      background: var(--paper);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 30px 60px -20px rgba(61,47,39,.4);
+      display: flex; flex-direction: column;
+    }
+    .form-modal-close {
+      position: absolute; top: 10px; right: 10px; z-index: 1;
+      width: 32px; height: 32px; border-radius: 50%;
+      display: grid; place-items: center;
+      background: rgba(255,252,246,.92); border: 1px solid var(--line);
+      color: var(--text); font-size: 16px; cursor: pointer;
+    }
+    .form-modal-close:hover { color: var(--clay-deep); }
+    .form-modal-card iframe {
+      width: 100%; height: 100%; border: 0; flex: 1; min-height: 560px;
+    }
+    .form-modal-fallback {
+      padding: 10px 16px; text-align: center;
+      font-size: 12.5px; color: var(--muted);
+      border-top: 1px solid var(--line);
+    }
+    .form-modal-fallback a { color: var(--clay-deep); font-weight: 600; }
 
     /* ============ FOOTER ============ */
     .footer { padding: 48px 0 max(36px, env(safe-area-inset-bottom)); border-top: 1px solid var(--line); }
@@ -268,7 +354,7 @@
     @media (min-width: 760px) {
       .nav { display: flex; }
       .install-btn { display: inline-flex; }
-      section { padding: 110px 0; }
+      section { padding: 48px 0; }
       .process-scroll img { height: 320px; }
       .footer-inner { grid-template-columns: 1fr auto; align-items: start; }
     }
@@ -295,7 +381,7 @@
       <nav class="nav" aria-label="主要導覽">
         <a href="#works">作品</a>
         <a href="#support">支持我們</a>
-        <a href="#waitlist">加入 Beta</a>
+        <a href="#waitlist">加入體驗家庭</a>
       </nav>
       <button class="install-btn" type="button" id="installButton">加入主畫面</button>
     </div>
@@ -320,6 +406,9 @@
 
     <section class="shell" id="why" aria-labelledby="why-title">
       <div class="why-block">
+        <div class="why-visual">
+          <img src="images/why-family.webp" alt="貓媽媽煮飯、貓女兒畫畫寫字、貓爸爸用電腦的生活插畫">
+        </div>
         <h2 id="why-title" class="serif">為什麼開始做 Maggie Lab</h2>
         <p>有一天我發現，與其一直擔心孩子沉迷 3C，不如開始思考：能不能做出一些真的值得孩子玩的東西？</p>
         <p>於是開始利用 AI，把生活中的想法，做成一個個遊戲與工具。第一位測試員，永遠都是我的女兒。</p>
@@ -330,61 +419,63 @@
 
     <section class="shell" id="works" aria-labelledby="works-title">
       <div class="section-head">
-        <h2 id="works-title">目前作品</h2>
+        <h2 id="works-title">精選作品</h2>
       </div>
 
-      <div class="featured-card">
-        <div class="featured-cover">
-          <img src="images/pet-habit-card.webp" alt="Pet Habit Kingdom 寵物習慣王國封面">
-        </div>
-        <div class="featured-body">
-          <h3>Pet Habit Kingdom <span class="status-tag">Early Access</span></h3>
-          <p>和寵物一起，把每天的小習慣，養成一個會長大的家。</p>
-          <div class="featured-actions">
-            <a class="btn btn-text" href="PetHabitKingdom.html">查看介紹</a>
-            <a class="btn btn-primary" href="https://maggie10299.github.io/pet-habit/" target="_blank" rel="noopener">開始遊戲</a>
-          </div>
-        </div>
+      <!--
+        精選作品資料來自 works-data.js（全站共用），只顯示 featured: true 且 status: "done" 的項目。
+        之後新增作品，不需要改這裡的 HTML，只要去 works-data.js 加資料就好。
+      -->
+      <div class="work-list" id="featuredList"></div>
+      <div class="works-more">
+        <a class="btn btn-text" href="Explore.html">查看更多作品 →</a>
       </div>
     </section>
 
     <div class="divider"></div>
 
-    <section class="shell" id="experiments" aria-labelledby="experiments-title">
+    <!--
+      體驗家庭進行中：只有圖片+標籤，沒有任何連結。
+      如果 works-data.js 裡沒有任何 status:"testing" 且有 cover 圖片的項目，這整個區塊會自動隱藏，不會顯示空白標題。
+    -->
+    <section class="shell" id="testing" aria-labelledby="testing-title" hidden>
       <div class="section-head">
-        <h2 id="experiments-title">下一個作品</h2>
-        <span class="section-tag">🏠 家人測試中</span>
+        <h2 id="testing-title">🌱 體驗家庭進行中</h2>
+        <p class="section-copy">正在和體驗家庭一起完成最後的調整。</p>
       </div>
-      <div class="experiment-list">
-        <span class="experiment-item">七習慣島嶼</span>
-        <span class="experiment-item">睡前聊聊</span>
-        <span class="experiment-item">閱讀旅程</span>
-      </div>
+      <div class="work-list" id="testingList"></div>
       <p class="section-closing">等準備好了，就會和大家見面。</p>
     </section>
 
+    <div class="divider" id="testingDivider" hidden></div>
+
+    <!-- Maggie Lab 全站 Beta 成長紀錄：獨立區塊，跟個別產品頁的數據分開讀取，方便未來搬動位置 -->
+    <section class="shell" id="beta-growth" aria-label="Maggie Lab Beta 成長紀錄">
+      <div class="beta-block is-loading" id="betaBlock">
+        <span class="beta-label">🌱 MAGGIE LAB BETA</span>
+        <p class="beta-headline" id="betaHeadline" aria-live="polite">正在更新 Beta 成長紀錄…</p>
+        <p class="beta-thanks" id="betaThanks" hidden>謝謝每一位願意陪我們一起成長的家庭 🤍</p>
+      </div>
+    </section>
+
     <div class="divider"></div>
 
-    <section class="shell" id="process" aria-labelledby="process-title">
-      <div class="section-head">
-        <h2 id="process-title">每一個作品，都會經過這五個階段。</h2>
-      </div>
+    <section class="shell" id="process" aria-label="每一個作品，都會經過這五個階段">
+      <h2 id="process-title" class="visually-hidden">每一個作品，都會經過這五個階段</h2>
       <div class="process-scroll">
-        <img src="images/work-process.webp" alt="作品流程插畫：開始製作、家人測試、官網 Beta、正式發布、持續更新，五個階段">
+        <img src="images/work-process.webp" alt="作品流程插畫：開始製作、家人測試、官網 Beta、正式發布、持續更新，五個階段。不求快，不求多，只希望每一個作品，都值得孩子一玩再玩。">
       </div>
-      <p class="section-closing">不求快，不求多。只希望每一個作品，都值得孩子一玩再玩。</p>
     </section>
 
     <div class="divider"></div>
 
     <section class="shell" id="waitlist" aria-labelledby="waitlist-title">
       <div class="invite">
-        <h2 id="waitlist-title" class="serif">加入 Maggie Lab Beta</h2>
-        <p class="lead">如果你願意，歡迎一起參與 Maggie Lab 的成長。新作品、重要更新、Beta 招募，都會第一時間通知你。</p>
+        <h2 id="waitlist-title" class="serif">一起陪作品長大</h2>
+        <p class="lead">每一個作品，都會先經過家人測試，再邀請更多家庭一起體驗。如果你願意陪 Maggie Lab 一起慢慢把作品做好，歡迎加入體驗家庭。</p>
 
-        <!-- 跳轉式 Brevo 表單：點按鈕會直接跳到 Brevo 的「加入 Maggie Lab Beta」頁面 -->
-        <div class="invite-form" id="brevoForm">
-          <a class="btn btn-primary" href="https://4ddf8975.sibforms.com/serve/MUIFAFwgiJ_wejwZYKJrpK7VAapG57q7D7Leh_yF1esIRsGZctpb15rksANmjpYjzCXCQKMDCgLOaaF5rDzN76j8It16pg8VWlJvxI1HrcWFeKU6WmOiFKWcJofdpLRnlEa3Qf1RIBrrXfIB3TudScKBM7uAISY0QBxIIJomBpNehsbxdpkzKaekBqQTsPurkAZN997AROqCHxQErA==" target="_blank" rel="noopener">加入 Beta →</a>
+        <div class="invite-form">
+          <button class="btn btn-primary" type="button" id="openFormBtn">加入體驗家庭 →</button>
         </div>
       </div>
     </section>
@@ -394,6 +485,8 @@
     <!-- 支持我們繼續創作：導流到 Katawu 官網，保持低調，不像募款 -->
     <section class="shell" id="support" aria-label="支持我們繼續創作">
       <div class="support-strip">
+        <!-- TODO: 等收到 Katawu 醬料示意圖後，取消下面這行註解並換上真實檔名（建議寬度比例 4:3 或 1:1，不要太長條） -->
+        <!-- <img src="images/katawu-sauce.webp" alt="Katawu 手工醬料示意圖"> -->
         <div class="support-strip-text">
           <h3>🌿 支持我們繼續創作</h3>
           <p>Maggie Lab 的作品，目前都可以免費玩。如果你喜歡這些作品，也歡迎帶一瓶 Katawu 回家。每一瓶醬料，都支持我們繼續創作下一個作品。</p>
@@ -403,6 +496,14 @@
     </section>
   </main>
 
+  <!-- 體驗家庭表單：點按鈕在頁面內展開，不會跳轉離開 Maggie Lab 官網 -->
+  <div class="form-modal" id="formModal" role="dialog" aria-modal="true" aria-label="加入體驗家庭表單">
+    <div class="form-modal-card">
+      <button class="form-modal-close" type="button" id="closeFormBtn" aria-label="關閉">✕</button>
+      <iframe id="formIframe" data-src="https://4ddf8975.sibforms.com/serve/MUIFAFwgiJ_wejwZYKJrpK7VAapG57q7D7Leh_yF1esIRsGZctpb15rksANmjpYjzCXCQKMDCgLOaaF5rDzN76j8It16pg8VWlJvxI1HrcWFeKU6WmOiFKWcJofdpLRnlEa3Qf1RIBrrXfIB3TudScKBM7uAISY0QBxIIJomBpNehsbxdpkzKaekBqQTsPurkAZN997AROqCHxQErA==" title="加入 Maggie Lab 體驗家庭"></iframe>
+      <p class="form-modal-fallback">表單沒有正常顯示嗎？<a href="https://4ddf8975.sibforms.com/serve/MUIFAFwgiJ_wejwZYKJrpK7VAapG57q7D7Leh_yF1esIRsGZctpb15rksANmjpYjzCXCQKMDCgLOaaF5rDzN76j8It16pg8VWlJvxI1HrcWFeKU6WmOiFKWcJofdpLRnlEa3Qf1RIBrrXfIB3TudScKBM7uAISY0QBxIIJomBpNehsbxdpkzKaekBqQTsPurkAZN997AROqCHxQErA==" target="_blank" rel="noopener">點這裡在新視窗開啟</a></p>
+    </div>
+  </div>
   <footer class="footer">
     <div class="shell footer-inner">
       <div>
@@ -412,7 +513,7 @@
       <nav class="footer-links" aria-label="頁尾連結">
         <a href="#works">作品</a>
         <a href="#support">支持我們</a>
-        <a href="#waitlist">加入 Beta</a>
+        <a href="#waitlist">加入體驗家庭</a>
         <a href="https://www.instagram.com/hello.maggie/" target="_blank" rel="noopener">@hello.maggie</a>
         <a href="https://www.facebook.com/share/18PeF6fVJm/?mibextid=wwXIfr" target="_blank" rel="noopener">Facebook</a>
       </nav>
@@ -457,6 +558,122 @@
           .catch(() => showToast("頁面仍可正常使用。"));
       });
     }
+
+    // 加入體驗家庭表單：在頁面內展開 Modal，不跳轉離開官網
+    (function () {
+      const modal = document.querySelector("#formModal");
+      const openBtn = document.querySelector("#openFormBtn");
+      const closeBtn = document.querySelector("#closeFormBtn");
+      const iframe = document.querySelector("#formIframe");
+
+      function openModal() {
+        if (!iframe.src) iframe.src = iframe.dataset.src;
+        modal.classList.add("is-open");
+      }
+      function closeModal() {
+        modal.classList.remove("is-open");
+      }
+
+      openBtn.addEventListener("click", openModal);
+      closeBtn.addEventListener("click", closeModal);
+      modal.addEventListener("click", (event) => {
+        if (event.target === modal) closeModal();
+      });
+      window.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") closeModal();
+      });
+    })();
+
+    // Maggie Lab 全站 Beta 成長紀錄：只讀 total_beta_players，不顯示單一產品的數據
+    // 目前 API 還沒有這個欄位，會先顯示 fallback 文字，等後端更新後自動生效，不需要再改前端
+    (function () {
+      const endpoint = "https://script.google.com/macros/s/AKfycbwFuPv3IoIuv0ZcxRsQNVLO3K2J6WKkqqkK3CUox318AxB9bVrBoZl2L8NmWRQMsS4/exec";
+      const blockEl = document.querySelector("#betaBlock");
+      const headlineEl = document.querySelector("#betaHeadline");
+      const thanksEl = document.querySelector("#betaThanks");
+
+      function showFallback() {
+        blockEl.classList.remove("is-loading");
+        headlineEl.textContent = "Beta 測試資料更新中。";
+        thanksEl.hidden = true;
+      }
+
+      fetch(endpoint)
+        .then((response) => {
+          if (!response.ok) throw new Error("Request failed");
+          return response.json();
+        })
+        .then((data) => {
+          const total = data && data.total_beta_players;
+          if (total === undefined || total === null) throw new Error("total_beta_players 還沒有資料");
+
+          blockEl.classList.remove("is-loading");
+          headlineEl.innerHTML = `已有<br><strong>${total}</strong> 個家庭<br>一起陪伴孩子探索、學習與建立好習慣。`;
+          thanksEl.hidden = false;
+        })
+        .catch(showFallback);
+    })();
+    // ============ 渲染精選作品（首頁只顯示 featured: true 且 status: "done"） ============
+    function renderFeatured() {
+      const list = document.querySelector("#featuredList");
+      const items = works.filter((w) => w.status === "done" && w.featured);
+
+      list.innerHTML = items.map((w) => {
+        const coverHtml = w.cover
+          ? `<img src="${w.cover}" alt="${w.title} 封面">`
+          : `<span class="work-icon">✨</span>`;
+        const descHtml = w.description ? `<p class="work-desc">${w.description}</p>` : "";
+        const playLabel = w.type === "tool" ? "開始使用" : "開始遊戲";
+        const playHtml = w.playUrl
+          ? `<a class="btn btn-primary" href="${w.playUrl}" target="_blank" rel="noopener">${playLabel}</a>`
+          : "";
+        const introHtml = w.introUrl
+          ? `<a class="work-intro-link" href="${w.introUrl}">查看作品介紹 →</a>`
+          : "";
+
+        return `
+          <article class="work-card">
+            <div class="work-cover">${coverHtml}</div>
+            <div class="work-content">
+              <div class="work-top">
+                <h3>${w.title}</h3>
+                <span class="status-tag is-live">Early Access</span>
+              </div>
+              ${descHtml}
+              <div class="work-actions">${playHtml}${introHtml}</div>
+            </div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    // ============ 渲染體驗家庭進行中（只顯示 status: "testing" 且已經有封面圖的項目，沒有任何連結） ============
+    function renderTesting() {
+      const section = document.querySelector("#testing");
+      const divider = document.querySelector("#testingDivider");
+      const list = document.querySelector("#testingList");
+      const items = works.filter((w) => w.status === "testing" && w.cover);
+
+      if (items.length === 0) {
+        section.hidden = true;
+        divider.hidden = true;
+        return;
+      }
+
+      section.hidden = false;
+      divider.hidden = false;
+      list.innerHTML = items.map((w) => `
+        <article class="work-card testing-card">
+          <div class="work-cover"><img src="${w.cover}" alt="${w.title} 封面"></div>
+          <div class="work-content">
+            <h3>${w.title}</h3>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    renderFeatured();
+    renderTesting();
   </script>
 </body>
 </html>

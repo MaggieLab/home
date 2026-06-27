@@ -1,12 +1,20 @@
-const CACHE_NAME = "maggie-lab-home-v3";
+const CACHE_NAME = "maggie-lab-home-v16";
 const APP_SHELL = [
-  "./Home.html",
+  "./index.html",
   "./PetHabitKingdom.html",
+  "./ZhuyinTypingAdventure.html",
+  "./Explore.html",
+  "./works-data.js",
   "./manifest.webmanifest",
   "./favicons/icon-192.png",
   "./images/hero-scene.webp",
+  "./images/why-family.webp",
   "./images/pet-habit-card.webp",
-  "./images/pet-habit-gameplay.webp"
+  "./images/pet-habit-gameplay.webp",
+  "./images/pet-habit-intro.webp",
+  "./images/work-process.webp",
+  "./images/zhuyin-cover.webp",
+  "./images/zhuyin-intro.webp"
 ];
 
 self.addEventListener("install", (event) => {
@@ -31,10 +39,10 @@ self.addEventListener("fetch", (event) => {
       fetch(event.request)
         .then((response) => {
           const copy = response.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put("./Home.html", copy));
+          caches.open(CACHE_NAME).then((cache) => cache.put("./index.html", copy));
           return response;
         })
-        .catch(() => caches.match("./Home.html"))
+        .catch(() => caches.match("./index.html"))
     );
     return;
   }

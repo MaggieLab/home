@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#FBF6EE">
-  <meta name="description" content="Pet Habit Kingdom 寵物習慣王國——陪孩子練習生活能力的小王國。和寵物一起完成任務、獲得星星、佈置專屬小天地。">
-  <meta property="og:title" content="Pet Habit Kingdom｜寵物習慣王國 - Maggie Lab">
-  <meta property="og:description" content="陪孩子練習生活能力的小王國。和寵物一起養成好習慣，培養自我管理、情緒表達、責任感。">
-  <meta property="og:image" content="https://maggielab.github.io/home/images/pet-habit-card.webp">
-  <meta property="og:url" content="https://maggielab.github.io/home/PetHabitKingdom.html">
+  <meta name="description" content="注音打字冒險 Zhuyin Typing Adventure——一邊冒險，一邊學會注音打字。">
+  <meta property="og:title" content="注音打字冒險｜Zhuyin Typing Adventure - Maggie Lab">
+  <meta property="og:description" content="一邊冒險，一邊學會注音打字。">
+  <meta property="og:image" content="https://maggielab.github.io/home/images/zhuyin-cover.webp">
+  <meta property="og:url" content="https://maggielab.github.io/home/ZhuyinTypingAdventure.html">
   <meta property="og:type" content="website">
-  <title>Pet Habit Kingdom｜寵物習慣王國 - Maggie Lab</title>
+  <title>注音打字冒險｜Zhuyin Typing Adventure - Maggie Lab</title>
   <link rel="icon" type="image/png" sizes="32x32" href="favicons/icon-32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="favicons/icon-16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="favicons/icon-180.png">
@@ -51,13 +51,12 @@
 
     .topbar {
       position: sticky; top: 0; z-index: 10;
-      background: rgba(251, 246, 238, .86); backdrop-filter: blur(14px);
+      background: rgba(251, 246, 238, .96);
       border-bottom: 1px solid var(--line);
     }
     .topbar-inner { min-height: 64px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
     .back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--text); text-decoration: none; font-size: 14px; font-weight: 500; }
     .back-link:hover { color: var(--clay-deep); }
-    .topbar .brand-en { font-family: "Noto Serif TC", serif; font-size: 15px; font-weight: 600; color: var(--muted); }
     .version-badge {
       display: inline-flex; align-items: center; gap: 4px;
       font-size: 12px; font-weight: 600; color: var(--clay-deep);
@@ -65,15 +64,17 @@
       padding: 4px 10px; border-radius: var(--radius-pill);
     }
     .topbar-right { display: flex; align-items: center; gap: 12px; }
-    .topbar .brand-en { display: none; }
 
     section { padding: 72px 0; }
     .divider { width: 1px; height: 44px; margin: 0 auto; background: linear-gradient(to bottom, transparent, var(--line), transparent); }
 
-    /* ============ HERO ============ */
+    /* ============ HERO（目前還沒有封面圖，先用淡色佔位） ============ */
     .lp-hero { padding: 0; }
-    .lp-hero-visual { position: relative; }
-    .lp-hero-visual img { width: 100%; height: auto; display: block; }
+    .lp-hero-visual {
+      position: relative; aspect-ratio: 16/9; overflow: hidden;
+      background: linear-gradient(155deg, #F2E2CC, #E3CBA4);
+    }
+    .lp-hero-visual img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .visually-hidden {
       position: absolute; width: 1px; height: 1px;
       overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap;
@@ -98,21 +99,16 @@
     .btn-text:hover { color: var(--clay-deep); border-color: var(--clay-deep); }
 
     /* ============ SECTION HEAD ============ */
+    .section-head { max-width: 580px; margin: 0 auto 40px; text-align: center; }
+    .kicker { display: block; margin-bottom: 12px; color: var(--muted); font-size: 13px; font-weight: 500; letter-spacing: .12em; }
     h2 { font-family: "Noto Serif TC", serif; font-weight: 600; color: var(--ink); font-size: clamp(21px, 2.8vw, 26px); line-height: 1.5; }
     .section-copy { margin-top: 14px; color: var(--text); font-size: 15px; }
 
-    /* ============ 品牌素材直接引用（不重新排版內容，只做置中與響應式縮放） ============ */
+    /* ============ 作品介紹：直接引用品牌素材，不重新排版內容 ============ */
     .brand-asset { max-width: 720px; margin: 0 auto; }
     .brand-asset img {
       width: 100%; height: auto; display: block;
       border-radius: var(--radius-card);
-      box-shadow: 0 1px 2px rgba(61,47,39,.05), 0 16px 32px -18px rgba(61,47,39,.16);
-    }
-
-    /* ============ 遊戲畫面 ============ */
-    .gallery-wrap { text-align: center; }
-    .gallery-wrap img {
-      max-width: 100%; border-radius: var(--radius-card);
       box-shadow: 0 1px 2px rgba(61,47,39,.05), 0 16px 32px -18px rgba(61,47,39,.16);
     }
 
@@ -138,17 +134,6 @@
     }
     .beta-block.is-loading .beta-headline,
     .beta-block.is-loading .beta-stats { opacity: .6; }
-
-    /* ============ 加入主畫面卡片 ============ */
-    .install-card {
-      max-width: 480px; margin: 0 auto; text-align: center;
-      background: var(--paper); border-radius: var(--radius-card);
-      padding: clamp(28px, 5vw, 36px) clamp(22px, 4vw, 32px);
-      box-shadow: 0 1px 2px rgba(61,47,39,.05);
-    }
-    .install-card h2 { font-size: 19px; }
-    .install-card p { margin-top: 10px; color: var(--text); font-size: 14px; }
-    .install-card .btn { margin-top: 16px; }
 
     /* ============ 家長中心 ============ */
     .parent-center { max-width: 520px; margin: 0 auto; text-align: center; }
@@ -184,7 +169,6 @@
 
     @media (min-width: 760px) {
       section { padding: 96px 0; }
-      .topbar .brand-en { display: inline; }
     }
   </style>
 </head>
@@ -194,44 +178,31 @@
       <a class="back-link" href="index.html">← 回到 Maggie Lab</a>
       <div class="topbar-right">
         <!-- 之後只需要修改下面這個版本號文字即可 -->
-        <span class="version-badge">🌱 Beta v0.9.3</span>
-        <span class="brand-en serif">Pet Habit Kingdom</span>
+        <span class="version-badge">🌱 Beta</span>
       </div>
     </div>
   </header>
 
   <main>
     <section class="lp-hero">
-      <h1 class="visually-hidden">Pet Habit Kingdom｜寵物習慣王國</h1>
+      <h1 class="visually-hidden">注音打字冒險｜Zhuyin Typing Adventure</h1>
       <div class="lp-hero-visual">
-        <img src="images/pet-habit-card.webp" alt="Pet Habit Kingdom 寵物習慣王國世界封面：城堡、柯基與貓咪在草原上">
+        <img src="images/zhuyin-cover.webp" alt="注音打字冒險 Zhuyin Typing Adventure 封面：小雞背著背包，走向ㅓㅗㄇㄈ石板路">
       </div>
       <div class="lp-hero-actions">
         <!-- 真實連結 -->
-        <a class="btn btn-primary" href="https://maggie10299.github.io/pet-habit/" target="_blank" rel="noopener">開始遊戲</a>
+        <a class="btn btn-primary" href="https://maggie10299.github.io/zhuyin-game/" target="_blank" rel="noopener">開始遊戲</a>
       </div>
     </section>
 
     <div class="divider"></div>
 
-    <!--
-      作品介紹：直接引用品牌原始素材（pet-habit-intro.webp），不重新排版、不拆解內容。
-      這張圖本身就是完整的遊戲介紹（什麼是寵物習慣王國、五個步驟、兩種模式、能力培養、願景），
-      按照品牌圖片使用規範，只做版面置中與響應式縮放，不對內容重新編排。
-    -->
-    <section class="shell" id="world" aria-label="作品介紹">
+    <!-- 作品介紹：直接引用品牌原始素材，不重新排版、不拆解內容 -->
+    <section class="shell" id="intro" aria-label="作品介紹">
       <div class="brand-asset">
-        <img src="images/pet-habit-intro.webp" alt="Pet Habit Kingdom 寵物習慣王國完整遊戲介紹：什麼是寵物習慣王國、在王國裡的一天五個步驟、兩種陪伴模式、能力培養、我們的願景">
+        <img src="images/zhuyin-intro.webp" alt="注音打字冒險完整遊戲介紹：用鍵盤征服每一個注音、四大特色、六大冒險關卡、培養能力、適合誰、Maggie Lab理念">
       </div>
     </section>
-
-    <section class="shell" aria-label="遊戲畫面">
-      <div class="gallery-wrap">
-        <img src="images/pet-habit-gameplay.webp" alt="Pet Habit Kingdom 遊戲畫面：任務大廳、我的小天地、日記本">
-      </div>
-    </section>
-
-    <div class="divider"></div>
 
     <div class="divider"></div>
 
@@ -248,19 +219,9 @@
 
     <section class="shell">
       <div class="cta-band">
-        <h2 class="serif">準備好和寵物一起冒險了嗎？</h2>
-        <p>和寵物朋友們一起展開習慣冒險吧！</p>
-        <a class="btn btn-primary" href="https://maggie10299.github.io/pet-habit/" target="_blank" rel="noopener">開始遊戲</a>
-      </div>
-    </section>
-
-    <div class="divider"></div>
-
-    <section class="shell" aria-labelledby="install-title">
-      <div class="install-card">
-        <h2 id="install-title" class="serif">📱 加入主畫面</h2>
-        <p>將 Maggie Lab 加入手機主畫面，之後就像 App 一樣方便。</p>
-        <button class="btn btn-text" type="button" id="lpInstallButton">查看怎麼加入 →</button>
+        <h2 class="serif">準備好開始打字冒險了嗎？</h2>
+        <p>一邊闖關，一邊練習注音輸入吧！</p>
+        <a class="btn btn-primary" href="https://maggie10299.github.io/zhuyin-game/" target="_blank" rel="noopener">開始遊戲</a>
       </div>
     </section>
 
@@ -274,7 +235,6 @@
           <a href="#">📧 Beta 更新通知</a>
           <a href="#">💬 提供回饋</a>
           <a href="#">🐞 回報問題</a>
-          <a href="#">📱 加入主畫面</a>
           <a href="#">❤️ 支持 Maggie Lab</a>
         </div>
       </div>
@@ -284,6 +244,7 @@
   <footer class="footer">
     <p>來自 <a href="index.html">Maggie Lab｜好好玩實驗室</a></p>
   </footer>
+
   <script>
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
@@ -292,30 +253,7 @@
     }
   </script>
   <script>
-    // 加入主畫面：跟首頁共用同一套安裝提示機制
-    (function () {
-      const installBtn = document.querySelector("#lpInstallButton");
-      let deferredInstallPrompt = null;
-
-      window.addEventListener("beforeinstallprompt", (event) => {
-        event.preventDefault();
-        deferredInstallPrompt = event;
-      });
-
-      installBtn.addEventListener("click", async () => {
-        if (!deferredInstallPrompt) {
-          installBtn.textContent = "可以從瀏覽器選單選擇「加入主畫面」";
-          return;
-        }
-        deferredInstallPrompt.prompt();
-        await deferredInstallPrompt.userChoice;
-        deferredInstallPrompt = null;
-      });
-    })();
-  </script>
-  <script>
-    // Pet Habit Kingdom 產品專屬 Beta 成長紀錄：從 data.products.pet_habit 讀取
-    // 之後 API 若在 products.pet_habit 裡新增其他欄位，只要加進 STAT_LABELS 就會自動顯示
+    // 注音打字冒險 產品專屬 Beta 成長紀錄：從 data.products.typing_adventure 讀取
     (function () {
       const endpoint = "https://script.google.com/macros/s/AKfycbwFuPv3IoIuv0ZcxRsQNVLO3K2J6WKkqqkK3CUox318AxB9bVrBoZl2L8NmWRQMsS4/exec";
       const blockEl = document.querySelector("#betaBlock");
@@ -325,9 +263,9 @@
 
       // 已知的「次數型」統計欄位 → 顯示文字，未來新增欄位只要加在這裡就會自動出現
       const STAT_LABELS = {
-        complete_task: (v) => `${v} 次任務完成`,
-        feed_pet: (v) => `${v} 次餵寵物`,
-        finish_daily: (v) => `${v} 次完成每日任務`
+        finish_level: (v) => `${v} 次過關`,
+        typing_correct: (v) => `${v} 次打對`,
+        typing_error: (v) => `${v} 次打錯`
       };
 
       function showFallback() {
@@ -343,20 +281,20 @@
           return response.json();
         })
         .then((data) => {
-          const product = data && data.products && data.products.pet_habit;
-          if (!product || typeof product !== "object") throw new Error("products.pet_habit 還沒有資料");
+          const product = data && data.products && data.products.typing_adventure;
+          if (!product || typeof product !== "object") throw new Error("products.typing_adventure 還沒有資料");
 
           const players = product.beta_players;
           const hasAnyKnownField =
             players !== undefined ||
             Object.keys(STAT_LABELS).some((key) => product[key] !== undefined);
 
-          if (!hasAnyKnownField) throw new Error("No usable fields in products.pet_habit");
+          if (!hasAnyKnownField) throw new Error("No usable fields in products.typing_adventure");
 
           blockEl.classList.remove("is-loading");
 
           if (players !== undefined) {
-            headlineEl.innerHTML = `目前已有<br><strong>${players}</strong> 個家庭<br>一起陪孩子建立習慣。`;
+            headlineEl.innerHTML = `目前已有<br><strong>${players}</strong> 個家庭<br>一起練習注音打字。`;
           } else {
             headlineEl.textContent = "";
           }
