@@ -1,58 +1,683 @@
-const CACHE_NAME = "maggie-lab-home-v17";
-const APP_SHELL = [
-  "./index.html",
-  "./PetHabitKingdom.html",
-  "./ZhuyinTypingAdventure.html",
-  "./Explore.html",
-  "./works-data.js",
-  "./manifest.webmanifest",
-  "./favicons/icon-192.png",
-  "./images/hero-scene.webp",
-  "./images/why-family.webp",
-  "./images/pet-habit-card.webp",
-  "./images/pet-habit-intro.webp",
-  "./images/work-process.webp",
-  "./images/zhuyin-cover.webp",
-  "./images/zhuyin-intro.webp"
-];
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#FBF6EE">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Maggie Lab">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="description" content="Maggie Lab｜好好玩實驗室。一位媽媽和女兒，一起做作品。">
+  <meta property="og:title" content="Maggie Lab｜好好玩實驗室">
+  <meta property="og:description" content="用遊戲和小工具，陪孩子也陪大人，把每天過得好一點。">
+  <meta property="og:image" content="https://maggielab.github.io/home/images/hero-maggielab.webp">
+  <meta property="og:url" content="https://maggielab.github.io/home/">
+  <meta property="og:type" content="website">
+  <title>Maggie Lab｜好好玩實驗室</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" type="image/x-icon" href="favicons/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicons/icon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicons/icon-16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="favicons/icon-180.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ============ Design System tokens（與 design-system.html 同步維護） ============ */
+    :root {
+      color-scheme: light;
+      --bg: #FBF6EE;
+      --paper: #FFFCF6;
+      --ink: #3D2F27;
+      --text: #6B5847;
+      --muted: #A7937E;
+      --line: rgba(61, 47, 39, .09);
+      --line-soft: rgba(61, 47, 39, .06);
+      --clay: #B97A53;
+      --clay-deep: #8C5836;
 
-self.addEventListener("install", (event) => {
-  event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(APP_SHELL)));
-  self.skipWaiting();
-});
+      --radius-card: 6px;
+      --radius-pill: 999px;
+      --space-1: 8px;
+      --space-2: 16px;
+      --space-3: 24px;
+      --space-4: 32px;
+      --space-5: 48px;
+      --space-6: 64px;
+      --ease: .22s ease;
+      --max: 980px;
+    }
 
-self.addEventListener("activate", (event) => {
-  event.waitUntil(
-    caches.keys().then((keys) =>
-      Promise.all(keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key)))
-    )
-  );
-  self.clients.claim();
-});
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-width: 320px;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      line-height: 1.85;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
 
-self.addEventListener("fetch", (event) => {
-  if (event.request.method !== "GET") return;
+    a { color: inherit; }
+    h1, h2, h3, p { margin: 0; }
+    button, input { font: inherit; }
+    .serif { font-family: "Noto Serif TC", serif; }
+    .shell { width: min(var(--max), calc(100% - 48px)); margin-inline: auto; }
 
-  if (event.request.mode === "navigate") {
-    event.respondWith(
-      fetch(event.request)
-        .then((response) => {
-          const copy = response.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put("./index.html", copy));
-          return response;
-        })
-        .catch(() => caches.match("./index.html"))
-    );
-    return;
-  }
+    /* ============ TOPBAR ============ */
+    .topbar {
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(251, 246, 238, .96);
+      border-bottom: 1px solid var(--line);
+    }
+    .topbar-inner {
+      min-height: 76px;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    }
+    .brand { display: inline-flex; align-items: center; gap: 9px; color: var(--ink); text-decoration: none; }
+    .brand-mark { display: inline-flex; width: 30px; height: 30px; }
+    .brand-mark svg { width: 100%; height: 100%; }
+    /* 目前還沒有正式 Logo，先隱藏圖示只顯示文字。
+       之後有 Logo 圖檔時，把這行 CSS 拿掉，圖示會自動恢復顯示，不用改 HTML 結構。 */
+    .brand-mark { display: none; }
+    .brand-en { font-family: "Noto Serif TC", serif; font-size: 16.5px; font-weight: 600; }
+    .brand-zh { color: var(--muted); font-size: 12.5px; font-weight: 500; }
+    .nav { display: none; align-items: center; gap: 26px; }
+    .nav a { color: var(--muted); font-size: 14px; font-weight: 500; text-decoration: none; transition: color var(--ease); }
+    .nav a:hover { color: var(--clay-deep); }
+    .install-btn {
+      display: none; min-height: 36px;
+      border: 1px solid var(--line); border-radius: var(--radius-pill);
+      padding: 7px 14px; color: var(--text); background: transparent;
+      font-size: 12.5px; font-weight: 500; cursor: pointer;
+    }
+    .install-btn:hover { background: var(--paper); }
 
-  event.respondWith(
-    caches.match(event.request).then((cached) =>
-      cached || fetch(event.request).then((response) => {
-        const copy = response.clone();
-        caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
-        return response;
+    main { display: block; }
+    section { padding: 32px 0; }
+    .divider {
+      width: 1px; height: 32px; margin: 0 auto;
+      background: linear-gradient(to bottom, transparent, var(--line), transparent);
+    }
+
+    /* ============ HERO（圖片在最上方，只留主標/副標/單一CTA） ============ */
+    .hero { padding: 0; text-align: center; }
+
+    .hero-visual {
+      position: relative;
+    }
+    .hero-visual img { width: 100%; height: auto; display: block; }
+
+    .hero-content { padding: 40px 0 0; }
+
+    .hero-tagline {
+      margin: 0 auto; max-width: 560px;
+      font-family: "Noto Serif TC", serif; font-weight: 600;
+      font-size: clamp(22px, 3.6vw, 30px); line-height: 1.55; color: var(--ink);
+    }
+    .hero-tagline .accent { color: var(--clay-deep); }
+
+    .hero-explainer {
+      margin: 16px auto 0; max-width: 480px;
+      font-size: 15px; color: var(--text); font-weight: 400; line-height: 1.8;
+    }
+    .hero-actions {
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+      gap: 16px; margin-top: 28px; padding-bottom: 12px;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      border-radius: var(--radius-pill); padding: 13px 26px;
+      border: 1px solid transparent; font-size: 14.5px; font-weight: 600;
+      text-decoration: none; cursor: pointer;
+      transition: transform var(--ease), background var(--ease), opacity var(--ease);
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary { color: #FFFCF6; background: var(--clay-deep); }
+    .btn-primary:hover { background: #6f4527; }
+    .btn-text { color: var(--text); padding: 13px 4px; border-bottom: 1px solid var(--line); border-radius: 0; }
+    .btn-text:hover { color: var(--clay-deep); border-color: var(--clay-deep); }
+
+    /* ============ 為什麼會有 Maggie Lab（純文字） ============ */
+    .why-block { max-width: 580px; margin: 0 auto; text-align: center; }
+    .why-block h2 { margin-bottom: 16px; }
+    .why-block p { color: var(--text); font-size: 15px; line-height: 1.9; }
+    .why-block p + p { margin-top: 12px; }
+
+    /* ============ 作品流程（插畫橫向滾動，桌面置中完整顯示） ============ */
+    .process-scroll {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      display: flex; justify-content: flex-start;
+      padding-bottom: 4px;
+    }
+    .process-scroll img {
+      height: 220px; width: auto; max-width: none; display: block;
+      border-radius: var(--radius-card);
+      margin-inline: auto;
+    }
+    .section-closing {
+      margin-top: 28px; text-align: center;
+      color: var(--text); font-size: 14.5px; line-height: 1.9;
+    }
+
+    /* ============ SECTION HEAD ============ */
+    .section-head { max-width: 560px; margin: 0 auto 44px; text-align: center; }
+    .kicker {
+      display: block; margin-bottom: 12px; color: var(--muted);
+      font-size: 13px; font-weight: 500; letter-spacing: .12em;
+    }
+    h2 {
+      font-family: "Noto Serif TC", serif; font-weight: 600; color: var(--ink);
+      font-size: clamp(22px, 3vw, 28px); line-height: 1.5;
+    }
+    .section-copy { margin-top: 14px; color: var(--text); font-size: 15px; }
+    .section-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      margin-top: 14px;
+      font-size: 13px; font-weight: 600; color: var(--clay-deep);
+      background: var(--bg); border: 1px solid var(--line);
+      padding: 5px 14px; border-radius: var(--radius-pill);
+    }
+
+
+    /* ============ 精選作品（單欄式卡片：圖在上、內容在下，Apple式留白節奏） ============ */
+    .work-list {
+      display: flex; flex-direction: column; gap: 28px;
+      max-width: 640px; margin: 0 auto;
+    }
+
+    .work-card {
+      background: var(--paper);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 1px 2px rgba(61,47,39,.05), 0 14px 30px -16px rgba(61,47,39,.14);
+    }
+    .work-cover {
+      background: linear-gradient(155deg, #F4EBDD, #EEE1CB);
+      display: grid; place-items: center;
+      overflow: hidden;
+    }
+    /* 品牌圖片規範：完整顯示原圖比例，不裁切、不強制比例 */
+    .work-cover img { width: 100%; height: auto; display: block; }
+    .work-cover .work-icon { font-size: 34px; opacity: .65; padding: 60px 0; }
+
+    .work-content { padding: 22px clamp(20px, 4vw, 30px) 26px; }
+    .work-top {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      gap: 10px; flex-wrap: wrap;
+    }
+    .work-top h3 {
+      font-family: "Noto Serif TC", serif; font-size: 18px; font-weight: 600; color: var(--ink);
+    }
+    .status-tag {
+      flex: 0 0 auto;
+      font-size: 11px; font-weight: 700; letter-spacing: .03em;
+      padding: 3px 11px; border-radius: var(--radius-pill); white-space: nowrap;
+    }
+    .status-tag.is-live { background: #EAF1E3; color: #5C7A50; }
+    .status-tag.is-soon { background: var(--bg); color: var(--muted); border: 1px solid var(--line); }
+
+    .work-content p.work-desc { margin-top: 10px; color: var(--text); font-size: 14px; line-height: 1.75; }
+
+    .work-actions {
+      margin-top: 18px; display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+    }
+    .work-actions .btn { padding: 11px 22px; font-size: 14px; }
+    .work-intro-link {
+      color: var(--clay-deep); font-size: 13.5px; font-weight: 600;
+      text-decoration: none; border-bottom: 1px solid var(--line);
+      padding-bottom: 1px;
+    }
+    .work-intro-link:hover { border-color: var(--clay-deep); }
+
+    .works-more { margin-top: 32px; text-align: center; }
+
+    /* ============ 體驗家庭進行中（同樣的卡片風格，只有圖片+標題，文字說明交給區塊標題負責，不重複） ============ */
+
+    /* ============ SUPPORT — 支持我們繼續創作，導流到 Katawu，保持低調 ============ */
+    .support-strip {
+      max-width: 640px; margin: 0 auto;
+      text-align: center;
+      padding: 28px 26px;
+      background: var(--paper);
+      border-radius: var(--radius-card);
+      box-shadow: 0 1px 2px rgba(61,47,39,.05);
+    }
+    /* 醬料示意圖：放在文字上方，跟全站「圖在上、文字在下」的閱讀節奏一致；不裁切，完整顯示 */
+    .support-strip img {
+      width: 100%; height: auto; display: block;
+      border-radius: calc(var(--radius-card) - 2px);
+      margin-bottom: 18px;
+    }
+    .support-strip-text h3 { font-family: "Noto Serif TC", serif; font-size: 16px; font-weight: 600; }
+    .support-strip-text p { margin-top: 10px; color: var(--text); font-size: 13.5px; line-height: 1.8; }
+    .support-strip .btn-text { margin-top: 16px; display: inline-flex; }
+
+    /* ============ WAITLIST / BREVO ============ */
+    .invite {
+      max-width: 560px; margin: 0 auto; text-align: center;
+      background: var(--paper);
+      border-radius: var(--radius-card);
+      padding: clamp(32px, 6vw, 48px) clamp(24px, 5vw, 40px);
+      box-shadow: 0 1px 2px rgba(61,47,39,.05), 0 20px 44px -18px rgba(61,47,39,.16);
+    }
+    .invite p.lead { margin-top: 16px; color: var(--text); font-size: 15px; line-height: 1.9; }
+    .invite-form { margin: 32px auto 0; max-width: 400px; display: flex; justify-content: center; }
+
+    /* ============ 體驗家庭表單 Modal（不跳出網站，同頁面內展開） ============ */
+    .form-modal {
+      position: fixed; inset: 0; z-index: 50;
+      display: none;
+      align-items: center; justify-content: center;
+      padding: 20px;
+      background: rgba(61, 47, 39, .45);
+    }
+    .form-modal.is-open { display: flex; }
+    .form-modal-card {
+      position: relative;
+      width: min(480px, 100%);
+      max-height: min(640px, 90vh);
+      background: var(--paper);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 30px 60px -20px rgba(61,47,39,.4);
+      display: flex; flex-direction: column;
+    }
+    .form-modal-header {
+      flex: 0 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px;
+      padding: 16px 20px;
+      background: var(--bg);
+      border-bottom: 1px solid var(--line);
+    }
+    .form-modal-header span {
+      font-family: "Noto Serif TC", serif; font-weight: 600;
+      font-size: 15px; color: var(--ink);
+    }
+    .form-modal-close {
+      flex: 0 0 auto;
+      width: 30px; height: 30px; border-radius: 50%;
+      display: grid; place-items: center;
+      background: var(--paper); border: 1px solid var(--line);
+      color: var(--text); font-size: 15px; cursor: pointer;
+      transition: color var(--ease), border-color var(--ease);
+    }
+    .form-modal-close:hover { color: var(--clay-deep); border-color: var(--clay-deep); }
+    .form-modal-card iframe {
+      width: 100%; height: 100%; border: 0; flex: 1; min-height: 520px;
+    }
+    .form-modal-fallback {
+      flex: 0 0 auto;
+      padding: 10px 16px; text-align: center;
+      font-size: 12.5px; color: var(--muted);
+      border-top: 1px solid var(--line);
+      background: var(--paper);
+    }
+    .form-modal-fallback a { color: var(--clay-deep); font-weight: 600; }
+
+    /* ============ FOOTER ============ */
+    .footer { padding: 48px 0 max(36px, env(safe-area-inset-bottom)); border-top: 1px solid var(--line); }
+    .footer-inner { display: grid; gap: 20px; }
+    .footer strong {
+      display: block; font-family: "Noto Serif TC", serif;
+      font-weight: 600; color: var(--ink); font-size: 16px;
+    }
+    .footer p { margin-top: 6px; color: var(--muted); font-size: 13px; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+    .footer-links a { color: var(--muted); font-size: 13px; font-weight: 500; text-decoration: none; }
+    .footer-links a:hover { color: var(--clay-deep); }
+    .footer-social { margin-top: 24px; display: flex; flex-direction: column; gap: 10px; }
+    .footer-social a {
+      color: var(--text); font-size: 13.5px; font-weight: 600; text-decoration: none;
+    }
+    .footer-social a:hover { color: var(--clay-deep); }
+    .footer-social span { display: block; margin-top: 2px; color: var(--muted); font-size: 12.5px; font-weight: 400; }
+
+    .toast {
+      position: fixed; left: 50%; bottom: 18px; z-index: 30;
+      width: min(420px, calc(100% - 28px)); padding: 13px 15px; border-radius: 14px;
+      color: #FFFCF6; background: rgba(61, 47, 39, .94);
+      text-align: center; font-size: 14px; font-weight: 500;
+      opacity: 0; transform: translate(-50%, 12px); pointer-events: none;
+      transition: opacity var(--ease), transform var(--ease);
+    }
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+    @media (min-width: 760px) {
+      .nav { display: flex; }
+      .install-btn { display: inline-flex; }
+      section { padding: 48px 0; }
+      .process-scroll img { height: 320px; }
+      .footer-inner { grid-template-columns: 1fr auto; align-items: start; }
+    }
+    @media (max-width: 480px) {
+      .shell { width: calc(100% - 32px); }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <a class="brand" href="#top" aria-label="Maggie Lab 首頁">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 64 64" role="img">
+            <path d="M15 27 12 10l15 9h10l15-9-3 17c4 4 6 9 6 15 0 13-10 20-23 20S9 55 9 42c0-6 2-11 6-15Z" fill="#FFFCF6" stroke="#8C5836" stroke-width="4" stroke-linejoin="round"/>
+            <circle cx="25" cy="39" r="3.2" fill="#3D2F27"/>
+            <circle cx="39" cy="39" r="3.2" fill="#3D2F27"/>
+            <path d="M28 48c2.5 2 5.5 2 8 0" fill="none" stroke="#3D2F27" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <span class="brand-en serif">Maggie Lab</span>
+        <span class="brand-zh">好好玩實驗室</span>
+      </a>
+      <nav class="nav" aria-label="主要導覽">
+        <a href="#works">作品</a>
+        <a href="#support">支持我們</a>
+        <a href="#waitlist">加入體驗家庭</a>
+      </nav>
+      <button class="install-btn" type="button" id="installButton">加入主畫面</button>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-visual">
+        <img id="hero-image" src="images/hero-scene-v2.webp" alt="Maggie Lab 好好玩實驗室插畫：貓媽媽陪貓女兒一起畫畫、用電腦，書桌上有世界地圖、旅行手帳與探索主題小物">
+      </div>
+
+      <div class="hero-content shell">
+        <h1 class="hero-tagline" id="hero-title">陪孩子玩出<span class="accent">好奇心、創造力</span>與解決問題的能力。</h1>
+        <p class="hero-explainer" id="hero-subtitle">一位媽媽利用 AI，把生活中的想法，做成真的值得孩子玩的作品。</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#works">開始探索作品</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="shell" id="why" aria-labelledby="why-title">
+      <div class="why-block">
+        <h2 id="why-title" class="serif">為什麼會有 Maggie Lab？</h2>
+        <p id="story-p1">希望孩子的螢幕時間，能變成真正願意探索與創造的時間。</p>
+        <p id="story-p2">於是開始利用 AI，把生活中的想法，做成一個個遊戲與工具。第一位測試員，永遠都是我的女兒。</p>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="shell" id="works" aria-labelledby="works-title">
+      <div class="section-head">
+        <h2 id="works-title">精選作品</h2>
+      </div>
+
+      <!--
+        精選作品資料來自 content/works.json（全站共用，可透過 Pages CMS 編輯），只顯示 featured: true 且 status: "done" 的項目。
+        之後新增作品，不需要改這裡的 HTML，去 content/works.json 加資料就好。
+      -->
+      <div class="work-list" id="featuredList"></div>
+      <div class="works-more">
+        <a class="btn btn-text" href="Explore.html">查看更多作品 →</a>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!--
+      體驗家庭進行中：只有圖片+標籤，沒有任何連結。
+      如果 content/works.json 裡沒有任何 status:"testing" 且有 cover 圖片的項目，這整個區塊會自動隱藏，不會顯示空白標題。
+    -->
+    <section class="shell" id="testing" aria-labelledby="testing-title" hidden>
+      <div class="section-head">
+        <h2 id="testing-title">🌱 體驗家庭進行中</h2>
+        <p class="section-copy">正在和體驗家庭一起完成最後的調整。</p>
+      </div>
+      <div class="work-list" id="testingList"></div>
+      <p class="section-closing">等準備好了，就會和大家見面。</p>
+    </section>
+
+    <div class="divider" id="testingDivider" hidden></div>
+
+    <!--
+      合併區塊：五步驟流程插畫 + 加入體驗家庭 CTA，視為同一個區塊「一起陪作品長大」，不拆成兩段。
+    -->
+    <section class="shell" id="waitlist" aria-labelledby="waitlist-title">
+      <h2 id="waitlist-title" class="serif" style="text-align:center; margin-bottom: 28px;">一起陪作品長大</h2>
+
+      <div class="process-scroll">
+        <img src="images/work-process.webp" alt="作品流程插畫：開始製作、家人測試、官網 Beta、正式發布、持續更新，五個階段。不求快，不求多，只希望每一個作品，都值得孩子一玩再玩。">
+      </div>
+
+      <div class="invite">
+        <p class="lead">每一個作品，都會先經過家人測試，再邀請更多家庭一起體驗。如果你願意陪 Maggie Lab 一起慢慢把作品做好，歡迎加入體驗家庭。</p>
+
+        <div class="invite-form">
+          <button class="btn btn-primary" type="button" id="openFormBtn">歡迎加入體驗家庭</button>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- 支持我們繼續創作：導流到 Katawu 官網，保持低調，不像募款 -->
+    <section class="shell" id="support" aria-label="支持我們繼續創作">
+      <div class="support-strip">
+        <img id="support-image" src="images/why-family.webp" alt="貓爸爸做醬、貓媽媽用電腦、貓女兒趴在桌上的生活插畫">
+        <div class="support-strip-text">
+          <h3 id="support-title">🌿 支持我們繼續創作</h3>
+          <p id="support-text">Maggie Lab 的作品，目前都可以免費玩。如果你喜歡這些作品，也歡迎帶一瓶 Katawu 回家。每一瓶醬料，都支持我們繼續創作下一個作品。</p>
+        </div>
+        <a class="btn-text" id="support-button" href="https://www.katawu.com" target="_blank" rel="noopener">看看 Katawu 醬料 →</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- 體驗家庭表單：點按鈕在頁面內展開，不會跳轉離開 Maggie Lab 官網 -->
+  <div class="form-modal" id="formModal" role="dialog" aria-modal="true" aria-label="加入體驗家庭表單">
+    <div class="form-modal-card">
+      <div class="form-modal-header">
+        <span>🌱 加入體驗家庭</span>
+        <button class="form-modal-close" type="button" id="closeFormBtn" aria-label="關閉">✕</button>
+      </div>
+      <iframe id="formIframe" data-src="https://4ddf8975.sibforms.com/serve/MUIFAFwgiJ_wejwZYKJrpK7VAapG57q7D7Leh_yF1esIRsGZctpb15rksANmjpYjzCXCQKMDCgLOaaF5rDzN76j8It16pg8VWlJvxI1HrcWFeKU6WmOiFKWcJofdpLRnlEa3Qf1RIBrrXfIB3TudScKBM7uAISY0QBxIIJomBpNehsbxdpkzKaekBqQTsPurkAZN997AROqCHxQErA==" title="加入 Maggie Lab 體驗家庭"></iframe>
+      <p class="form-modal-fallback">表單沒有正常顯示嗎？<a href="https://4ddf8975.sibforms.com/serve/MUIFAFwgiJ_wejwZYKJrpK7VAapG57q7D7Leh_yF1esIRsGZctpb15rksANmjpYjzCXCQKMDCgLOaaF5rDzN76j8It16pg8VWlJvxI1HrcWFeKU6WmOiFKWcJofdpLRnlEa3Qf1RIBrrXfIB3TudScKBM7uAISY0QBxIIJomBpNehsbxdpkzKaekBqQTsPurkAZN997AROqCHxQErA==" target="_blank" rel="noopener">點這裡在新視窗開啟</a></p>
+    </div>
+  </div>
+  <footer class="footer">
+    <div class="shell footer-inner">
+      <div>
+        <strong class="serif">Maggie Lab｜好好玩實驗室</strong>
+        <p id="footer-tagline">一步一步做出真正值得親子遊玩作品及工具。</p>
+      </div>
+      <div>
+        <nav class="footer-links" aria-label="頁尾連結">
+          <a href="#works">作品</a>
+          <a href="#support">支持我們</a>
+          <a href="#waitlist">加入體驗家庭</a>
+        </nav>
+        <div class="footer-social">
+          <a id="footer-instagram" href="https://www.instagram.com/hello.maggie/" target="_blank" rel="noopener">
+            Instagram
+            <span id="footer-instagram-desc">我們這一家的日常／餐桌分享</span>
+          </a>
+          <a id="footer-facebook" href="https://www.facebook.com/share/18PeF6fVJm/?mibextid=wwXIfr" target="_blank" rel="noopener">
+            Facebook
+            <span id="footer-facebook-desc">發布我的新作品、更新日誌與活動資訊</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    const toast = document.querySelector("#toast");
+    const installButton = document.querySelector("#installButton");
+    let deferredInstallPrompt = null;
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add("show");
+      window.clearTimeout(showToast.timer);
+      showToast.timer = window.setTimeout(() => toast.classList.remove("show"), 2600);
+    }
+
+    window.addEventListener("beforeinstallprompt", (event) => {
+      event.preventDefault();
+      deferredInstallPrompt = event;
+      installButton.style.display = "inline-flex";
+    });
+
+    installButton.addEventListener("click", async () => {
+      if (!deferredInstallPrompt) {
+        showToast("可以從瀏覽器選單選擇「加入主畫面」。");
+        return;
+      }
+      deferredInstallPrompt.prompt();
+      await deferredInstallPrompt.userChoice;
+      deferredInstallPrompt = null;
+      installButton.style.display = "none";
+    });
+
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("sw.js")
+          .then((registration) => registration.update())
+          .catch(() => showToast("頁面仍可正常使用。"));
+      });
+    }
+
+    // 加入體驗家庭表單：在頁面內展開 Modal，不跳轉離開官網
+    (function () {
+      const modal = document.querySelector("#formModal");
+      const openBtn = document.querySelector("#openFormBtn");
+      const closeBtn = document.querySelector("#closeFormBtn");
+      const iframe = document.querySelector("#formIframe");
+
+      function openModal() {
+        if (!iframe.src) iframe.src = iframe.dataset.src;
+        modal.classList.add("is-open");
+      }
+      function closeModal() {
+        modal.classList.remove("is-open");
+      }
+
+      openBtn.addEventListener("click", openModal);
+      closeBtn.addEventListener("click", closeModal);
+      modal.addEventListener("click", (event) => {
+        if (event.target === modal) closeModal();
+      });
+      window.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") closeModal();
+      });
+    })();
+
+    // ============ 渲染精選作品（首頁只顯示 featured: true 且 status: "done"） ============
+    function renderFeatured(works) {
+      const list = document.querySelector("#featuredList");
+      const items = works.filter((w) => w.status === "done" && w.featured);
+
+      list.innerHTML = items.map((w) => {
+        const coverHtml = w.cover
+          ? `<img src="${w.cover}" alt="${w.title} 封面">`
+          : `<span class="work-icon">✨</span>`;
+        const descHtml = w.description ? `<p class="work-desc">${w.description}</p>` : "";
+        const playLabel = w.type === "tool" ? "開始使用" : "開始遊戲";
+        const playHtml = w.playUrl
+          ? `<a class="btn btn-primary" href="${w.playUrl}" target="_blank" rel="noopener">${playLabel}</a>`
+          : "";
+        const introHtml = w.introUrl
+          ? `<a class="work-intro-link" href="${w.introUrl}">查看作品介紹 →</a>`
+          : "";
+
+        return `
+          <article class="work-card">
+            <div class="work-cover">${coverHtml}</div>
+            <div class="work-content">
+              <div class="work-top">
+                <h3>${w.title}</h3>
+                <span class="status-tag is-live">Early Access</span>
+              </div>
+              ${descHtml}
+              <div class="work-actions">${playHtml}${introHtml}</div>
+            </div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    // ============ 渲染體驗家庭進行中（只顯示 status: "testing" 且已經有封面圖的項目，沒有任何連結） ============
+    function renderTesting(works) {
+      const section = document.querySelector("#testing");
+      const divider = document.querySelector("#testingDivider");
+      const list = document.querySelector("#testingList");
+      const items = works.filter((w) => w.status === "testing" && w.cover);
+
+      if (items.length === 0) {
+        section.hidden = true;
+        divider.hidden = true;
+        return;
+      }
+
+      section.hidden = false;
+      divider.hidden = false;
+      list.innerHTML = items.map((w) => `
+        <article class="work-card testing-card">
+          <div class="work-cover"><img src="${w.cover}" alt="${w.title} 封面"></div>
+          <div class="work-content">
+            <h3>${w.title}</h3>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    // ============ 套用首頁文字／圖片（來自 content/site.json，Pages CMS 編輯的就是這份） ============
+    // 如果抓不到 JSON（例如離線、或檔案還沒上傳），畫面會維持目前 HTML 裡寫好的內容，不會空白。
+    function applySiteContent(site) {
+      if (site.hero) {
+        if (site.hero.image) document.querySelector("#hero-image").src = site.hero.image;
+        if (site.hero.title) document.querySelector("#hero-title").innerHTML = site.hero.title;
+        if (site.hero.subtitle) document.querySelector("#hero-subtitle").textContent = site.hero.subtitle;
+      }
+      if (site.story) {
+        if (site.story.title) document.querySelector("#why-title").textContent = site.story.title;
+        if (site.story.paragraph1) document.querySelector("#story-p1").textContent = site.story.paragraph1;
+        if (site.story.paragraph2) document.querySelector("#story-p2").textContent = site.story.paragraph2;
+      }
+      if (site.support) {
+        if (site.support.image) document.querySelector("#support-image").src = site.support.image;
+        if (site.support.title) document.querySelector("#support-title").textContent = site.support.title;
+        if (site.support.text) document.querySelector("#support-text").textContent = site.support.text;
+        if (site.support.buttonUrl) document.querySelector("#support-button").href = site.support.buttonUrl;
+      }
+      if (site.footer) {
+        if (site.footer.tagline) document.querySelector("#footer-tagline").textContent = site.footer.tagline;
+        if (site.footer.instagramUrl) document.querySelector("#footer-instagram").href = site.footer.instagramUrl;
+        if (site.footer.instagramDesc) document.querySelector("#footer-instagram-desc").textContent = site.footer.instagramDesc;
+        if (site.footer.facebookUrl) document.querySelector("#footer-facebook").href = site.footer.facebookUrl;
+        if (site.footer.facebookDesc) document.querySelector("#footer-facebook-desc").textContent = site.footer.facebookDesc;
+      }
+    }
+
+    fetch("content/site.json")
+      .then((response) => { if (!response.ok) throw new Error("Request failed"); return response.json(); })
+      .then((site) => applySiteContent(site))
+      .catch(() => { /* 抓不到就維持 HTML 裡原本寫好的內容 */ });
+
+    fetch("content/works.json")
+      .then((response) => { if (!response.ok) throw new Error("Request failed"); return response.json(); })
+      .then((works) => {
+        renderFeatured(works);
+        renderTesting(works);
       })
-    )
-  );
-});
+      .catch(() => { /* 抓不到就讓精選作品／體驗家庭進行中維持空白，不會顯示錯誤畫面 */ });
+  </script>
+</body>
+</html>

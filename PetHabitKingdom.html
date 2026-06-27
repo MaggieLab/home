@@ -4,13 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#FBF6EE">
-  <meta name="description" content="Pet Habit Kingdom 寵物習慣王國——陪孩子練習生活能力的小王國。">
-  <meta property="og:title" content="Pet Habit Kingdom｜寵物習慣王國 - Maggie Lab">
-  <meta property="og:description" content="陪孩子練習生活能力的小王國。和寵物一起養成好習慣。">
-  <meta property="og:image" content="https://maggielab.github.io/home/images/pet-habit-intro.webp">
-  <meta property="og:url" content="https://maggielab.github.io/home/PetHabitKingdom.html">
+  <meta name="description" content="Maggie Lab 作品庫——所有正式上線的遊戲與工具都在這裡。">
+  <meta property="og:title" content="作品庫 - Maggie Lab">
+  <meta property="og:description" content="所有正式上線的遊戲與工具都在這裡。">
+  <meta property="og:url" content="https://maggielab.github.io/home/Explore.html">
   <meta property="og:type" content="website">
-  <title>Pet Habit Kingdom｜寵物習慣王國 - Maggie Lab</title>
+  <title>作品庫 - Maggie Lab｜好好玩實驗室</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" type="image/x-icon" href="favicons/favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="favicons/icon-32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="favicons/icon-16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="favicons/icon-180.png">
@@ -31,7 +32,7 @@
       --radius-card: 6px;
       --radius-pill: 999px;
       --ease: .22s ease;
-      --max: 720px;
+      --max: 980px;
     }
 
     * { box-sizing: border-box; }
@@ -43,112 +44,130 @@
       line-height: 1.85; -webkit-font-smoothing: antialiased;
     }
     a { color: inherit; }
-    h1, p { margin: 0; }
+    h1, h2, h3, p { margin: 0; }
     button { font: inherit; }
     .serif { font-family: "Noto Serif TC", serif; }
     .shell { width: min(var(--max), calc(100% - 48px)); margin-inline: auto; }
-    .visually-hidden {
-      position: absolute; width: 1px; height: 1px;
-      overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap;
-    }
 
     .topbar {
       position: sticky; top: 0; z-index: 10;
       background: rgba(251, 246, 238, .96);
       border-bottom: 1px solid var(--line);
     }
-    .topbar-inner { min-height: 64px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-    .back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--text); text-decoration: none; font-size: 14px; font-weight: 500; }
+    .topbar-inner { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .brand { display: inline-flex; align-items: center; gap: 9px; color: var(--ink); text-decoration: none; }
+    .brand-en { font-family: "Noto Serif TC", serif; font-size: 16.5px; font-weight: 600; }
+    .brand-zh { color: var(--muted); font-size: 12.5px; font-weight: 500; }
+    .back-link { color: var(--muted); font-size: 14px; font-weight: 500; text-decoration: none; }
     .back-link:hover { color: var(--clay-deep); }
-    .version-badge {
-      display: inline-flex; align-items: center; gap: 4px;
-      font-size: 12px; font-weight: 600; color: var(--clay-deep);
-      background: var(--bg); border: 1px solid var(--line);
-      padding: 4px 10px; border-radius: var(--radius-pill);
-    }
 
-    main { padding: 28px 0 56px; }
+    main { display: block; }
+    section { padding: 44px 0 64px; }
 
-    /* ============ 品牌素材直接引用：產品介紹圖本身就是正式 Landing Page ============ */
-    .brand-asset img {
-      width: 100%; height: auto; display: block;
-      border-radius: var(--radius-card);
-      box-shadow: 0 1px 2px rgba(61,47,39,.05), 0 16px 32px -18px rgba(61,47,39,.16);
-    }
+    .page-head { max-width: 560px; margin: 0 auto 32px; text-align: center; }
+    .page-head h1 { font-family: "Noto Serif TC", serif; font-weight: 600; font-size: clamp(24px, 4vw, 30px); }
 
-    /* ============ 固定動作區：開始遊戲 / 如何加入主畫面 / 提供建議回報問題 ============ */
-    .actions { margin-top: 28px; text-align: center; }
-    .btn {
-      display: inline-flex; align-items: center; gap: 8px;
-      border-radius: var(--radius-pill); padding: 13px 30px;
-      border: 1px solid transparent; font-size: 15px; font-weight: 600;
-      text-decoration: none; cursor: pointer;
-      transition: transform var(--ease), background var(--ease);
+    /* ============ 分類篩選（極簡：只有全部/遊戲/工具，不要圖示） ============ */
+    .filter-row {
+      display: flex; justify-content: center; gap: 8px; flex-wrap: wrap;
+      margin-bottom: 36px;
     }
-    .btn:hover { transform: translateY(-1px); }
-    .btn-primary { color: #FFFCF6; background: var(--clay-deep); }
-    .btn-primary:hover { background: #6f4527; }
-
-    .secondary-links {
-      margin-top: 18px; display: flex; justify-content: center; gap: 24px; flex-wrap: wrap;
-    }
-    .secondary-links button, .secondary-links a {
-      background: none; border: none; padding: 0;
+    .filter-btn {
+      padding: 8px 18px; border-radius: var(--radius-pill);
+      border: 1px solid var(--line); background: var(--paper);
       color: var(--text); font-size: 13.5px; font-weight: 600;
-      text-decoration: none; border-bottom: 1px solid var(--line);
-      cursor: pointer; padding-bottom: 1px;
+      cursor: pointer; transition: background var(--ease), color var(--ease), border-color var(--ease);
     }
-    .secondary-links button:hover, .secondary-links a:hover { color: var(--clay-deep); border-color: var(--clay-deep); }
+    .filter-btn:hover { border-color: var(--clay-deep); }
+    .filter-btn.is-active { background: var(--clay-deep); color: #FFFCF6; border-color: var(--clay-deep); }
 
-    /* ============ 如何加入主畫面：頁面內展開，不跳頁 ============ */
-    .install-panel {
-      max-width: 480px; margin: 16px auto 0;
-      background: var(--paper); border-radius: var(--radius-card);
-      padding: 0 20px; text-align: left;
-      max-height: 0; overflow: hidden;
-      transition: max-height var(--ease), padding var(--ease);
+    /* ============ 作品卡片格 ============ */
+    .work-grid {
+      display: grid; gap: 24px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      max-width: 920px; margin: 0 auto;
     }
-    .install-panel.is-open { max-height: 240px; padding: 18px 20px; }
-    .install-panel p { font-size: 13.5px; color: var(--text); line-height: 1.8; }
-    .install-panel p + p { margin-top: 8px; }
+    .work-card {
+      background: var(--paper);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 1px 2px rgba(61,47,39,.05), 0 14px 30px -16px rgba(61,47,39,.14);
+    }
+    /* 品牌圖片規範：完整顯示原圖比例，不裁切、不強制比例 */
+    .work-cover {
+      background: linear-gradient(155deg, #F4EBDD, #EEE1CB);
+      display: grid; place-items: center;
+      overflow: hidden;
+    }
+    .work-cover img { width: 100%; height: auto; display: block; }
+    .work-cover .work-icon { font-size: 30px; opacity: .65; padding: 50px 0; }
 
-    .footer { padding: 40px 0 max(32px, env(safe-area-inset-bottom)); border-top: 1px solid var(--line); text-align: center; }
+    .work-content { padding: 18px 20px 22px; }
+    .work-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+    .work-top h3 { font-family: "Noto Serif TC", serif; font-size: 16.5px; font-weight: 600; color: var(--ink); }
+    .status-tag {
+      flex: 0 0 auto; font-size: 11px; font-weight: 700; letter-spacing: .03em;
+      padding: 3px 11px; border-radius: var(--radius-pill); white-space: nowrap;
+      background: #EAF1E3; color: #5C7A50;
+    }
+    .work-content p.work-desc { margin-top: 8px; color: var(--text); font-size: 13.5px; line-height: 1.7; }
+
+    .work-actions { margin-top: 14px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+    .work-actions .btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      border-radius: var(--radius-pill); padding: 9px 18px;
+      font-size: 13px; font-weight: 600; text-decoration: none;
+      background: var(--clay-deep); color: #FFFCF6;
+    }
+    .work-intro-link {
+      color: var(--clay-deep); font-size: 12.5px; font-weight: 600;
+      text-decoration: none; border-bottom: 1px solid var(--line); padding-bottom: 1px;
+    }
+
+    .empty-state {
+      max-width: 360px; margin: 40px auto 0; text-align: center;
+      color: var(--muted); font-size: 14px;
+    }
+
+    .footer { padding: 48px 0 max(36px, env(safe-area-inset-bottom)); border-top: 1px solid var(--line); text-align: center; }
     .footer p { color: var(--muted); font-size: 13px; }
     .footer a { color: var(--clay-deep); text-decoration: none; font-weight: 600; }
+
+    @media (max-width: 480px) {
+      .shell { width: calc(100% - 32px); }
+    }
   </style>
 </head>
 <body>
   <header class="topbar">
     <div class="shell topbar-inner">
-      <a class="back-link" href="index.html">← 回到 Maggie Lab</a>
-      <!-- 之後只需要修改下面這個版本號文字即可 -->
-      <span class="version-badge">🌱 Beta v0.9.3</span>
+      <a class="brand" href="index.html" aria-label="Maggie Lab 首頁">
+        <span class="brand-en serif">Maggie Lab</span>
+        <span class="brand-zh">好好玩實驗室</span>
+      </a>
+      <a class="back-link" href="index.html">← 回到首頁</a>
     </div>
   </header>
 
   <main>
-    <h1 class="visually-hidden">Pet Habit Kingdom｜寵物習慣王國</h1>
     <section class="shell">
-      <!--
-        作品介紹：直接引用品牌原始素材，不重新排版、不拆解內容。
-        這張圖本身就是正式的 Landing Page，不另外做介紹頁面。
-      -->
-      <div class="brand-asset">
-        <img src="images/pet-habit-intro.webp" alt="Pet Habit Kingdom 寵物習慣王國完整遊戲介紹">
+      <div class="page-head">
+        <h1 class="serif">作品庫</h1>
       </div>
 
-      <div class="actions">
-        <a class="btn btn-primary" href="https://maggie10299.github.io/pet-habit/" target="_blank" rel="noopener">開始遊戲</a>
-        <div class="secondary-links">
-          <button type="button" id="installToggle">如何加入主畫面</button>
-          <!-- TODO: 之後串接 Google 試算表，目前先預留 -->
-          <a href="#">提供建議／回報問題</a>
-        </div>
-        <div class="install-panel" id="installPanel">
-          <p><strong>iPhone（Safari）：</strong>點下方分享圖示 → 選「加入主畫面」。</p>
-          <p><strong>Android（Chrome）：</strong>點右上角選單 ⋮ → 選「加入主畫面」或「安裝應用程式」。</p>
-        </div>
+      <div class="filter-row" role="tablist" aria-label="作品分類">
+        <button class="filter-btn is-active" type="button" data-filter="all">全部</button>
+        <button class="filter-btn" type="button" data-filter="game">遊戲</button>
+        <button class="filter-btn" type="button" data-filter="tool">工具</button>
       </div>
+
+      <!--
+        作品資料來自 content/works.json（全站共用，跟首頁同一份，可透過 Pages CMS 編輯）。
+        新增作品不需要改這個頁面，去 content/works.json 加資料就好。
+        只顯示 status: "done" 的作品（已正式上線），體驗家庭測試中的作品在首頁單獨展示。
+      -->
+      <div class="work-grid" id="exploreGrid"></div>
+      <p class="empty-state" id="emptyState" hidden>目前這個分類還沒有作品，敬請期待。</p>
     </section>
   </main>
 
@@ -164,14 +183,74 @@
     }
   </script>
   <script>
-    // 如何加入主畫面：頁面內展開教學，不跳頁
-    (function () {
-      const toggle = document.querySelector("#installToggle");
-      const panel = document.querySelector("#installPanel");
-      toggle.addEventListener("click", () => {
-        panel.classList.toggle("is-open");
+    let currentFilter = "all";
+    let works = [];
+
+    function matchesFilter(w) {
+      if (w.status !== "done") return false;
+      if (currentFilter === "all") return true;
+      return w.type === currentFilter;
+    }
+
+    function renderExplore() {
+      const grid = document.querySelector("#exploreGrid");
+      const emptyState = document.querySelector("#emptyState");
+      const items = works.filter(matchesFilter);
+
+      if (items.length === 0) {
+        grid.innerHTML = "";
+        emptyState.hidden = false;
+        return;
+      }
+      emptyState.hidden = true;
+
+      grid.innerHTML = items.map((w) => {
+        const coverHtml = w.cover
+          ? `<img src="${w.cover}" alt="${w.title} 封面">`
+          : `<span class="work-icon">✨</span>`;
+        const descHtml = w.description ? `<p class="work-desc">${w.description}</p>` : "";
+        const playLabel = w.type === "tool" ? "開始使用" : "開始遊戲";
+        const playHtml = w.playUrl
+          ? `<a class="btn" href="${w.playUrl}" target="_blank" rel="noopener">${playLabel}</a>`
+          : "";
+        const introHtml = w.introUrl
+          ? `<a class="work-intro-link" href="${w.introUrl}">查看介紹 →</a>`
+          : "";
+
+        return `
+          <article class="work-card">
+            <div class="work-cover">${coverHtml}</div>
+            <div class="work-content">
+              <div class="work-top">
+                <h3>${w.title}</h3>
+                <span class="status-tag">Early Access</span>
+              </div>
+              ${descHtml}
+              <div class="work-actions">${playHtml}${introHtml}</div>
+            </div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    document.querySelectorAll(".filter-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".filter-btn").forEach((b) => b.classList.remove("is-active"));
+        btn.classList.add("is-active");
+        currentFilter = btn.dataset.filter;
+        renderExplore();
       });
-    })();
+    });
+
+    fetch("content/works.json")
+      .then((response) => { if (!response.ok) throw new Error("Request failed"); return response.json(); })
+      .then((data) => {
+        works = data;
+        renderExplore();
+      })
+      .catch(() => {
+        document.querySelector("#emptyState").hidden = false;
+      });
   </script>
 </body>
 </html>

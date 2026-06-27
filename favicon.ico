@@ -1,0 +1,52 @@
+[
+  {
+    "title": "Pet Habit Kingdom",
+    "type": "game",
+    "status": "done",
+    "featured": true,
+    "description": "和寵物一起，把每天的小習慣，養成一個會長大的家。",
+    "cover": "images/pet-habit-card.webp",
+    "playUrl": "https://maggie10299.github.io/pet-habit/",
+    "introUrl": "PetHabitKingdom.html"
+  },
+  {
+    "title": "注音打字冒險",
+    "type": "game",
+    "status": "testing",
+    "featured": false,
+    "description": "",
+    "cover": "images/zhuyin-cover.webp",
+    "playUrl": null,
+    "introUrl": null
+  },
+  {
+    "title": "七習慣島嶼",
+    "type": "game",
+    "status": "testing",
+    "featured": false,
+    "description": "",
+    "cover": null,
+    "playUrl": null,
+    "introUrl": null
+  },
+  {
+    "title": "睡前聊聊",
+    "type": "tool",
+    "status": "testing",
+    "featured": false,
+    "description": "",
+    "cover": null,
+    "playUrl": null,
+    "introUrl": null
+  },
+  {
+    "title": "閱讀旅程",
+    "type": "reading",
+    "status": "testing",
+    "featured": false,
+    "description": "",
+    "cover": null,
+    "playUrl": null,
+    "introUrl": null
+  }
+]

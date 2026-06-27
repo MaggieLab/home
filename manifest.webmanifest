@@ -1,15 +1,123 @@
-{
-  "name": "Maggie Lab｜好好玩實驗室",
-  "short_name": "Maggie Lab",
-  "description": "打造每天都願意打開的數位作品。",
-  "start_url": "./index.html",
-  "scope": "./",
-  "display": "standalone",
-  "background_color": "#FBF6EE",
-  "theme_color": "#FBF6EE",
-  "lang": "zh-Hant",
-  "icons": [
-    { "src": "favicons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
-    { "src": "favicons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
-  ]
-}
+# ============================================================
+# Pages CMS 設定檔
+# ============================================================
+# 這個檔案告訴 Pages CMS（app.pagescms.org）哪些內容可以編輯。
+# 不會影響網站本身的外觀或運作，純粹是給後台編輯介面用的設定。
+#
+# 圖片上傳後會存到 images/ 資料夾，路徑寫法是「images/檔名」
+# （不是「/images/檔名」），這是因為這個網站網址是
+# maggielab.github.io/home/，不是網域最上層，路徑前面不能加斜線，
+# 否則圖片會抓錯位置。
+# ============================================================
+
+media:
+  input: images
+  output: images
+
+content:
+  - name: site
+    label: 首頁文字與圖片
+    type: file
+    path: content/site.json
+    fields:
+      - name: hero
+        label: Hero 區塊（首頁最上方）
+        type: object
+        fields:
+          - name: image
+            label: Hero 圖片
+            type: image
+          - name: title
+            label: 主標題
+            description: "裡面有一小段 <span class=\"accent\">...</span> 標籤是用來讓「好奇心、創造力」這幾個字變成橘棕色，編輯文字時請保留這段標籤，只改文字內容就好"
+            type: text
+          - name: subtitle
+            label: 副標題
+            type: text
+      - name: story
+        label: 為什麼會有 Maggie Lab
+        type: object
+        fields:
+          - name: title
+            label: 標題
+            type: string
+          - name: paragraph1
+            label: 第一段文字
+            type: text
+          - name: paragraph2
+            label: 第二段文字
+            type: text
+      - name: support
+        label: 支持我們繼續創作
+        type: object
+        fields:
+          - name: image
+            label: 插畫圖片
+            type: image
+          - name: title
+            label: 標題（含 emoji）
+            type: string
+          - name: text
+            label: 內文
+            type: text
+          - name: buttonUrl
+            label: 按鈕連結網址
+            type: string
+      - name: footer
+        label: Footer
+        type: object
+        fields:
+          - name: tagline
+            label: 品牌標語
+            type: text
+          - name: instagramUrl
+            label: Instagram 連結網址
+            type: string
+          - name: instagramDesc
+            label: Instagram 說明文字
+            type: string
+          - name: facebookUrl
+            label: Facebook 連結網址
+            type: string
+          - name: facebookDesc
+            label: Facebook 說明文字
+            type: string
+
+  - name: works
+    label: 作品（封面圖、狀態、連結）
+    type: file
+    path: content/works.json
+    format: json
+    list: true
+    view:
+      fields: [title, status, featured]
+    fields:
+      - name: title
+        label: 作品名稱
+        type: string
+      - name: type
+        label: 類型
+        type: select
+        options:
+          values: [game, tool, reading]
+      - name: status
+        label: 狀態
+        description: "done = 已完成上線；testing = 還在體驗家庭測試中"
+        type: select
+        options:
+          values: [done, testing]
+      - name: featured
+        label: 顯示在首頁「精選作品」
+        type: boolean
+      - name: description
+        label: 一句話介紹（done 狀態才需要填）
+        type: text
+      - name: cover
+        label: 封面圖
+        type: image
+      - name: playUrl
+        label: 遊戲／工具連結網址（testing 狀態請留空）
+        type: string
+      - name: introUrl
+        label: 介紹頁檔名，例如 PetHabitKingdom.html（testing 狀態請留空）
+        type: string
