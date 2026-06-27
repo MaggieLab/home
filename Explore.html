@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#FBF6EE">
-  <meta name="description" content="Maggie Lab 作品庫——所有遊戲、工具與閱讀作品都在這裡。">
+  <meta name="description" content="Maggie Lab 作品庫——所有正式上線的遊戲與工具都在這裡。">
   <meta property="og:title" content="作品庫 - Maggie Lab">
-  <meta property="og:description" content="所有遊戲、工具與閱讀作品都在這裡。">
+  <meta property="og:description" content="所有正式上線的遊戲與工具都在這裡。">
   <meta property="og:url" content="https://maggielab.github.io/home/Explore.html">
   <meta property="og:type" content="website">
   <title>作品庫 - Maggie Lab｜好好玩實驗室</title>
@@ -20,7 +20,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="works-data.js"></script>
   <style>
-    /* ============ Design System tokens（與 design-system.html 同步維護） ============ */
     :root {
       color-scheme: light;
       --bg: #FBF6EE;
@@ -47,7 +46,7 @@
     }
     a { color: inherit; }
     h1, h2, h3, p { margin: 0; }
-    button, input { font: inherit; }
+    button { font: inherit; }
     .serif { font-family: "Noto Serif TC", serif; }
     .shell { width: min(var(--max), calc(100% - 48px)); margin-inline: auto; }
 
@@ -68,23 +67,8 @@
 
     .page-head { max-width: 560px; margin: 0 auto 32px; text-align: center; }
     .page-head h1 { font-family: "Noto Serif TC", serif; font-weight: 600; font-size: clamp(24px, 4vw, 30px); }
-    .page-head p { margin-top: 12px; color: var(--text); font-size: 15px; line-height: 1.8; }
 
-    /* ============ 搜尋 ============ */
-    .search-wrap { max-width: 480px; margin: 0 auto 24px; }
-    .search-box {
-      display: flex; align-items: center; gap: 10px;
-      background: var(--paper); border: 1px solid var(--line);
-      border-radius: var(--radius-pill); padding: 12px 18px;
-    }
-    .search-box input {
-      flex: 1; border: none; background: transparent; outline: none;
-      font-size: 14.5px; color: var(--ink);
-    }
-    .search-box input::placeholder { color: var(--muted); }
-    .search-box .ic { color: var(--muted); font-size: 15px; }
-
-    /* ============ 分類篩選 ============ */
+    /* ============ 分類篩選（極簡：只有全部/遊戲/工具，不要圖示） ============ */
     .filter-row {
       display: flex; justify-content: center; gap: 8px; flex-wrap: wrap;
       margin-bottom: 36px;
@@ -98,7 +82,7 @@
     .filter-btn:hover { border-color: var(--clay-deep); }
     .filter-btn.is-active { background: var(--clay-deep); color: #FFFCF6; border-color: var(--clay-deep); }
 
-    /* ============ 作品卡片格（沿用首頁卡片語言，但這裡用多欄格子排列） ============ */
+    /* ============ 作品卡片格 ============ */
     .work-grid {
       display: grid; gap: 24px;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -110,14 +94,14 @@
       overflow: hidden;
       box-shadow: 0 1px 2px rgba(61,47,39,.05), 0 14px 30px -16px rgba(61,47,39,.14);
     }
+    /* 品牌圖片規範：完整顯示原圖比例，不裁切、不強制比例 */
     .work-cover {
-      aspect-ratio: 2/1;
       background: linear-gradient(155deg, #F4EBDD, #EEE1CB);
       display: grid; place-items: center;
       overflow: hidden;
     }
-    .work-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .work-cover .work-icon { font-size: 30px; opacity: .65; }
+    .work-cover img { width: 100%; height: auto; display: block; }
+    .work-cover .work-icon { font-size: 30px; opacity: .65; padding: 50px 0; }
 
     .work-content { padding: 18px 20px 22px; }
     .work-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
@@ -125,9 +109,8 @@
     .status-tag {
       flex: 0 0 auto; font-size: 11px; font-weight: 700; letter-spacing: .03em;
       padding: 3px 11px; border-radius: var(--radius-pill); white-space: nowrap;
+      background: #EAF1E3; color: #5C7A50;
     }
-    .status-tag.is-live { background: #EAF1E3; color: #5C7A50; }
-    .status-tag.is-soon { background: var(--bg); color: var(--muted); border: 1px solid var(--line); }
     .work-content p.work-desc { margin-top: 8px; color: var(--text); font-size: 13.5px; line-height: 1.7; }
 
     .work-actions { margin-top: 14px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
@@ -140,10 +123,6 @@
     .work-intro-link {
       color: var(--clay-deep); font-size: 12.5px; font-weight: 600;
       text-decoration: none; border-bottom: 1px solid var(--line); padding-bottom: 1px;
-    }
-
-    .testing-label {
-      display: block; font-size: 11.5px; font-weight: 700; color: #5C7A50; margin-bottom: 4px;
     }
 
     .empty-state {
@@ -175,27 +154,18 @@
     <section class="shell">
       <div class="page-head">
         <h1 class="serif">作品庫</h1>
-        <p>所有正式上線的作品，跟正在體驗家庭測試中的下一個作品，都在這裡。</p>
-      </div>
-
-      <div class="search-wrap">
-        <div class="search-box">
-          <span class="ic">🔍</span>
-          <input type="text" id="searchInput" placeholder="搜尋作品名稱…">
-        </div>
       </div>
 
       <div class="filter-row" role="tablist" aria-label="作品分類">
         <button class="filter-btn is-active" type="button" data-filter="all">全部</button>
-        <button class="filter-btn" type="button" data-filter="game">🎮 遊戲</button>
-        <button class="filter-btn" type="button" data-filter="tool">🛠 工具</button>
-        <button class="filter-btn" type="button" data-filter="reading">📚 閱讀</button>
-        <button class="filter-btn" type="button" data-filter="testing">🌱 體驗中</button>
+        <button class="filter-btn" type="button" data-filter="game">遊戲</button>
+        <button class="filter-btn" type="button" data-filter="tool">工具</button>
       </div>
 
       <!--
         作品資料來自 works-data.js（全站共用，跟首頁同一份）。
         新增作品不需要改這個頁面，去 works-data.js 加資料就好。
+        只顯示 status: "done" 的作品（已正式上線），體驗家庭測試中的作品在首頁單獨展示。
       -->
       <div class="work-grid" id="exploreGrid"></div>
       <p class="empty-state" id="emptyState" hidden>目前這個分類還沒有作品，敬請期待。</p>
@@ -215,23 +185,17 @@
   </script>
   <script>
     let currentFilter = "all";
-    let currentSearch = "";
 
     function matchesFilter(w) {
+      if (w.status !== "done") return false;
       if (currentFilter === "all") return true;
-      if (currentFilter === "testing") return w.status === "testing";
-      return w.status === "done" && w.type === currentFilter;
-    }
-
-    function matchesSearch(w) {
-      if (!currentSearch) return true;
-      return w.title.toLowerCase().includes(currentSearch.toLowerCase());
+      return w.type === currentFilter;
     }
 
     function renderExplore() {
       const grid = document.querySelector("#exploreGrid");
       const emptyState = document.querySelector("#emptyState");
-      const items = works.filter((w) => matchesFilter(w) && matchesSearch(w));
+      const items = works.filter(matchesFilter);
 
       if (items.length === 0) {
         grid.innerHTML = "";
@@ -241,24 +205,6 @@
       emptyState.hidden = true;
 
       grid.innerHTML = items.map((w) => {
-        const isTesting = w.status === "testing";
-
-        if (isTesting) {
-          const coverHtml = w.cover
-            ? `<img src="${w.cover}" alt="${w.title} 封面">`
-            : `<span class="work-icon">🌱</span>`;
-          return `
-            <article class="work-card">
-              <div class="work-cover">${coverHtml}</div>
-              <div class="work-content">
-                <span class="testing-label">🌱 體驗家庭進行中</span>
-                <h3>${w.title}</h3>
-                <p class="work-desc">正在和體驗家庭一起完成最後的調整。</p>
-              </div>
-            </article>
-          `;
-        }
-
         const coverHtml = w.cover
           ? `<img src="${w.cover}" alt="${w.title} 封面">`
           : `<span class="work-icon">✨</span>`;
@@ -277,7 +223,7 @@
             <div class="work-content">
               <div class="work-top">
                 <h3>${w.title}</h3>
-                <span class="status-tag is-live">Early Access</span>
+                <span class="status-tag">Early Access</span>
               </div>
               ${descHtml}
               <div class="work-actions">${playHtml}${introHtml}</div>
@@ -294,11 +240,6 @@
         currentFilter = btn.dataset.filter;
         renderExplore();
       });
-    });
-
-    document.querySelector("#searchInput").addEventListener("input", (event) => {
-      currentSearch = event.target.value.trim();
-      renderExplore();
     });
 
     renderExplore();

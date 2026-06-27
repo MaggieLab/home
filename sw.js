@@ -1,4 +1,4 @@
-const CACHE_NAME = "maggie-lab-home-v16";
+const CACHE_NAME = "maggie-lab-home-v17";
 const APP_SHELL = [
   "./index.html",
   "./PetHabitKingdom.html",
@@ -10,7 +10,6 @@ const APP_SHELL = [
   "./images/hero-scene.webp",
   "./images/why-family.webp",
   "./images/pet-habit-card.webp",
-  "./images/pet-habit-gameplay.webp",
   "./images/pet-habit-intro.webp",
   "./images/work-process.webp",
   "./images/zhuyin-cover.webp",

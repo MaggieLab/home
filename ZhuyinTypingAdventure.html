@@ -7,7 +7,7 @@
   <meta name="description" content="注音打字冒險 Zhuyin Typing Adventure——一邊冒險，一邊學會注音打字。">
   <meta property="og:title" content="注音打字冒險｜Zhuyin Typing Adventure - Maggie Lab">
   <meta property="og:description" content="一邊冒險，一邊學會注音打字。">
-  <meta property="og:image" content="https://maggielab.github.io/home/images/zhuyin-cover.webp">
+  <meta property="og:image" content="https://maggielab.github.io/home/images/zhuyin-intro.webp">
   <meta property="og:url" content="https://maggielab.github.io/home/ZhuyinTypingAdventure.html">
   <meta property="og:type" content="website">
   <title>注音打字冒險｜Zhuyin Typing Adventure - Maggie Lab</title>
@@ -18,7 +18,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    /* ============ Design System tokens（與 design-system.html 同步維護） ============ */
     :root {
       color-scheme: light;
       --bg: #FBF6EE;
@@ -27,13 +26,12 @@
       --text: #6B5847;
       --muted: #A7937E;
       --line: rgba(61, 47, 39, .09);
-      --line-soft: rgba(61, 47, 39, .06);
       --clay: #B97A53;
       --clay-deep: #8C5836;
       --radius-card: 6px;
       --radius-pill: 999px;
       --ease: .22s ease;
-      --max: 980px;
+      --max: 720px;
     }
 
     * { box-sizing: border-box; }
@@ -45,9 +43,14 @@
       line-height: 1.85; -webkit-font-smoothing: antialiased;
     }
     a { color: inherit; }
-    h1, h2, h3, p { margin: 0; }
+    h1, p { margin: 0; }
+    button { font: inherit; }
     .serif { font-family: "Noto Serif TC", serif; }
     .shell { width: min(var(--max), calc(100% - 48px)); margin-inline: auto; }
+    .visually-hidden {
+      position: absolute; width: 1px; height: 1px;
+      overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap;
+    }
 
     .topbar {
       position: sticky; top: 0; z-index: 10;
@@ -63,179 +66,87 @@
       background: var(--bg); border: 1px solid var(--line);
       padding: 4px 10px; border-radius: var(--radius-pill);
     }
-    .topbar-right { display: flex; align-items: center; gap: 12px; }
 
-    section { padding: 72px 0; }
-    .divider { width: 1px; height: 44px; margin: 0 auto; background: linear-gradient(to bottom, transparent, var(--line), transparent); }
+    main { padding: 28px 0 56px; }
 
-    /* ============ HERO（目前還沒有封面圖，先用淡色佔位） ============ */
-    .lp-hero { padding: 0; }
-    .lp-hero-visual {
-      position: relative; aspect-ratio: 16/9; overflow: hidden;
-      background: linear-gradient(155deg, #F2E2CC, #E3CBA4);
-    }
-    .lp-hero-visual img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .visually-hidden {
-      position: absolute; width: 1px; height: 1px;
-      overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap;
-    }
-
-    .lp-hero-actions {
-      display: flex; flex-wrap: wrap; align-items: center; gap: 18px;
-      padding: 24px clamp(20px,5vw,0) 0;
-      justify-content: center;
-    }
-    .btn {
-      display: inline-flex; align-items: center; gap: 8px;
-      border-radius: var(--radius-pill); padding: 12px 24px;
-      border: 1px solid transparent; font-size: 14.5px; font-weight: 600;
-      text-decoration: none; cursor: pointer;
-      transition: transform var(--ease), background var(--ease), opacity var(--ease);
-    }
-    .btn:hover { transform: translateY(-1px); }
-    .btn-primary { color: #FFFCF6; background: var(--clay-deep); }
-    .btn-primary:hover { background: #6f4527; }
-    .btn-text { color: var(--text); padding: 12px 4px; border-bottom: 1px solid var(--line); border-radius: 0; }
-    .btn-text:hover { color: var(--clay-deep); border-color: var(--clay-deep); }
-
-    /* ============ SECTION HEAD ============ */
-    .section-head { max-width: 580px; margin: 0 auto 40px; text-align: center; }
-    .kicker { display: block; margin-bottom: 12px; color: var(--muted); font-size: 13px; font-weight: 500; letter-spacing: .12em; }
-    h2 { font-family: "Noto Serif TC", serif; font-weight: 600; color: var(--ink); font-size: clamp(21px, 2.8vw, 26px); line-height: 1.5; }
-    .section-copy { margin-top: 14px; color: var(--text); font-size: 15px; }
-
-    /* ============ 作品介紹：直接引用品牌素材，不重新排版內容 ============ */
-    .brand-asset { max-width: 720px; margin: 0 auto; }
+    /* ============ 品牌素材直接引用：產品介紹圖本身就是正式 Landing Page ============ */
     .brand-asset img {
       width: 100%; height: auto; display: block;
       border-radius: var(--radius-card);
       box-shadow: 0 1px 2px rgba(61,47,39,.05), 0 16px 32px -18px rgba(61,47,39,.16);
     }
 
-    /* ============ Beta 成長紀錄 ============ */
-    .beta-block {
-      max-width: 480px; margin: 0 auto; text-align: center;
-      background: var(--paper); border-radius: var(--radius-card);
-      padding: clamp(28px, 5vw, 36px) clamp(22px, 4vw, 32px);
-      box-shadow: 0 1px 2px rgba(61,47,39,.05);
+    /* ============ 固定動作區：開始遊戲 / 如何加入主畫面 / 提供建議回報問題 ============ */
+    .actions { margin-top: 28px; text-align: center; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      border-radius: var(--radius-pill); padding: 13px 30px;
+      border: 1px solid transparent; font-size: 15px; font-weight: 600;
+      text-decoration: none; cursor: pointer;
+      transition: transform var(--ease), background var(--ease);
     }
-    .beta-block .beta-label {
-      font-size: 13px; font-weight: 600; color: var(--clay-deep); letter-spacing: .04em;
-    }
-    .beta-block p.beta-headline {
-      margin-top: 14px; color: var(--ink); font-size: 16px; line-height: 1.8;
-    }
-    .beta-block p.beta-headline strong { font-family: "Noto Serif TC", serif; color: var(--clay-deep); font-size: 19px; }
-    .beta-block p.beta-stats {
-      margin-top: 12px; color: var(--muted); font-size: 13px;
-    }
-    .beta-block p.beta-thanks {
-      margin-top: 16px; color: var(--text); font-size: 13.5px;
-    }
-    .beta-block.is-loading .beta-headline,
-    .beta-block.is-loading .beta-stats { opacity: .6; }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary { color: #FFFCF6; background: var(--clay-deep); }
+    .btn-primary:hover { background: #6f4527; }
 
-    /* ============ 家長中心 ============ */
-    .parent-center { max-width: 520px; margin: 0 auto; text-align: center; }
-    .parent-center h2 { margin-bottom: 24px; }
-    .parent-links {
-      display: grid; gap: 12px;
-      grid-template-columns: repeat(2, 1fr);
+    .secondary-links {
+      margin-top: 18px; display: flex; justify-content: center; gap: 24px; flex-wrap: wrap;
     }
-    .parent-links a {
-      display: flex; align-items: center; justify-content: center; gap: 8px;
-      padding: 14px 16px;
-      background: var(--paper); border-radius: var(--radius-card);
-      box-shadow: 0 1px 2px rgba(61,47,39,.05);
-      color: var(--ink); text-decoration: none; font-size: 14px; font-weight: 600;
-      transition: transform var(--ease);
+    .secondary-links button, .secondary-links a {
+      background: none; border: none; padding: 0;
+      color: var(--text); font-size: 13.5px; font-weight: 600;
+      text-decoration: none; border-bottom: 1px solid var(--line);
+      cursor: pointer; padding-bottom: 1px;
     }
-    .parent-links a:hover { transform: translateY(-2px); }
+    .secondary-links button:hover, .secondary-links a:hover { color: var(--clay-deep); border-color: var(--clay-deep); }
 
-    /* ============ CTA band ============ */
-    .cta-band {
+    /* ============ 如何加入主畫面：頁面內展開，不跳頁 ============ */
+    .install-panel {
+      max-width: 480px; margin: 16px auto 0;
       background: var(--paper); border-radius: var(--radius-card);
-      padding: clamp(36px, 6vw, 52px) clamp(24px, 5vw, 48px);
-      text-align: center;
-      box-shadow: 0 1px 2px rgba(61,47,39,.05), 0 20px 40px -18px rgba(61,47,39,.14);
+      padding: 0 20px; text-align: left;
+      max-height: 0; overflow: hidden;
+      transition: max-height var(--ease), padding var(--ease);
     }
-    .cta-band h2 { margin-bottom: 10px; }
-    .cta-band p { color: var(--text); font-size: 14.5px; margin-bottom: 24px; }
+    .install-panel.is-open { max-height: 240px; padding: 18px 20px; }
+    .install-panel p { font-size: 13.5px; color: var(--text); line-height: 1.8; }
+    .install-panel p + p { margin-top: 8px; }
 
-    /* ============ FOOTER ============ */
     .footer { padding: 40px 0 max(32px, env(safe-area-inset-bottom)); border-top: 1px solid var(--line); text-align: center; }
     .footer p { color: var(--muted); font-size: 13px; }
     .footer a { color: var(--clay-deep); text-decoration: none; font-weight: 600; }
-
-    @media (min-width: 760px) {
-      section { padding: 96px 0; }
-    }
   </style>
 </head>
 <body>
   <header class="topbar">
     <div class="shell topbar-inner">
       <a class="back-link" href="index.html">← 回到 Maggie Lab</a>
-      <div class="topbar-right">
-        <!-- 之後只需要修改下面這個版本號文字即可 -->
-        <span class="version-badge">🌱 Beta</span>
-      </div>
+      <!-- 之後只需要修改下面這個版本號文字即可 -->
+      <span class="version-badge">🌱 Beta</span>
     </div>
   </header>
 
   <main>
-    <section class="lp-hero">
-      <h1 class="visually-hidden">注音打字冒險｜Zhuyin Typing Adventure</h1>
-      <div class="lp-hero-visual">
-        <img src="images/zhuyin-cover.webp" alt="注音打字冒險 Zhuyin Typing Adventure 封面：小雞背著背包，走向ㅓㅗㄇㄈ石板路">
-      </div>
-      <div class="lp-hero-actions">
-        <!-- 真實連結 -->
-        <a class="btn btn-primary" href="https://maggie10299.github.io/zhuyin-game/" target="_blank" rel="noopener">開始遊戲</a>
-      </div>
-    </section>
-
-    <div class="divider"></div>
-
-    <!-- 作品介紹：直接引用品牌原始素材，不重新排版、不拆解內容 -->
-    <section class="shell" id="intro" aria-label="作品介紹">
-      <div class="brand-asset">
-        <img src="images/zhuyin-intro.webp" alt="注音打字冒險完整遊戲介紹：用鍵盤征服每一個注音、四大特色、六大冒險關卡、培養能力、適合誰、Maggie Lab理念">
-      </div>
-    </section>
-
-    <div class="divider"></div>
-
-    <section class="shell" aria-labelledby="beta-title">
-      <div class="beta-block is-loading" id="betaBlock">
-        <span class="beta-label">🌱 BETA 測試中</span>
-        <p class="beta-headline" id="betaHeadline" aria-live="polite">正在更新 Beta 成長紀錄…</p>
-        <p class="beta-stats" id="betaStats"></p>
-        <p class="beta-thanks" id="betaThanks" hidden>謝謝每一位願意提供建議的家庭 🤍</p>
-      </div>
-    </section>
-
-    <div class="divider"></div>
-
+    <h1 class="visually-hidden">注音打字冒險｜Zhuyin Typing Adventure</h1>
     <section class="shell">
-      <div class="cta-band">
-        <h2 class="serif">準備好開始打字冒險了嗎？</h2>
-        <p>一邊闖關，一邊練習注音輸入吧！</p>
-        <a class="btn btn-primary" href="https://maggie10299.github.io/zhuyin-game/" target="_blank" rel="noopener">開始遊戲</a>
+      <!--
+        作品介紹：直接引用品牌原始素材，不重新排版、不拆解內容。
+        這張圖本身就是正式的 Landing Page，不另外做介紹頁面。
+      -->
+      <div class="brand-asset">
+        <img src="images/zhuyin-intro.webp" alt="注音打字冒險完整遊戲介紹">
       </div>
-    </section>
 
-    <div class="divider"></div>
-
-    <section class="shell" aria-labelledby="parent-center-title">
-      <div class="parent-center">
-        <h2 id="parent-center-title" class="serif">👨‍👩‍👧 家長中心</h2>
-        <div class="parent-links">
-          <!-- TODO: 連結之後補上 -->
-          <a href="#">📧 Beta 更新通知</a>
-          <a href="#">💬 提供回饋</a>
-          <a href="#">🐞 回報問題</a>
-          <a href="#">❤️ 支持 Maggie Lab</a>
+      <div class="actions">
+        <a class="btn btn-primary" href="https://maggie10299.github.io/zhuyin-game/" target="_blank" rel="noopener">開始遊戲</a>
+        <div class="secondary-links">
+          <button type="button" id="installToggle">如何加入主畫面</button>
+          <!-- TODO: 之後串接 Google 試算表，目前先預留 -->
+          <a href="#">提供建議／回報問題</a>
+        </div>
+        <div class="install-panel" id="installPanel">
+          <p><strong>iPhone（Safari）：</strong>點下方分享圖示 → 選「加入主畫面」。</p>
+          <p><strong>Android（Chrome）：</strong>點右上角選單 ⋮ → 選「加入主畫面」或「安裝應用程式」。</p>
         </div>
       </div>
     </section>
@@ -253,62 +164,13 @@
     }
   </script>
   <script>
-    // 注音打字冒險 產品專屬 Beta 成長紀錄：從 data.products.typing_adventure 讀取
+    // 如何加入主畫面：頁面內展開教學，不跳頁
     (function () {
-      const endpoint = "https://script.google.com/macros/s/AKfycbwFuPv3IoIuv0ZcxRsQNVLO3K2J6WKkqqkK3CUox318AxB9bVrBoZl2L8NmWRQMsS4/exec";
-      const blockEl = document.querySelector("#betaBlock");
-      const headlineEl = document.querySelector("#betaHeadline");
-      const statsEl = document.querySelector("#betaStats");
-      const thanksEl = document.querySelector("#betaThanks");
-
-      // 已知的「次數型」統計欄位 → 顯示文字，未來新增欄位只要加在這裡就會自動出現
-      const STAT_LABELS = {
-        finish_level: (v) => `${v} 次過關`,
-        typing_correct: (v) => `${v} 次打對`,
-        typing_error: (v) => `${v} 次打錯`
-      };
-
-      function showFallback() {
-        blockEl.classList.remove("is-loading");
-        headlineEl.textContent = "Beta 測試資料更新中…";
-        statsEl.textContent = "";
-        thanksEl.hidden = true;
-      }
-
-      fetch(endpoint)
-        .then((response) => {
-          if (!response.ok) throw new Error("Request failed");
-          return response.json();
-        })
-        .then((data) => {
-          const product = data && data.products && data.products.typing_adventure;
-          if (!product || typeof product !== "object") throw new Error("products.typing_adventure 還沒有資料");
-
-          const players = product.beta_players;
-          const hasAnyKnownField =
-            players !== undefined ||
-            Object.keys(STAT_LABELS).some((key) => product[key] !== undefined);
-
-          if (!hasAnyKnownField) throw new Error("No usable fields in products.typing_adventure");
-
-          blockEl.classList.remove("is-loading");
-
-          if (players !== undefined) {
-            headlineEl.innerHTML = `目前已有<br><strong>${players}</strong> 個家庭<br>一起練習注音打字。`;
-          } else {
-            headlineEl.textContent = "";
-          }
-
-          const statParts = [];
-          Object.keys(STAT_LABELS).forEach((key) => {
-            if (product[key] !== undefined) statParts.push(STAT_LABELS[key](product[key]));
-          });
-          if (product.version !== undefined) statParts.push(`Beta ${product.version}`);
-          statsEl.textContent = statParts.join(" · ");
-
-          thanksEl.hidden = false;
-        })
-        .catch(showFallback);
+      const toggle = document.querySelector("#installToggle");
+      const panel = document.querySelector("#installPanel");
+      toggle.addEventListener("click", () => {
+        panel.classList.toggle("is-open");
+      });
     })();
   </script>
 </body>
