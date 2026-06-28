@@ -1,15 +1,188 @@
-{
-  "name": "Maggie Lab｜好好玩實驗室",
-  "short_name": "Maggie Lab",
-  "description": "打造每天都願意打開的數位作品。",
-  "start_url": "./index.html",
-  "scope": "./",
-  "display": "standalone",
-  "background_color": "#FBF6EE",
-  "theme_color": "#FBF6EE",
-  "lang": "zh-Hant",
-  "icons": [
-    { "src": "favicons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
-    { "src": "favicons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
-  ]
-}
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#FBF6EE">
+  <meta name="description" content="注音打字冒險——邊玩邊練注音，打字速度跟正確率一起進步。">
+  <meta property="og:title" content="注音打字冒險 - Maggie Lab">
+  <meta property="og:description" content="邊玩邊練注音，打字速度跟正確率一起進步。">
+  <meta property="og:url" content="https://maggielab.github.io/home/ZhuyinTypingAdventure.html">
+  <meta property="og:type" content="website">
+  <title>注音打字冒險 - Maggie Lab｜好好玩實驗室</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" type="image/x-icon" href="favicons/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicons/icon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicons/icon-16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="favicons/icon-180.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #FBF6EE;
+      --paper: #FFFCF6;
+      --ink: #3D2F27;
+      --text: #6B5847;
+      --muted: #A7937E;
+      --line: rgba(61, 47, 39, .09);
+      --clay: #B97A53;
+      --clay-deep: #8C5836;
+      --radius-card: 6px;
+      --radius-pill: 999px;
+      --ease: .22s ease;
+      --max: 980px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; min-width: 320px;
+      background: var(--bg); color: var(--ink);
+      font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      line-height: 1.85; -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+    h1, h2, h3, p { margin: 0; }
+    button { font: inherit; }
+    .serif { font-family: "Noto Serif TC", serif; }
+    .visually-hidden {
+      position: absolute; width: 1px; height: 1px;
+      overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+    }
+    .shell { width: min(var(--max), calc(100% - 48px)); margin-inline: auto; }
+
+    .topbar {
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(251, 246, 238, .96);
+      border-bottom: 1px solid var(--line);
+    }
+    .topbar-inner { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .back-link { color: var(--muted); font-size: 14px; font-weight: 500; text-decoration: none; }
+    .back-link:hover { color: var(--clay-deep); }
+    .topbar-right { display: flex; align-items: center; gap: 12px; }
+    .version-badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 12px; font-weight: 600; color: var(--clay-deep);
+      background: var(--bg); border: 1px solid var(--line);
+      padding: 4px 10px; border-radius: var(--radius-pill);
+    }
+    .topbar .brand-en { font-family: "Noto Serif TC", serif; font-size: 15px; font-weight: 600; color: var(--muted); display: none; }
+
+    main { display: block; }
+    section { padding: 0; }
+
+    /* ============ 品牌介紹圖：直接引用原始素材，不裁切、不重排版 ============ */
+    .brand-asset { position: relative; }
+    .brand-asset img { width: 100%; height: auto; display: block; }
+
+    .actions {
+      max-width: 420px; margin: 0 auto; padding: 32px 0 56px;
+      display: flex; flex-direction: column; align-items: center; gap: 18px;
+      text-align: center;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      border-radius: var(--radius-pill); padding: 13px 26px;
+      border: 1px solid transparent; font-size: 14.5px; font-weight: 600;
+      text-decoration: none; cursor: pointer;
+      transition: transform var(--ease), background var(--ease), opacity var(--ease);
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary { color: #FFFCF6; background: var(--clay-deep); width: 100%; justify-content: center; }
+    .btn-primary:hover { background: #6f4527; }
+
+    .secondary-links {
+      display: flex; align-items: center; gap: 18px; flex-wrap: wrap; justify-content: center;
+    }
+    .secondary-links button, .secondary-links a {
+      background: none; border: none; padding: 0;
+      color: var(--text); font-size: 13.5px; font-weight: 600;
+      text-decoration: none; border-bottom: 1px solid var(--line);
+      padding-bottom: 1px; cursor: pointer;
+    }
+    .secondary-links button:hover, .secondary-links a:hover { color: var(--clay-deep); border-color: var(--clay-deep); }
+
+    .install-panel {
+      display: none; max-width: 420px; margin-top: 4px;
+      background: var(--paper); border: 1px solid var(--line); border-radius: 14px;
+      padding: 16px 20px; text-align: left;
+    }
+    .install-panel.is-open { display: block; }
+    .install-panel p { font-size: 13.5px; color: var(--text); line-height: 1.8; }
+    .install-panel p + p { margin-top: 8px; }
+
+    .footer { padding: 0 0 max(36px, env(safe-area-inset-bottom)); border-top: 1px solid var(--line); text-align: center; }
+    .footer p { color: var(--muted); font-size: 13px; padding-top: 28px; }
+    .footer a { color: var(--clay-deep); text-decoration: none; font-weight: 600; }
+
+    @media (min-width: 560px) {
+      .topbar .brand-en { display: inline; }
+    }
+    @media (max-width: 480px) {
+      .shell { width: calc(100% - 32px); }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <a class="back-link" href="index.html">← 回到 Maggie Lab</a>
+      <div class="topbar-right">
+        <!-- 之後只需要修改下面這個版本號文字即可 -->
+        <span class="version-badge">🌱 Beta v0.9.3</span>
+        <span class="brand-en serif">注音打字冒險</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <h1 class="visually-hidden">注音打字冒險｜Zhuyin Typing Adventure</h1>
+    <section class="shell">
+      <!--
+        作品介紹：直接引用品牌原始素材，不重新排版、不拆解內容。
+        這張圖本身就是正式的 Landing Page，不另外做介紹頁面。
+      -->
+      <div class="brand-asset">
+        <img src="images/zhuyin-intro.webp" alt="注音打字冒險完整遊戲介紹">
+      </div>
+
+      <div class="actions">
+        <a class="btn btn-primary" href="https://maggie10299.github.io/zhuyin-game/" target="_blank" rel="noopener">開始遊戲</a>
+        <div class="secondary-links">
+          <button type="button" id="installToggle">如何加入主畫面</button>
+          <!-- TODO: 之後串接 Google 試算表，目前先預留 -->
+          <a href="#">提供建議／回報問題</a>
+        </div>
+        <div class="install-panel" id="installPanel">
+          <p><strong>iPhone（Safari）：</strong>點下方分享圖示 → 選「加入主畫面」。</p>
+          <p><strong>Android（Chrome）：</strong>點右上角選單 ⋮ → 選「加入主畫面」或「安裝應用程式」。</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>來自 <a href="index.html">Maggie Lab｜好好玩實驗室</a></p>
+  </footer>
+
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("sw.js").catch(() => {});
+      });
+    }
+  </script>
+  <script>
+    // 如何加入主畫面：頁面內展開教學，不跳頁
+    (function () {
+      const toggle = document.querySelector("#installToggle");
+      const panel = document.querySelector("#installPanel");
+      toggle.addEventListener("click", () => {
+        panel.classList.toggle("is-open");
+      });
+    })();
+  </script>
+</body>
+</html>
