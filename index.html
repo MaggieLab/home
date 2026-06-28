@@ -141,6 +141,19 @@
     .btn-text { color: var(--text); padding: 13px 4px; border-bottom: 1px solid var(--line); border-radius: 0; }
     .btn-text:hover { color: var(--clay-deep); border-color: var(--clay-deep); }
 
+    /* 外框按鈕：份量比主按鈕（btn-primary）輕，用於比較柔和的邀請性質連結，例如導去 Katawu 官網 */
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 6px;
+      border-radius: var(--radius-pill);
+      padding: 12px 26px;
+      border: 1.5px solid var(--clay-deep);
+      color: var(--clay-deep);
+      background: transparent;
+      font-size: 14px; font-weight: 600;
+      transition: background var(--ease), color var(--ease);
+    }
+    .btn-outline:hover { background: var(--clay-deep); color: #FFFCF6; }
+
     /* ============ 為什麼會有 Maggie Lab（純文字） ============ */
     .why-block { max-width: 580px; margin: 0 auto; text-align: center; }
     .why-block h2 { margin-bottom: 16px; }
@@ -255,7 +268,7 @@
     }
     .support-strip-text h3 { font-family: "Noto Serif TC", serif; font-size: 16px; font-weight: 600; }
     .support-strip-text p { margin-top: 10px; color: var(--text); font-size: 13.5px; line-height: 1.8; }
-    .support-strip .btn-text { margin-top: 16px; display: inline-flex; }
+    .support-strip .btn-outline { margin-top: 16px; }
 
     /* ============ WAITLIST / BREVO ============ */
     .invite {
@@ -391,7 +404,7 @@
       </div>
 
       <div class="hero-content shell">
-        <h1 class="hero-tagline" id="hero-title">陪孩子玩出<span class="accent">好奇心、創造力</span>與解決問題的能力。</h1>
+        <h1 class="hero-tagline" id="hero-title">陪孩子<span class="accent">一起探索、一起創造</span>、一起長大。</h1>
         <p class="hero-explainer" id="hero-subtitle">一位媽媽利用 AI，把生活中的想法，做成真的值得孩子玩的作品。</p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="#works">開始探索作品</a>
@@ -472,7 +485,7 @@
           <h3 id="support-title">🌿 支持我們繼續創作</h3>
           <p id="support-text">Maggie Lab 的作品，目前都可以免費玩。如果你喜歡這些作品，也歡迎帶一瓶 Katawu 回家。每一瓶醬料，都支持我們繼續創作下一個作品。</p>
         </div>
-        <a class="btn-text" id="support-button" href="https://www.katawu.com" target="_blank" rel="noopener">看看 Katawu 醬料 →</a>
+        <a class="btn-outline" id="support-button" href="https://www.katawu.com" target="_blank" rel="noopener">看看 Katawu 醬料 →</a>
       </div>
     </section>
   </main>
