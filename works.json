@@ -1,25 +1,52 @@
-{
-  "hero": {
-    "image": "images/hero-scene-v2.webp",
-    "title": "陪孩子玩出<span class=\"accent\">好奇心、創造力</span>與解決問題的能力。",
-    "subtitle": "一位媽媽利用 AI，把生活中的想法，做成真的值得孩子玩的作品。"
+[
+  {
+    "title": "Pet Habit Kingdom",
+    "type": "game",
+    "status": "done",
+    "featured": true,
+    "description": "和寵物一起，把每天的小習慣，養成一個會長大的家。",
+    "cover": "images/pet-habit-card.webp",
+    "playUrl": "https://maggie10299.github.io/pet-habit/",
+    "introUrl": "PetHabitKingdom.html"
   },
-  "story": {
-    "title": "為什麼會有 Maggie Lab？",
-    "paragraph1": "希望孩子的螢幕時間，能變成真正願意探索與創造的時間。",
-    "paragraph2": "於是開始利用 AI，把生活中的想法，做成一個個遊戲與工具。第一位測試員，永遠都是我的女兒。"
+  {
+    "title": "注音打字冒險",
+    "type": "game",
+    "status": "testing",
+    "featured": false,
+    "description": "",
+    "cover": "images/zhuyin-cover.webp",
+    "playUrl": null,
+    "introUrl": null
   },
-  "support": {
-    "image": "images/why-family.webp",
-    "title": "🌿 支持我們繼續創作",
-    "text": "Maggie Lab 的作品，目前都可以免費玩。如果你喜歡這些作品，也歡迎帶一瓶 Katawu 回家。每一瓶醬料，都支持我們繼續創作下一個作品。",
-    "buttonUrl": "https://www.katawu.com"
+  {
+    "title": "七習慣島嶼",
+    "type": "game",
+    "status": "testing",
+    "featured": false,
+    "description": "",
+    "cover": null,
+    "playUrl": null,
+    "introUrl": null
   },
-  "footer": {
-    "tagline": "一步一步做出真正值得親子遊玩作品及工具。",
-    "instagramUrl": "https://www.instagram.com/hello.maggie/",
-    "instagramDesc": "我們這一家的日常／餐桌分享",
-    "facebookUrl": "https://www.facebook.com/share/18PeF6fVJm/?mibextid=wwXIfr",
-    "facebookDesc": "發布我的新作品、更新日誌與活動資訊"
+  {
+    "title": "睡前聊聊",
+    "type": "tool",
+    "status": "testing",
+    "featured": false,
+    "description": "",
+    "cover": null,
+    "playUrl": null,
+    "introUrl": null
+  },
+  {
+    "title": "閱讀旅程",
+    "type": "reading",
+    "status": "testing",
+    "featured": false,
+    "description": "",
+    "cover": null,
+    "playUrl": null,
+    "introUrl": null
   }
-}
+]
