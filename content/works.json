@@ -12,12 +12,13 @@
   {
     "title": "注音打字冒險",
     "type": "game",
-    "status": "testing",
-    "featured": false,
-    "description": "",
+    "status": "done",
+    "featured": true,
+    "description": "陪孩子把打字練成闖關遊戲",
     "cover": "images/zhuyin-cover.webp",
-    "playUrl": null,
-    "introUrl": null
+    "playUrl": "https://maggie10299.github.io/zhuyin-game/",
+    "introUrl": null,
+    "tag": "低年級／注音學習"
   },
   {
     "title": "七習慣島嶼",
@@ -48,5 +49,16 @@
     "cover": null,
     "playUrl": null,
     "introUrl": null
+  },
+  {
+    "title": "100件生活行動",
+    "type": "tool",
+    "status": "done",
+    "featured": true,
+    "tag": "全齡適用／親子共用",
+    "description": "大人寫下夢想，孩子寫下想做的事，標題都能自己編輯，沒有年限，隨時可以重新開始。",
+    "cover": "images/life100-cover.webp",
+    "playUrl": "https://maggielab.github.io/life100/",
+    "introUrl": "images/life100-intro.webp"
   }
 ]
