@@ -121,12 +121,15 @@
     .hero-tagline .accent { color: var(--clay-deep); }
 
     .hero-explainer {
-      margin: 16px auto 0; max-width: 480px;
-      font-size: 15px; color: var(--text); font-weight: 400; line-height: 1.8;
+      margin: 18px auto 0; max-width: 420px;
+      font-size: 15px; color: var(--text); font-weight: 400; line-height: 2.05;
     }
     .hero-actions {
-      display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
-      gap: 16px; margin-top: 28px; padding-bottom: 12px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 12px; margin-top: 28px; padding-bottom: 12px;
+    }
+    .hero-stat {
+      font-size: 13px; color: var(--muted); opacity: .8; margin: 0;
     }
     .btn {
       display: inline-flex; align-items: center; gap: 8px;
@@ -199,8 +202,10 @@
 
     /* ============ 精選作品（單欄式卡片：圖在上、內容在下，Apple式留白節奏） ============ */
     .work-list {
-      display: flex; flex-direction: column; gap: 28px;
-      max-width: 640px; margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 28px;
+      max-width: 960px; margin: 0 auto;
     }
 
     .work-card {
@@ -234,6 +239,14 @@
     .status-tag.is-live { background: #EAF1E3; color: #5C7A50; }
     .status-tag.is-soon { background: var(--bg); color: var(--muted); border: 1px solid var(--line); }
 
+    .work-tag {
+      display: inline-block;
+      font-size: 11.5px; font-weight: 600; color: var(--clay-deep);
+      background: var(--bg); border: 1px solid var(--line);
+      padding: 3px 10px; border-radius: var(--radius-pill);
+      margin-bottom: 8px;
+    }
+
     .work-content p.work-desc { margin-top: 10px; color: var(--text); font-size: 14px; line-height: 1.75; }
 
     .work-actions {
@@ -252,13 +265,11 @@
     /* ============ 體驗家庭進行中（同樣的卡片風格，只有圖片+標題，文字說明交給區塊標題負責，不重複） ============ */
 
     /* ============ SUPPORT — 支持我們繼續創作，導流到 Katawu，保持低調 ============ */
+    #support { background: #E6D3B3; padding: 56px 0; }
+    #support-title, #support-text { color: var(--ink); }
     .support-strip {
       max-width: 640px; margin: 0 auto;
       text-align: center;
-      padding: 28px 26px;
-      background: var(--paper);
-      border-radius: var(--radius-card);
-      box-shadow: 0 1px 2px rgba(61,47,39,.05);
     }
     /* 醬料示意圖：放在文字上方，跟全站「圖在上、文字在下」的閱讀節奏一致；不裁切，完整顯示 */
     .support-strip img {
@@ -334,22 +345,22 @@
     .form-modal-fallback a { color: var(--clay-deep); font-weight: 600; }
 
     /* ============ FOOTER ============ */
-    .footer { padding: 48px 0 max(36px, env(safe-area-inset-bottom)); border-top: 1px solid var(--line); }
+    .footer { padding: 40px 0 max(36px, env(safe-area-inset-bottom)); background: #E6D3B3; }
     .footer-inner { display: grid; gap: 20px; }
     .footer strong {
       display: block; font-family: "Noto Serif TC", serif;
       font-weight: 600; color: var(--ink); font-size: 16px;
     }
-    .footer p { margin-top: 6px; color: var(--muted); font-size: 13px; }
+    .footer p { margin-top: 6px; color: var(--text); font-size: 13px; }
     .footer-links { display: flex; flex-wrap: wrap; gap: 8px 18px; }
-    .footer-links a { color: var(--muted); font-size: 13px; font-weight: 500; text-decoration: none; }
+    .footer-links a { color: var(--text); font-size: 13px; font-weight: 500; text-decoration: none; }
     .footer-links a:hover { color: var(--clay-deep); }
     .footer-social { margin-top: 24px; display: flex; flex-direction: column; gap: 10px; }
     .footer-social a {
       color: var(--text); font-size: 13.5px; font-weight: 600; text-decoration: none;
     }
     .footer-social a:hover { color: var(--clay-deep); }
-    .footer-social span { display: block; margin-top: 2px; color: var(--muted); font-size: 12.5px; font-weight: 400; }
+    .footer-social span { display: block; margin-top: 2px; color: var(--text); font-size: 12.5px; font-weight: 400; }
 
     .toast {
       position: fixed; left: 50%; bottom: 18px; z-index: 30;
@@ -404,10 +415,11 @@
       </div>
 
       <div class="hero-content shell">
-        <h1 class="hero-tagline" id="hero-title">陪孩子<span class="accent">一起探索、一起創造</span>、一起長大。</h1>
-        <p class="hero-explainer" id="hero-subtitle">一位媽媽利用 AI，把生活中的想法，做成真的值得孩子玩的作品。</p>
+        <h1 class="hero-tagline" id="hero-title">HELLO 👋 我是 <span class="accent">Maggie</span></h1>
+        <p class="hero-explainer" id="hero-subtitle">我把生活中的想法，做成遊戲與工具。<br>有些陪孩子玩中學，有些我自己也在用。<br>每一個都是我們先喜歡，才敢分享。</p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="#works">開始探索作品</a>
+          <p class="hero-stat">5 個親子作品・持續更新中</p>
         </div>
       </div>
     </section>
@@ -426,7 +438,7 @@
 
     <section class="shell" id="works" aria-labelledby="works-title">
       <div class="section-head">
-        <h2 id="works-title">精選作品</h2>
+        <h2 id="works-title" class="serif">精選作品</h2>
       </div>
 
       <!--
@@ -447,7 +459,7 @@
     -->
     <section class="shell" id="testing" aria-labelledby="testing-title" hidden>
       <div class="section-head">
-        <h2 id="testing-title">🌱 體驗家庭進行中</h2>
+        <h2 id="testing-title" class="serif">體驗家庭進行中</h2>
         <p class="section-copy">正在和體驗家庭一起完成最後的調整。</p>
       </div>
       <div class="work-list" id="testingList"></div>
@@ -478,8 +490,8 @@
     <div class="divider"></div>
 
     <!-- 支持我們繼續創作：導流到 Katawu 官網，保持低調，不像募款 -->
-    <section class="shell" id="support" aria-label="支持我們繼續創作">
-      <div class="support-strip">
+    <section id="support" aria-label="支持我們繼續創作">
+      <div class="shell support-strip">
         <img id="support-image" src="images/why-family.webp" alt="貓爸爸做醬、貓媽媽用電腦、貓女兒趴在桌上的生活插畫">
         <div class="support-strip-text">
           <h3 id="support-title">🌿 支持我們繼續創作</h3>
@@ -601,6 +613,7 @@
         const coverHtml = w.cover
           ? `<img src="${w.cover}" alt="${w.title} 封面">`
           : `<span class="work-icon">✨</span>`;
+        const tagHtml = w.tag ? `<span class="work-tag">${w.tag}</span>` : "";
         const descHtml = w.description ? `<p class="work-desc">${w.description}</p>` : "";
         const playLabel = w.type === "tool" ? "開始使用" : "開始遊戲";
         const playHtml = w.playUrl
@@ -614,6 +627,7 @@
           <article class="work-card">
             <div class="work-cover">${coverHtml}</div>
             <div class="work-content">
+              ${tagHtml}
               <div class="work-top">
                 <h3>${w.title}</h3>
                 <span class="status-tag is-live">Early Access</span>
@@ -657,7 +671,7 @@
       if (site.hero) {
         if (site.hero.image) document.querySelector("#hero-image").src = site.hero.image;
         if (site.hero.title) document.querySelector("#hero-title").innerHTML = site.hero.title;
-        if (site.hero.subtitle) document.querySelector("#hero-subtitle").textContent = site.hero.subtitle;
+        if (site.hero.subtitle) document.querySelector("#hero-subtitle").innerHTML = site.hero.subtitle;
       }
       if (site.story) {
         if (site.story.title) document.querySelector("#why-title").textContent = site.story.title;

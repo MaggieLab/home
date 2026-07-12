@@ -1,0 +1,25 @@
+{
+  "hero": {
+    "image": "images/hero-scene-v2.webp",
+    "title": "HELLO 👋 我是 <span class=\"accent\">Maggie</span>",
+    "subtitle": "我把生活中的想法，做成遊戲與工具。<br>有些陪孩子玩中學，有些我自己也在用。<br>每一個都是我們先喜歡，才敢分享。"
+  },
+  "story": {
+    "title": "為什麼會有 Maggie Lab？",
+    "paragraph1": "希望孩子的螢幕時間，能變成真正願意探索與創造的時間。",
+    "paragraph2": "於是開始利用 AI，把生活中的想法，做成一個個遊戲與工具。第一位測試員，永遠都是我的女兒。"
+  },
+  "support": {
+    "image": "images/why-family.webp",
+    "title": "🌿 順帶一提",
+    "text": "這是我們家的創業故事——泰式手工醬料 Katawu，是先生從清邁帶回來的家鄉味，歡迎體驗看看。",
+    "buttonUrl": "https://www.katawu.com"
+  },
+  "footer": {
+    "tagline": "一步一步做出真正值得親子遊玩作品及工具。",
+    "instagramUrl": "https://www.instagram.com/hello.maggie/",
+    "instagramDesc": "我們這一家的日常／餐桌分享",
+    "facebookUrl": "https://www.facebook.com/share/18PeF6fVJm/?mibextid=wwXIfr",
+    "facebookDesc": "發布我的新作品、更新日誌與活動資訊"
+  }
+}

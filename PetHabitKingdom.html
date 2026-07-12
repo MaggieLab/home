@@ -77,6 +77,26 @@
     .brand-asset { position: relative; }
     .brand-asset img { width: 100%; height: auto; display: block; }
 
+    .scenario {
+      margin-top: 56px; padding-top: 40px; border-top: 1px solid var(--line);
+    }
+    .scenario + .scenario { margin-top: 40px; padding-top: 0; border-top: none; }
+    .scenario-label {
+      font-size: 13px; font-weight: 600; color: var(--clay-deep);
+      text-align: center; margin-bottom: 10px;
+    }
+    .scenario h2 {
+      font-family: "Noto Serif TC", serif; font-size: 19px; font-weight: 600;
+      text-align: center; color: var(--ink); max-width: 420px; margin: 0 auto;
+    }
+    .scenario p {
+      text-align: center; color: var(--text); font-size: 14px; line-height: 1.8;
+      max-width: 420px; margin: 12px auto 24px;
+    }
+    .scenario img {
+      display: block; width: 100%; max-width: 320px; margin: 0 auto;
+      border-radius: 16px; border: 1px solid var(--line);
+    }
     .actions {
       max-width: 420px; margin: 0 auto; padding: 32px 0 56px;
       display: flex; flex-direction: column; align-items: center; gap: 18px;
@@ -159,6 +179,18 @@
           <p><strong>iPhone（Safari）：</strong>點下方分享圖示 → 選「加入主畫面」。</p>
           <p><strong>Android（Chrome）：</strong>點右上角選單 ⋮ → 選「加入主畫面」或「安裝應用程式」。</p>
         </div>
+      </div>
+
+      <div class="scenario">
+        <h2>今日任務，家長可在後台調整、確認核准。</h2>
+        <img src="images/habit-tasks.webp" alt="今日任務清單畫面，列出7:40前到校、作業完整寫完、3C不超過2小時等任務，完成後由家長核准，星星存入罐子">
+        <p>任務內容由家長設定，孩子完成後，由家長核准，星星才會真的存進去。</p>
+      </div>
+
+      <div class="scenario">
+        <h2>星星存夠了，就能帶寵物出去玩。</h2>
+        <img src="images/pet-park.webp" alt="公園互動畫面，小主人與寵物在草地上，可以奔跑、丟球、洗澡、餵食">
+        <p>奔跑、丟球、洗澡、餵食，豐富的互動玩法，增加遊戲的樂趣與可玩性。</p>
       </div>
     </section>
   </main>
