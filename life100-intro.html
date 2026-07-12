@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#FBF6EE">
+  <meta name="description" content="100件生活行動｜大人寫下夢想，孩子寫下想做的事，標題都能自己編輯，沒有年限，隨時可以重新開始。">
+  <meta property="og:title" content="100件生活行動 - Maggie Lab">
+  <meta property="og:description" content="大人寫下夢想，孩子寫下想做的事，標題都能自己編輯，沒有年限，隨時可以重新開始。">
+  <meta property="og:url" content="https://maggielab.github.io/home/life100-intro.html">
+  <meta property="og:type" content="website">
+  <title>100件生活行動 - Maggie Lab｜好好玩實驗室</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" type="image/x-icon" href="favicons/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicons/icon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicons/icon-16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="favicons/icon-180.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #FBF6EE;
+      --paper: #FFFCF6;
+      --ink: #3D2F27;
+      --text: #6B5847;
+      --muted: #A7937E;
+      --line: rgba(61, 47, 39, .09);
+      --clay: #B97A53;
+      --clay-deep: #8C5836;
+      --radius-card: 6px;
+      --radius-pill: 999px;
+      --ease: .22s ease;
+      --max: 980px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; min-width: 320px;
+      background: var(--bg); color: var(--ink);
+      font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      line-height: 1.85; -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+    h1, h2, h3, p { margin: 0; }
+    button { font: inherit; }
+    .serif { font-family: "Noto Serif TC", serif; }
+    .visually-hidden {
+      position: absolute; width: 1px; height: 1px;
+      overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+    }
+    .shell { width: min(var(--max), calc(100% - 48px)); margin-inline: auto; }
+
+    .topbar {
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(251, 246, 238, .96);
+      border-bottom: 1px solid var(--line);
+    }
+    .topbar-inner { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .back-link { color: var(--muted); font-size: 14px; font-weight: 500; text-decoration: none; }
+    .back-link:hover { color: var(--clay-deep); }
+    .topbar-right { display: flex; align-items: center; gap: 12px; }
+    .version-badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 12px; font-weight: 600; color: var(--clay-deep);
+      background: var(--bg); border: 1px solid var(--line);
+      padding: 4px 10px; border-radius: var(--radius-pill);
+    }
+    .topbar .brand-en { font-family: "Noto Serif TC", serif; font-size: 15px; font-weight: 600; color: var(--muted); display: none; }
+
+    main { display: block; }
+    section { padding: 0; }
+
+    .brand-asset { position: relative; }
+    .brand-asset img { width: 100%; height: auto; display: block; }
+
+    .actions {
+      max-width: 420px; margin: 0 auto; padding: 32px 0 56px;
+      display: flex; flex-direction: column; align-items: center; gap: 18px;
+      text-align: center;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      border-radius: var(--radius-pill); padding: 13px 26px;
+      border: 1px solid transparent; font-size: 14.5px; font-weight: 600;
+      text-decoration: none; cursor: pointer;
+      transition: transform var(--ease), background var(--ease), opacity var(--ease);
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary { color: #FFFCF6; background: var(--clay-deep); width: 100%; justify-content: center; }
+    .btn-primary:hover { background: #6f4527; }
+
+    .footer { padding: 0 0 max(36px, env(safe-area-inset-bottom)); border-top: 1px solid var(--line); text-align: center; }
+    .footer p { color: var(--muted); font-size: 13px; padding-top: 28px; }
+
+    @media (min-width: 560px) {
+      .topbar .brand-en { display: inline; }
+    }
+    @media (max-width: 480px) {
+      .shell { width: calc(100% - 32px); }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <a class="back-link" href="index.html">← 回到 Maggie Lab</a>
+      <div class="topbar-right">
+        <span class="version-badge">✅ 全齡適用</span>
+        <span class="brand-en serif">100件生活行動</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <h1 class="visually-hidden">100件生活行動｜Maggie Lab</h1>
+    <section class="shell">
+      <div class="brand-asset">
+        <img src="images/life100-intro.webp" alt="100件生活行動：大人寫下夢想，孩子寫下想做的事，標題都能自己編輯，沒有年限，隨時可以重新開始。可列印成實體手帳。">
+      </div>
+
+      <div class="actions">
+        <a class="btn btn-primary" href="https://maggielab.github.io/life100/" target="_blank" rel="noopener">開始使用</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="shell">
+      <p>由 Maggie Lab 製作 · 用遊戲與設計，陪伴孩子快樂長大。</p>
+    </div>
+  </footer>
+</body>
+</html>
